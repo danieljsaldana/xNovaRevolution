@@ -1,11 +1,10 @@
 <?php
 
 /**
-_  \_/ |\ | /¯¯\ \  / /\    |¯¯) |_¯ \  / /¯¯\ |  |   |´¯|¯` | /¯¯\ |\ |5
-¯  /¯\ | \| \__/  \/ /--\   |¯¯\ |__  \/  \__/ |__ \_/   |   | \__/ | \|Core.
-* @author: Copyright (C) 2011 by Brayan Narvaez (Prinick) developer of xNova Revolution
- * @author web: http://www.bnarvaez.com
- * @link: http://www.xnovarev.com
+ _  \_/ |\ | /¯¯\ \  / /\    |¯¯) |_¯ \  / /¯¯\ |  |   |´¯|¯` | /¯¯\ |\ |6
+ ¯  /¯\ | \| \__/  \/ /--\   |¯¯\ |__  \/  \__/ |__ \_/   |   | \__/ | \|Core Redesigned.
+ * @author: Copyright (C) 2017 by xNova Revolution
+ * @author web: https://danieljsaldaña.com
 
 * @package 2Moons
 * @author Slaver <slaver7@gmail.com>
@@ -31,40 +30,40 @@ class Language
 	  'ro' => 'Romanian',
 	  'si' => 'Slovenščina',
    );
-   
+
    public $Default   = '';
    public $User   = '';
-   
+
    function __construct()
    {
       $this->Default   = DEFAULT_LANG;
       $this->User      = DEFAULT_LANG;
    }
-   
+
    static function getAllowedLangs($OnlyKey = true)
    {
-      return $OnlyKey ? array_keys(self::$langs) : self::$langs;      
+      return $OnlyKey ? array_keys(self::$langs) : self::$langs;
    }
-   
+
    function setDefault($LANG)
    {
       if(!empty($LANG) && in_array($LANG, self::getAllowedLangs())) {
          $this->Default   = $LANG;
-         $this->User      = $LANG;   
+         $this->User      = $LANG;
       }
    }
-   
+
    function setUser($LANG)
    {
       if(!empty($LANG) && in_array($LANG, self::getAllowedLangs()))
-         $this->User   = $LANG;      
+         $this->User   = $LANG;
    }
-   
+
    function getUser()
    {
-      return $this->User;   
+      return $this->User;
    }
-   
+
    function GetLangFromBrowser($strict_mode = true)
    {
 
@@ -72,12 +71,12 @@ class Language
          $this->setUser($_COOKIE['lang']);
          return $this->User;
       }
-      
+
       if(isset($_REQUEST['lang']) && in_array($_REQUEST['lang'], self::getAllowedLangs())) {
        $this->setUser($_REQUEST['lang']);
       return $this->User;
       }
-      
+
        if (empty($_SERVER['HTTP_ACCEPT_LANGUAGE'])) {
             return $this->Default;
         }
@@ -93,7 +92,7 @@ class Language
             if (!$res) {
                 continue;
             }
-               
+
             $LANG_code = explode ('-', $matches[1]);
          $LANG_quality = isset($matches[2]) ? (float)$matches[2] : 1.0;
 
@@ -114,7 +113,7 @@ class Language
         $this->setUser($current_lang);
       return $this->User;
    }
-   
+
    function includeLang($Files)
    {
       global $LNG;
@@ -123,12 +122,12 @@ class Language
          require(ROOT_PATH . "language/".$this->User."/".$File.'.php');
       }
    }
-   
+
    function getExtra($File)
    {
 		if(file_exists(ROOT_PATH."language/".$this->User."/extra/".$File.".txt"))
 			return file_get_contents(ROOT_PATH."language/".$this->User."/extra/".$File.".txt");
-		
+
 		return "";
 	}
 
@@ -136,25 +135,25 @@ class Language
 	{
 		if(file_exists(ROOT_PATH."language/".$this->User."/email/".$File.".txt"))
 			return file_get_contents(ROOT_PATH."language/".$this->User."/email/".$File.".txt");
-		
+
 		return "";
 	}
-	
+
    function GetUserLang($ID, $Files = array())
    {
-      global $db, $CONF;   
+      global $db, $CONF;
       $LANGUAGE = is_numeric($ID) && !in_array($ID, self::getAllowedLangs()) ? $db->countquery("SELECT `lang` FROM ".USERS." WHERE `id` = '".$ID."';") : $ID;
-   
+
       if(!in_array($LANGUAGE, self::getAllowedLangs()))
          $LANGUAGE   = $this->Default;
-   
+
       if(empty($Files))
          $Files   = array('FLEET');
-   
+
       while (list(,$File) = each($Files)){
          require(ROOT_PATH . "language/".$LANGUAGE."/".$File.'.php');
       }
-         
+
       return $LNG;
    }
 }

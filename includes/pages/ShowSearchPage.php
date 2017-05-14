@@ -1,11 +1,10 @@
 <?php
 
 /**
- _  \_/ |\ | /¯¯\ \  / /\    |¯¯) |_¯ \  / /¯¯\ |  |   |´¯|¯` | /¯¯\ |\ |5
- ¯  /¯\ | \| \__/  \/ /--\   |¯¯\ |__  \/  \__/ |__ \_/   |   | \__/ | \|Core.
- * @author: Copyright (C) 2011 by Brayan Narvaez (Prinick) developer of xNova Revolution
- * @author web: http://www.bnarvaez.com
- * @link: http://www.xnovarev.com
+ _  \_/ |\ | /Â¯Â¯\ \  / /\    |Â¯Â¯) |_Â¯ \  / /Â¯Â¯\ |  |   |Â´Â¯|Â¯` | /Â¯Â¯\ |\ |6
+ Â¯  /Â¯\ | \| \__/  \/ /--\   |Â¯Â¯\ |__  \/  \__/ |__ \_/   |   | \__/ | \|Core Redesigned.
+ * @author: Copyright (C) 2017 by xNova Revolution
+ * @author web: https://danieljsaldaÃ±a.com
 
  * @package 2Moons
  * @author Slaver <slaver7@gmail.com>
@@ -27,15 +26,15 @@ function ShowSearchPage()
 	$PlanetRess->SavePlanetToDB();
 
 	$template	= new template();
-	
+
 	$type 		= request_var('type','');
 	$searchtext = request_var('searchtext', '', UTF8_SUPPORT);
 	switch($type) {
 		case 'playername':
-			$search = $db->query("SELECT 
+			$search = $db->query("SELECT
                                                                         a.id, a.username, a.ally_id, a.galaxy, a.system, a.planet, b.name, c.total_rank, d.ally_name
-                                                                        FROM ".USERS." as a 
-                                                                        INNER JOIN ".PLANETS." as b ON b.id = a.id_planet 
+                                                                        FROM ".USERS." as a
+                                                                        INNER JOIN ".PLANETS." as b ON b.id = a.id_planet
                                                                         LEFT JOIN ".STATPOINTS." as c ON c.id_owner = a.id AND c.stat_type = 1
                                                                         LEFT JOIN ".ALLIANCE." as d ON d.id = a.ally_id
                                                                         WHERE a.`universe` = '".$UNI."' AND a.username LIKE '%".$db->sql_escape($searchtext, true)."%' LIMIT 25;");
@@ -51,19 +50,19 @@ function ShowSearchPage()
 					'system'		=> $s['system'],
 					'planet'		=> $s['planet'],
 					'rank'			=> $s['total_rank'],
-				);	
+				);
 			}
-			
+
 			$db->free_result($search);
 		break;
 		case 'planetname':
-			 $search = $db->query("SELECT 
+			 $search = $db->query("SELECT
                                                                         a.name, a.galaxy, a.planet, a.system,
-                                                                        b.id, b.ally_id, b.username, 
-                                                                        c.total_rank, 
-                                                                        d.ally_name 
-                                                                        FROM ".PLANETS." as a 
-                                                                        INNER JOIN ".USERS." as b ON b.id = a.id_owner 
+                                                                        b.id, b.ally_id, b.username,
+                                                                        c.total_rank,
+                                                                        d.ally_name
+                                                                        FROM ".PLANETS." as a
+                                                                        INNER JOIN ".USERS." as b ON b.id = a.id_owner
                                                                         LEFT JOIN  ".STATPOINTS." as c ON c.id_owner = b.id AND c.stat_type = 1
                                                                         LEFT JOIN ".ALLIANCE." as d ON d.id = b.ally_id
                                                                         WHERE a.`universe` = '".$UNI."' AND a.name LIKE '%".$db->sql_escape($searchtext, true)."%' LIMIT 25;");
@@ -79,9 +78,9 @@ function ShowSearchPage()
 					'system'		=> $s['system'],
 					'planet'		=> $s['planet'],
 					'rank'			=> $s['total_rank'],
-				);	
+				);
 			}
-			
+
 			$db->free_result($search);
 		break;
 		case "allytag":
@@ -95,7 +94,7 @@ function ShowSearchPage()
 					'allyname'		=> $s['ally_name'],
 				);
 			}
-			
+
 			$db->free_result($search);
 		break;
 		case "allyname":
@@ -109,7 +108,7 @@ function ShowSearchPage()
 					'allyname'		=> $s['ally_name'],
 				);
 			}
-			
+
 			$db->free_result($search);
 		break;
 	}
@@ -133,7 +132,7 @@ function ShowSearchPage()
 		'sh_members'				=> $LNG['sh_members'],
 		'sh_points'					=> $LNG['sh_points'],
 	));
-	
+
 	$template->show("buscador/search_body.tpl");
 }
 ?>

@@ -1,11 +1,10 @@
 <?php
 
 /**
- _  \_/ |\ | /¯¯\ \  / /\    |¯¯) |_¯ \  / /¯¯\ |  |   |´¯|¯` | /¯¯\ |\ |5
- ¯  /¯\ | \| \__/  \/ /--\   |¯¯\ |__  \/  \__/ |__ \_/   |   | \__/ | \|Core.
- * @author: Copyright (C) 2011 by Brayan Narvaez (Prinick) developer of xNova Revolution
- * @author web: http://www.bnarvaez.com
- * @link: http://www.xnovarev.com
+ _  \_/ |\ | /Â¯Â¯\ \  / /\    |Â¯Â¯) |_Â¯ \  / /Â¯Â¯\ |  |   |Â´Â¯|Â¯` | /Â¯Â¯\ |\ |6
+ Â¯  /Â¯\ | \| \__/  \/ /--\   |Â¯Â¯\ |__  \/  \__/ |__ \_/   |   | \__/ | \|Core Redesigned.
+ * @author: Copyright (C) 2017 by xNova Revolution
+ * @author web: https://danieljsaldaÃ±a.com
 
  * @package 2Moons
  * @author Slaver <slaver7@gmail.com>
@@ -21,11 +20,11 @@
 function ShowTechTreePage()
 {
 	global $resource, $requeriments, $LNG, $reslist, $USER, $PLANET;
-	
+
 	$PlanetRess = new ResourceUpdate();
 	$PlanetRess->CalcResource();
 	$PlanetRess->SavePlanetToDB();
-	
+
 	$template	= new template();
 	$RequeriList = array();
 	foreach($LNG['tech'] as $Element => $ElementName)
@@ -42,15 +41,15 @@ function ShowTechTreePage()
 					$RequeriList[$Element][]	= array('id' => $RegID, 'count' => $RedCount, 'own' => (isset($PLANET[$resource[$RegID]])) ? $PLANET[$resource[$RegID]] : $USER[$resource[$RegID]]);
 				}
 			}
-	
+
 			$TechTreeList[]	= array(
 				'id' 	  => $Element,
 				'name'	  => $ElementName,
-				'need'	  => $RequeriList,		
+				'need'	  => $RequeriList,
 			);
 		}
 	}
-	
+
 	$template->assign_vars(array(
 		'TechTreeList'		=> $TechTreeList,
 		'tt_requirements'	=> $LNG['tt_requirements'],

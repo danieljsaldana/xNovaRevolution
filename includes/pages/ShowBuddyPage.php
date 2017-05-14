@@ -1,11 +1,10 @@
 <?php
 
 /**
- _  \_/ |\ | /¯¯\ \  / /\    |¯¯) |_¯ \  / /¯¯\ |  |   |´¯|¯` | /¯¯\ |\ |5
- ¯  /¯\ | \| \__/  \/ /--\   |¯¯\ |__  \/  \__/ |__ \_/   |   | \__/ | \|Core.
- * @author: Copyright (C) 2011 by Brayan Narvaez (Prinick) developer of xNova Revolution
- * @author web: http://www.bnarvaez.com
- * @link: http://www.xnovarev.com
+ _  \_/ |\ | /Â¯Â¯\ \  / /\    |Â¯Â¯) |_Â¯ \  / /Â¯Â¯\ |  |   |Â´Â¯|Â¯` | /Â¯Â¯\ |\ |6
+ Â¯  /Â¯\ | \| \__/  \/ /--\   |Â¯Â¯\ |__  \/  \__/ |__ \_/   |   | \__/ | \|Core Redesigned.
+ * @author: Copyright (C) 2017 by xNova Revolution
+ * @author web: https://danieljsaldaÃ±a.com
 
  * @package 2Moons
  * @author Slaver <slaver7@gmail.com>
@@ -27,8 +26,8 @@ function ShowBuddyPage()
 	$uid		= request_var('u',0);
 	$mode		= request_var('mode', 0);
 	$sm			= request_var('sm', 0);
-	
-	
+
+
 	switch($mode)
 	{
 		case 1:
@@ -82,7 +81,7 @@ function ShowBuddyPage()
 					'username'				=> $Player['username'],
 					'id'					=> $uid,
 				));
-				
+
 				$template->show("amigos/buddy_send_form.tpl");
 			}
 		break;
@@ -94,7 +93,7 @@ function ShowBuddyPage()
 			$BuddyListRAW	= $db->query("SELECT a.`active`, a.`sender`, a.`id` as buddyid, a.`text`, b.`id`, b.`username`, b.`onlinetime`, b.`galaxy`, b.`system`, b.`planet`, b.`ally_id`, b.`ally_name` FROM ".BUDDY." as a, ".USERS." as b WHERE (a.`sender` = '".$USER['id']."' AND b.`id` = a.`owner`) OR (a.`owner` = '".$USER['id']."' AND b.`id` = a.`sender`);");
 			$MyRequestList	= array();
 			$OutRequestList	= array();
-			$MyBuddyList	= array();		
+			$MyBuddyList	= array();
 			while($BuddyList = $db->fetch_array($BuddyListRAW))
 			{
 				if($BuddyList['active']	== 0)
@@ -143,10 +142,10 @@ function ShowBuddyPage()
 					);
 				}
 			}
-			
+
 			$db->free_result($BuddyListRAW);
-		
-			$template->assign_vars(array(	
+
+			$template->assign_vars(array(
 				'MyBuddyList'		=> $MyBuddyList,
 				'MyRequestList'		=> $MyRequestList,
 				'OutRequestList'	=> $OutRequestList,
@@ -171,7 +170,7 @@ function ShowBuddyPage()
 				'bu_online'			=> $LNG['bu_online'],
 				'bu_connected'		=> $LNG['bu_connected'],
 			));
-			
+
 			$template->show("amigos/buddy_overview.tpl");
 		break;
 	}

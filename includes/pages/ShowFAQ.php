@@ -1,11 +1,10 @@
 <?php
 
 /**
- _  \_/ |\ | /¯¯\ \  / /\    |¯¯) |_¯ \  / /¯¯\ |  |   |´¯|¯` | /¯¯\ |\ |5
- ¯  /¯\ | \| \__/  \/ /--\   |¯¯\ |__  \/  \__/ |__ \_/   |   | \__/ | \|Core.
- * @author: Copyright (C) 2011 by Brayan Narvaez (Prinick) developer of xNova Revolution
- * @author web: http://www.bnarvaez.com
- * @link: http://www.xnovarev.com
+ _  \_/ |\ | /Â¯Â¯\ \  / /\    |Â¯Â¯) |_Â¯ \  / /Â¯Â¯\ |  |   |Â´Â¯|Â¯` | /Â¯Â¯\ |\ |6
+ Â¯  /Â¯\ | \| \__/  \/ /--\   |Â¯Â¯\ |__  \/  \__/ |__ \_/   |   | \__/ | \|Core Redesigned.
+ * @author: Copyright (C) 2017 by xNova Revolution
+ * @author web: https://danieljsaldaÃ±a.com
 
  * @package 2Moons
  * @author Slaver <slaver7@gmail.com>
@@ -17,7 +16,7 @@
 
  * Please do not remove the credits
 */
- 
+
 function ShowFAQPage()
 {
 	global $USER, $PLANET, $LNG, $LANG;
@@ -27,12 +26,12 @@ function ShowFAQPage()
 
 	$template	= new template();
 
-	$LANG->includeLang(array('FAQ'));		
-	$template->assign_vars(array(	
+	$LANG->includeLang(array('FAQ'));
+	$template->assign_vars(array(
 		'FAQList'		=> $LNG['faq'],
 		'faq_overview'	=> $LNG['faq_overview'],
 	));
-	
+
 	$template->show("faq_overview.tpl");
 }
 ?>

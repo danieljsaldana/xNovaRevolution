@@ -1,8 +1,8 @@
 /**
- _  \_/ |\ | /¯¯\ \  / /\    |¯¯) |_¯ \  / /¯¯\ |  |   |´¯|¯` | /¯¯\ |\ |5
- ¯  /¯\ | \| \__/  \/ /--\   |¯¯\ |__  \/  \__/ |__ \_/   |   | \__/ | \|Core.
- * @author: Copyright (C) 2011 by Brayan Narvaez (Prinick) developer of xNova Revolution
- * @link: http://www.xnovarevolution.con.ar
+ _  \_/ |\ | /Â¯Â¯\ \  / /\    |Â¯Â¯) |_Â¯ \  / /Â¯Â¯\ |  |   |Â´Â¯|Â¯` | /Â¯Â¯\ |\ |6
+ Â¯  /Â¯\ | \| \__/  \/ /--\   |Â¯Â¯\ |__  \/  \__/ |__ \_/   |   | \__/ | \|Core Redesigned.
+ * @author: Copyright (C) 2017 by xNova Revolution
+ * @author web: https://danieljsaldaÃ±a.com
 
  * @package 2Moons
  * @author Slaver <slaver7@gmail.com>
@@ -99,7 +99,7 @@ CREATE TABLE `prefix_chat` (
   KEY `universe` (`universe`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
-CREATE TABLE `prefix_config`( 
+CREATE TABLE `prefix_config`(
   `uni` int(11) NOT NULL AUTO_INCREMENT,
   `VERSION` varchar(8) NOT NULL,
   `users_amount` int(11) NOT NULL,
@@ -233,7 +233,7 @@ CREATE TABLE `prefix_fleets` (
   `fleet_resource_crystal` double(50,0) unsigned NOT NULL DEFAULT '0',
   `fleet_resource_deuterium` double(50,0) unsigned NOT NULL DEFAULT '0',
   `fleet_resource_darkmatter` double(50,0) unsigned NOT NULL DEFAULT '0',
-  `fleet_resource_norio` double(50,0) unsigned NOT NULL DEFAULT '0',  
+  `fleet_resource_norio` double(50,0) unsigned NOT NULL DEFAULT '0',
   `fleet_target_owner` int(11) unsigned NOT NULL DEFAULT '0',
   `fleet_group` varchar(15) NOT NULL DEFAULT '0',
   `fleet_mess` enum('0','1','2') NOT NULL DEFAULT '0',
@@ -354,11 +354,11 @@ CREATE TABLE `prefix_planets` (
   `metal_store` tinyint(3) unsigned NOT NULL DEFAULT '0',
   `crystal_store` tinyint(3) unsigned NOT NULL DEFAULT '0',
   `deuterium_store` tinyint(3) unsigned NOT NULL DEFAULT '0',
-  `norio_store` tinyint(3) unsigned NOT NULL DEFAULT '0',  
+  `norio_store` tinyint(3) unsigned NOT NULL DEFAULT '0',
   `laboratory` tinyint(3) unsigned NOT NULL DEFAULT '0',
   `terraformer` tinyint(3) unsigned NOT NULL DEFAULT '0',
   `university` tinyint(3) unsigned NOT NULL DEFAULT '0',
-  `norio_mine` tinyint(3) unsigned NOT NULL DEFAULT '0',  
+  `norio_mine` tinyint(3) unsigned NOT NULL DEFAULT '0',
   `ally_deposit` tinyint(3) unsigned NOT NULL DEFAULT '0',
   `silo` tinyint(3) unsigned NOT NULL DEFAULT '0',
   `mondbasis` tinyint(3) unsigned NOT NULL DEFAULT '0',
@@ -399,14 +399,14 @@ CREATE TABLE `prefix_planets` (
   `metal_mine_porcent` enum('0','1','2','3','4','5','6','7','8','9','10') NOT NULL DEFAULT '10',
   `crystal_mine_porcent` enum('0','1','2','3','4','5','6','7','8','9','10') NOT NULL DEFAULT '10',
   `deuterium_sintetizer_porcent` enum('0','1','2','3','4','5','6','7','8','9','10') NOT NULL DEFAULT '10',
-  `norio_mine_porcent` enum('0','1','2','3','4','5','6','7','8','9','10') NOT NULL DEFAULT '10',  
+  `norio_mine_porcent` enum('0','1','2','3','4','5','6','7','8','9','10') NOT NULL DEFAULT '10',
   `solar_plant_porcent` enum('0','1','2','3','4','5','6','7','8','9','10') NOT NULL DEFAULT '10',
   `fusion_plant_porcent` enum('0','1','2','3','4','5','6','7','8','9','10') NOT NULL DEFAULT '10',
   `solar_satelit_porcent` enum('0','1','2','3','4','5','6','7','8','9','10') NOT NULL DEFAULT '10',
   `last_jump_time` int(11) NOT NULL DEFAULT '0',
   `der_metal` double(50,0) unsigned NOT NULL DEFAULT '0',
   `der_crystal` double(50,0) unsigned NOT NULL DEFAULT '0',
-  `der_norio` double(50,0) unsigned NOT NULL DEFAULT '0',  
+  `der_norio` double(50,0) unsigned NOT NULL DEFAULT '0',
   `id_luna` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `id_luna` (`id_luna`),
@@ -543,7 +543,7 @@ CREATE TABLE `prefix_users` (
   `metal_proc_tech` tinyint(3) unsigned NOT NULL DEFAULT '0',
   `crystal_proc_tech` tinyint(3) unsigned NOT NULL DEFAULT '0',
   `deuterium_proc_tech` tinyint(3) unsigned NOT NULL DEFAULT '0',
-  `norio_proc_tech` tinyint(3) unsigned NOT NULL DEFAULT '0',  
+  `norio_proc_tech` tinyint(3) unsigned NOT NULL DEFAULT '0',
   `darkmatter_moon` tinyint(3) unsigned NOT NULL DEFAULT '0',
   `graviton_tech` tinyint(3) unsigned NOT NULL DEFAULT '0',
   `ally_id` int(11) unsigned NOT NULL DEFAULT '0',
@@ -571,7 +571,7 @@ CREATE TABLE `prefix_users` (
   `draws` int(11) unsigned NOT NULL DEFAULT '0',
   `kbmetal` bigint(20) unsigned NOT NULL DEFAULT '0',
   `kbcrystal` bigint(20) unsigned NOT NULL DEFAULT '0',
-  `kbnorio` bigint(20) unsigned NOT NULL DEFAULT '0',  
+  `kbnorio` bigint(20) unsigned NOT NULL DEFAULT '0',
   `lostunits` bigint(20) unsigned NOT NULL DEFAULT '0',
   `desunits` bigint(20) unsigned NOT NULL DEFAULT '0',
   `uctime` int(11) NOT NULL DEFAULT '0',

@@ -1,11 +1,10 @@
 <?php
 
 /**
- _  \_/ |\ | /¯¯\ \  / /\    |¯¯) |_¯ \  / /¯¯\ |  |   |´¯|¯` | /¯¯\ |\ |5
- ¯  /¯\ | \| \__/  \/ /--\   |¯¯\ |__  \/  \__/ |__ \_/   |   | \__/ | \|Core.
- * @author: Copyright (C) 2011 by Brayan Narvaez (Prinick) developer of xNova Revolution
- * @author web: http://www.bnarvaez.com
- * @link: http://www.xnovarev.com
+ _  \_/ |\ | /Â¯Â¯\ \  / /\    |Â¯Â¯) |_Â¯ \  / /Â¯Â¯\ |  |   |Â´Â¯|Â¯` | /Â¯Â¯\ |\ |6
+ Â¯  /Â¯\ | \| \__/  \/ /--\   |Â¯Â¯\ |__  \/  \__/ |__ \_/   |   | \__/ | \|Core Redesigned.
+ * @author: Copyright (C) 2017 by xNova Revolution
+ * @author web: https://danieljsaldaÃ±a.com
 
  * @package 2Moons
  * @author Slaver <slaver7@gmail.com>
@@ -41,23 +40,23 @@ function GetElementPrice ($USER, $PLANET, $Element, $USERfactor = true, $level =
                 } elseif ($USER['raza'] == 1) {
 						$skin_raza = "voltra";
                 }
-     $text = "";  
+     $text = "";
 	foreach ($array as $ResType => $ResTitle) {
-         if ($pricelist[$Element][$ResType] != 0) { 
-             if ($USERfactor) { 
+         if ($pricelist[$Element][$ResType] != 0) {
+             if ($USERfactor) {
 				if($USER['geologe'] >= 1) {
-					$coste =  floor($pricelist[$Element][$ResType] * pow($pricelist[$Element]['factor'], $level)); 
+					$coste =  floor($pricelist[$Element][$ResType] * pow($pricelist[$Element]['factor'], $level));
 					$porcentaje = $coste * 20 / 100;
 					$cost = $coste - $porcentaje;
                 } else {
-					$cost = floor($pricelist[$Element][$ResType] * pow($pricelist[$Element]['factor'], $level)); 
+					$cost = floor($pricelist[$Element][$ResType] * pow($pricelist[$Element]['factor'], $level));
 				}
-             } else { 
-                $coste =  floor($pricelist[$Element][$ResType]); 
+             } else {
+                $coste =  floor($pricelist[$Element][$ResType]);
 				$porcentaje = $coste * 20 / 100;
-				$cost = floor($pricelist[$Element][$ResType]); 
-             } 
-			
+				$cost = floor($pricelist[$Element][$ResType]);
+             }
+
 			if ($cost > $PLANET[$ResType])
             {
 				if($USER['geologe'] >= 1) {
@@ -73,13 +72,13 @@ function GetElementPrice ($USER, $PLANET, $Element, $USERfactor = true, $level =
 					$coste = "<b style=color:lime;>" . pretty_number($cost) . "</b> ";
 				}
 			}
-			} 
+			}
          if ($pricelist[$Element][$ResType] != 0) {
-       $text .= "<img style=\"padding-left:2px;padding-bottom:1px;padding-top:2px;float:left;\" src=styles/theme/" .$skin_raza ."/adds/" .$ResType .".jpg class=\"tooltip\" name=\"" .$ResTitle .": " .$coste ."\" width=\"30\" height=\"20\" />";					
-         } 
+       $text .= "<img style=\"padding-left:2px;padding-bottom:1px;padding-top:2px;float:left;\" src=styles/theme/" .$skin_raza ."/adds/" .$ResType .".jpg class=\"tooltip\" name=\"" .$ResTitle .": " .$coste ."\" width=\"30\" height=\"20\" />";
+         }
      }
 	 $text .= "";
-     return $text; 
- }  
- 
+     return $text;
+ }
+
 ?>

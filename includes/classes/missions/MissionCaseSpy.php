@@ -1,11 +1,10 @@
 <?php
 
 /**
- _  \_/ |\ | /¯¯\ \  / /\    |¯¯) |_¯ \  / /¯¯\ |  |   |´¯|¯` | /¯¯\ |\ |5
- ¯  /¯\ | \| \__/  \/ /--\   |¯¯\ |__  \/  \__/ |__ \_/   |   | \__/ | \|Core.
- * @author: Copyright (C) 2011 by Brayan Narvaez (Prinick) developer of xNova Revolution
- * @author web: http://www.bnarvaez.com
- * @link: http://www.xnovarev.com
+ _  \_/ |\ | /Â¯Â¯\ \  / /\    |Â¯Â¯) |_Â¯ \  / /Â¯Â¯\ |  |   |Â´Â¯|Â¯` | /Â¯Â¯\ |\ |6
+ Â¯  /Â¯\ | \| \__/  \/ /--\   |Â¯Â¯\ |__  \/  \__/ |__ \_/   |   | \__/ | \|Core Redesigned.
+ * @author: Copyright (C) 2017 by xNova Revolution
+ * @author web: https://danieljsaldaÃ±a.com
 
  * @package 2Moons
  * @author Slaver <slaver7@gmail.com>
@@ -20,15 +19,15 @@
 
 class MissionCaseSpy extends MissionFunctions
 {
-		
+
 	function __construct($Fleet)
 	{
 		$this->_fleet	= $Fleet;
 	}
-	
+
 	function TargetEvent()
 	{
-		global $db, $LANG;		
+		global $db, $LANG;
 		$CurrentUser         = $db->uniquequery("SELECT `lang`, `spy_tech` FROM ".USERS." WHERE `id` = '".$this->_fleet['fleet_owner']."';");
 		$LNG			     = $LANG->GetUserLang($CurrentUser['lang'], array('FLEET', 'TECH'));
 		$CurrentUserID       = $this->_fleet['fleet_owner'];
@@ -43,8 +42,8 @@ class MissionCaseSpy extends MissionFunctions
 		$TargetUser          = $db->uniquequery("SELECT * FROM ".USERS." WHERE `id` = '".$TargetUserID."';");
 		$TargetSpyLvl        = max(($TargetUser['spy_tech']), 1);
 		$fleet               = explode(";", $this->_fleet['fleet_array']);
-			
-		require_once(ROOT_PATH.'includes/classes/class.PlanetRessUpdate.php');	
+
+		require_once(ROOT_PATH.'includes/classes/class.PlanetRessUpdate.php');
 		$PlanetRess = new ResourceUpdate();
 		list($TargetUser['factor'], $TargetPlanet['factor'])    = getFactors($USER, $CPLANET);
 		list($TargetUser, $TargetPlanet)	= $PlanetRess->CalcResource($TargetUser, $TargetPlanet, true, $this->_fleet['fleet_start_time']);
@@ -68,12 +67,12 @@ class MissionCaseSpy extends MissionFunctions
 		$SpyDef		 = ($LS >= $MinAmount + 1) ? true : false;
 		$SpyBuild	 = ($LS >= $MinAmount + 3) ? true : false;
 		$SpyTechno	 = ($LS >= $MinAmount + 5) ? true : false;
-		
+
 		$MaterialsInfo    	= $this->SpyTarget($TargetPlanet, 0, $LNG['sys_mess_head'], $LNG);
 		$GetSB	    		= $MaterialsInfo['String'];
 		$Array				= $MaterialsInfo['Array'];
 		$Count				= array();
-			
+
 		if($SpyFleet){
 			$PlanetFleetInfo  = $this->SpyTarget($TargetPlanet, 1, $LNG['sys_spy_fleet'], $LNG);
 			$GetSB     		 .= $PlanetFleetInfo['String'];
@@ -95,20 +94,20 @@ class MissionCaseSpy extends MissionFunctions
 			$GetSB		  	 .= $TargetTechnInfo['String'];
 			$Array			  = $Array + $TargetTechnInfo['Array'];
 		}
-		
+
 		foreach($Array as $ID => $Amount)
 		{
 			$string .= "&amp;im[".$ID."]=".$Amount;
 		}
-			
+
 		if(array_sum($Count) == 0){
 			$TargetChances	= 0;
-			$SpyerChances	= 1; 
+			$SpyerChances	= 1;
 		} else {
 			$TargetChances 	= mt_rand(0, min(($LS/4) * ($TargetSpyLvl / $CurrentSpyLvl), 100));
 			$SpyerChances  	= mt_rand(0, 100);
 		}
-		
+
 		$DestProba = $TargetChances >= $SpyerChances ? $LNG['sys_mess_spy_destroyed'] : sprintf( $LNG['sys_mess_spy_lostproba'], $TargetChances);
 
 		$AttackLink  = "<center>";
@@ -118,10 +117,10 @@ class MissionCaseSpy extends MissionFunctions
 		$AttackLink .= " \">". $LNG['type_mission'][1];
 		$AttackLink .= "</a></center>";
 		$MessageEnd  = "<center>".$DestProba."<br>".((ENABLE_SIMULATOR_LINK == true && !CheckModule(39)) ? "<a href=\"game.php?page=battlesim".$string."\">".$LNG['fl_simulate']."</a>":"")."</center>";
-			
+
 		$SpyMessage = "<br>".$GetSB."<br>".$AttackLink.$MessageEnd;
 		SendSimpleMessage($CurrentUserID, 0, $this->_fleet['fleet_start_time'], 0, $LNG['sys_mess_qg'], $LNG['sys_mess_spy_report'], $SpyMessage);
-		
+
 		$LNG		    = $LANG->GetUserLang($TargetUser['lang']);
 		$TargetMessage  = $LNG['sys_mess_spy_ennemyfleet'] ." ". $CurrentPlanet['name'];
 
@@ -143,7 +142,7 @@ class MissionCaseSpy extends MissionFunctions
 			$Qry .= "`system` = '". $TargetPlanet['system'] ."' AND ";
 			$Qry .= "`planet` = '". $TargetPlanet['planet'] ."' AND ";
 			$Qry .= "`planet_type` = '1';";
-			
+
 			$db->query($Qry);
 			$this->KillFleet();
 		}
@@ -153,17 +152,17 @@ class MissionCaseSpy extends MissionFunctions
 			$this->SaveFleet();
 		}
 	}
-	
+
 	function EndStayEvent()
 	{
 		return;
 	}
-	
+
 	function ReturnEvent()
-	{	
+	{
 		$this->RestoreFleet();
 	}
-	
+
 	private function SpyTarget($TargetPlanet, $Mode, $TitleString, $LNG)
 	{
 		global $resource, $db;
@@ -175,7 +174,7 @@ class MissionCaseSpy extends MissionFunctions
                         $raza_tipo = $LNG['Raza_1'];
 						$skin_raza = "voltra";
                 }
-		
+
 		$LookAtLoop = true;
 		if ($Mode == 0)
 		{
@@ -193,12 +192,12 @@ class MissionCaseSpy extends MissionFunctions
 				  <td style="width:25%;" class="left transparent"><img src="styles/theme/' . $skin_raza .'/images/norio.jpg" class="tooltip" name="'. $LNG['Norio'] .'" /></td><td style="width:25%;" class="left transparent">'. pretty_number($TargetPlanet['norio']) .'</td>
 				</tr><tr>
 				';
-						
+
                 $Array[1]       = $TargetPlanet['metal'];
                 $Array[2]       = $TargetPlanet['crystal'];
                 $Array[3]       = $TargetPlanet['deuterium'];
 				$Array[4]       = $TargetPlanet['norio'];
-			
+
 			$LookAtLoop = false;
 		}
 		elseif ($Mode == 1)
@@ -227,7 +226,7 @@ class MissionCaseSpy extends MissionFunctions
 			$ResTo[0]   = 199;
 			$Loops      = 1;
 		}
-	
+
 		if ($Mode == 1)
 		{
 			$def = $db->query('SELECT * FROM '.FLEETS.' WHERE `fleet_mission` = 5 AND `fleet_end_id` = '. $this->_fleet['fleet_end_id'].' AND fleet_start_time<'.TIMESTAMP.' AND fleet_end_stay>='.TIMESTAMP.';');
@@ -247,7 +246,7 @@ class MissionCaseSpy extends MissionFunctions
 				}
 			}
 		}
-		
+
 		if ($LookAtLoop == true)
 		{
 			$String  	 = '<table style="width:100%;"><tr><th colspan="'. ((2 * SPY_REPORT_ROW) + (SPY_REPORT_ROW - 1)).'">'. $TitleString .'</th></tr>';
@@ -265,7 +264,7 @@ class MissionCaseSpy extends MissionFunctions
 						$String  .= "<tr>";
 
 					$String  .= '<td style="width:25%;" class="left transparent"><img src="styles/theme/' . $skin_raza .'/gebaeude/' .$Item .'.png" width="50" height="50" class="tooltip" name="'.$LNG['tech'][$Item].'" /></td><td style="width:25%;" class="left transparent">'.pretty_number($TargetPlanet[$resource[$Item]]).'</td>';
-						
+
 					$Array[$Item]	=  $TargetPlanet[$resource[$Item]];
 					$Count			+=  $TargetPlanet[$resource[$Item]];
 					$row++;
@@ -291,7 +290,7 @@ class MissionCaseSpy extends MissionFunctions
 				$CurrentLook++;
 			}
 		}
-		
+
 		$String .= '</table>';
 
 		$return['String'] = $String;

@@ -1,11 +1,10 @@
 <?php
 
 /**
- _  \_/ |\ | /¯¯\ \  / /\    |¯¯) |_¯ \  / /¯¯\ |  |   |´¯|¯` | /¯¯\ |\ |5
- ¯  /¯\ | \| \__/  \/ /--\   |¯¯\ |__  \/  \__/ |__ \_/   |   | \__/ | \|Core.
- * @author: Copyright (C) 2011 by Brayan Narvaez (Prinick) developer of xNova Revolution
- * @author web: http://www.bnarvaez.com
- * @link: http://www.xnovarev.com
+ _  \_/ |\ | /Â¯Â¯\ \  / /\    |Â¯Â¯) |_Â¯ \  / /Â¯Â¯\ |  |   |Â´Â¯|Â¯` | /Â¯Â¯\ |\ |6
+ Â¯  /Â¯\ | \| \__/  \/ /--\   |Â¯Â¯\ |__  \/  \__/ |__ \_/   |   | \__/ | \|Core Redesigned.
+ * @author: Copyright (C) 2017 by xNova Revolution
+ * @author web: https://danieljsaldaÃ±a.com
 
  * @package 2Moons
  * @author Slaver <slaver7@gmail.com>
@@ -27,9 +26,9 @@ function ShowInformationPage()
 		$Lines	= count(file(ini_get('error_log')));
 	else
 	$Lines	= 0;
-	
+
 	$template	= new template();
-	$template->assign_vars(array(	
+	$template->assign_vars(array(
 		'info_information'	=> $LNG['info_information'],
 		'info'				=> $_SERVER['SERVER_SOFTWARE'],
 		'vPHP'				=> PHP_VERSION,
@@ -47,7 +46,7 @@ function ShowInformationPage()
 		'safemode'			=> ini_get('safe_mode') ? 'Si' : 'No',
 		'memory'			=> ini_get('memory_limit'),
 	));
-	
+
 	$template->show('adm/ShowInformationPage.tpl');
 }
 

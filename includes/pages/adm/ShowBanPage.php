@@ -1,11 +1,10 @@
 <?php
 
 /**
- _  \_/ |\ | /¯¯\ \  / /\    |¯¯) |_¯ \  / /¯¯\ |  |   |´¯|¯` | /¯¯\ |\ |5
- ¯  /¯\ | \| \__/  \/ /--\   |¯¯\ |__  \/  \__/ |__ \_/   |   | \__/ | \|Core.
- * @author: Copyright (C) 2011 by Brayan Narvaez (Prinick) developer of xNova Revolution
- * @author web: http://www.bnarvaez.com
- * @link: http://www.xnovarev.com
+ _  \_/ |\ | /Â¯Â¯\ \  / /\    |Â¯Â¯) |_Â¯ \  / /Â¯Â¯\ |  |   |Â´Â¯|Â¯` | /Â¯Â¯\ |\ |6
+ Â¯  /Â¯\ | \| \__/  \/ /--\   |Â¯Â¯\ |__  \/  \__/ |__ \_/   |   | \__/ | \|Core Redesigned.
+ * @author: Copyright (C) 2017 by xNova Revolution
+ * @author web: https://danieljsaldaÃ±a.com
 
  * @package 2Moons
  * @author Slaver <slaver7@gmail.com>
@@ -20,10 +19,10 @@
 
 if (!allowedTo(str_replace(array(dirname(__FILE__), '\\', '/', '.php'), '', __FILE__))) exit;
 
-function ShowBanPage() 
+function ShowBanPage()
 {
 	global $LNG, $db, $USER;
-	
+
 	$ORDER = $_GET['order'] == 'id' ? "id" : "username";
 
 	if ($_GET['view'] == 'bana')
@@ -32,7 +31,7 @@ function ShowBanPage()
 	$UserList		= $db->query("SELECT `username`, `id`, `bana` FROM ".USERS." WHERE `id` != 1 AND `authlevel` <= '".$USER['authlevel']."' AND `universe` = '".$_SESSION['adminuni']."' ".$WHEREBANA." ORDER BY ".$ORDER." ASC;");
 
 	$UserSelect	= array('List' => '', 'ListBan' => '');
-	
+
 	$Users	=	0;
 	while ($a = $db->fetch_array($UserList))
 	{
@@ -41,9 +40,9 @@ function ShowBanPage()
 	}
 
 	$db->free_result($UserList);
-	
+
 	$ORDER2 = $_GET['order2'] == 'id' ? "id" : "username";
-		
+
 	$Banneds		=0;
 	$UserListBan	= $db->query("SELECT `username`, `id` FROM ".USERS." WHERE `bana` = '1' AND `universe` = '".$_SESSION['adminuni']."' ORDER BY ".$ORDER2." ASC;");
 	while ($b = $db->fetch_array($UserListBan))
@@ -62,7 +61,7 @@ function ShowBanPage()
 	{
 		$Name					= request_var('ban_name', '', true);
 		$BANUSER				= $db->uniquequery("SELECT b.theme, b.longer, u.id, u.urlaubs_modus, u.banaday FROM ".USERS." as u LEFT JOIN ".BANNED." as b ON u.`username` = b.`who` WHERE u.`username` = '".$db->sql_escape($Name)."' AND u.`universe` = '".$_SESSION['adminuni']."';");
-			
+
 		if ($BANUSER['banaday'] <= TIMESTAMP)
 		{
 			$title			= $LNG['bo_bbb_title_1'];
@@ -76,19 +75,19 @@ function ShowBanPage()
 			$title			= $LNG['bo_bbb_title_3'];
 			$changedate		= $LNG['bo_bbb_title_6'];
 			$changedate_advert	=	'<td class="c" width="18px"><img src="./styles/images/Adm/i.gif" class="tooltip" name="'.$LNG['bo_bbb_title_4'].'"></td>';
-				
+
 			$reas			= $BANUSER['theme'];
-			$timesus		=	
+			$timesus		=
 				"<tr>
 					<th>".$LNG['bo_bbb_title_5']."</th>
 					<th height=25 colspan=2>".date($LNG['php_tdformat'], $BANUSER['longer'])."</th>
 				</tr>";
 		}
-		
-		
+
+
 		$vacation	= ($BANUSER['urlaubs_modus'] == 1) ? true : false;
-		
-		$template->assign_vars(array(	
+
+		$template->assign_vars(array(
 			'name'				=> $Name,
 			'bantitle'			=> $title,
 			'changedate'		=> $changedate,
@@ -119,10 +118,10 @@ function ShowBanPage()
 
 		if ($BANUSER['longer'] > TIMESTAMP)
 			$BanTime          += ($BANUSER['longer'] - TIMESTAMP);
-		
+
 		$BannedUntil = ($BanTime + TIMESTAMP) < TIMESTAMP ? TIMESTAMP : TIMESTAMP + $BanTime;
-		
-		
+
+
 		if ($BANUSER['banaday'] > TIMESTAMP)
 		{
 			$SQL      = "UPDATE ".BANNED." SET ";
@@ -165,7 +164,7 @@ function ShowBanPage()
 		exit;
 	}
 
-	$template->assign_vars(array(	
+	$template->assign_vars(array(
 		'UserSelect'		=> $UserSelect,
 		'bo_ban_player'		=> $LNG['bo_ban_player'],
 		'bo_select_title'	=> $LNG['bo_select_title'],
@@ -182,7 +181,7 @@ function ShowBanPage()
 		'usercount'			=> $Users,
 		'bancount'			=> $Banneds,
 	));
-	
+
 	$template->show('adm/BanPage.tpl');
 }
 ?>

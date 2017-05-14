@@ -1,11 +1,10 @@
 <?php
 
 /**
- _  \_/ |\ | /¯¯\ \  / /\    |¯¯) |_¯ \  / /¯¯\ |  |   |´¯|¯` | /¯¯\ |\ |5
- ¯  /¯\ | \| \__/  \/ /--\   |¯¯\ |__  \/  \__/ |__ \_/   |   | \__/ | \|Core.
- * @author: Copyright (C) 2011 by Brayan Narvaez (Prinick) developer of xNova Revolution
- * @author web: http://www.bnarvaez.com
- * @link: http://www.xnovarev.com
+ _  \_/ |\ | /Â¯Â¯\ \  / /\    |Â¯Â¯) |_Â¯ \  / /Â¯Â¯\ |  |   |Â´Â¯|Â¯` | /Â¯Â¯\ |\ |6
+ Â¯  /Â¯\ | \| \__/  \/ /--\   |Â¯Â¯\ |__  \/  \__/ |__ \_/   |   | \__/ | \|Core Redesigned.
+ * @author: Copyright (C) 2017 by xNova Revolution
+ * @author web: https://danieljsaldaÃ±a.com
 
  * @package 2Moons
  * @author Slaver <slaver7@gmail.com>
@@ -21,7 +20,7 @@
 if (!defined('INSIDE')) exit;
 
 class MissionFunctions
-{	
+{
 	function __construct()
 	{
 		$this->kill	= 0;
@@ -32,21 +31,21 @@ class MissionFunctions
 		$this->_fleet[$Option] = $Value;
 		$this->_upd[$Option] = $Value;
 	}
-	
+
 	function SaveFleet()
 	{
 		global $db;
 		if($this->kill == 1)
 			return;
-			
+
 		foreach($this->_upd as $Opt => $Val)
 		{
 			$Qry[]	= "`".$Opt."` = '".$Val."'";
 		}
-		
+
 		$db->query("UPDATE ".FLEETS." SET ".implode(', ',$Qry)." WHERE `fleet_id` = '".$this->_fleet['fleet_id']."';");
 	}
-		
+
 	function RestoreFleet($Start = true)
 	{
 		global $resource, $db;
@@ -76,7 +75,7 @@ class MissionFunctions
 		$Qry  .= "DELETE FROM ".FLEETS." WHERE `fleet_id` = '".$this->_fleet['fleet_id']."';";
 		$db->multi_query($Qry);
 	}
-	
+
 	function StoreGoodsToPlanet($Start = false)
 	{
 		global $db;
@@ -88,18 +87,18 @@ class MissionFunctions
 		$Qry  .= "WHERE ";
 		$Qry  .= "`id` = '".($Start == true ? $this->_fleet['fleet_start_id'] : $this->_fleet['fleet_end_id'])."';";
 		$db->query($Qry);
-		
+
 		$this->UpdateFleet('fleet_resource_metal', '0');
 		$this->UpdateFleet('fleet_resource_crystal', '0');
 		$this->UpdateFleet('fleet_resource_deuterium', '0');
 		$this->UpdateFleet('fleet_resource_norio', '0');
 	}
-	
+
 	function KillFleet()
 	{
 		global $db;
 		$this->kill	= 1;
 		$db->query("DELETE FROM ".FLEETS." WHERE `fleet_id` = '".$this->_fleet['fleet_id']."';");
-	}	
+	}
 }
 ?>

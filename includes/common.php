@@ -1,11 +1,10 @@
 <?php
 
 /**
- _  \_/ |\ | /¯¯\ \  / /\    |¯¯) |_¯ \  / /¯¯\ |  |   |´¯|¯` | /¯¯\ |\ |5
- ¯  /¯\ | \| \__/  \/ /--\   |¯¯\ |__  \/  \__/ |__ \_/   |   | \__/ | \|Core.
- * @author: Copyright (C) 2011 by Brayan Narvaez (Prinick) developer of xNova Revolution
- * @author web: http://www.bnarvaez.com
- * @link: http://www.xnovarev.com
+ _  \_/ |\ | /Â¯Â¯\ \  / /\    |Â¯Â¯) |_Â¯ \  / /Â¯Â¯\ |  |   |Â´Â¯|Â¯` | /Â¯Â¯\ |\ |6
+ Â¯  /Â¯\ | \| \__/  \/ /--\   |Â¯Â¯\ |__  \/  \__/ |__ \_/   |   | \__/ | \|Core Redesigned.
+ * @author: Copyright (C) 2017 by xNova Revolution
+ * @author web: https://danieljsaldaÃ±a.com
 
  * @package 2Moons
  * @author Slaver <slaver7@gmail.com>
@@ -17,7 +16,7 @@
 
  * Please do not remove the credits
 */
- 
+
 if(!defined('IN_ADMIN') || !defined('IN_CRON'))
 	define("STARTTIME",	microtime(true));
 
@@ -27,7 +26,7 @@ ini_set('display_errors', 1);
 header('Content-Type: text/html; charset=UTF-8');
 define('TIMESTAMP',	$_SERVER['REQUEST_TIME']);
 
-require_once(ROOT_PATH . 'includes/config.php');	
+require_once(ROOT_PATH . 'includes/config.php');
 require_once(ROOT_PATH . 'includes/constants.php');
 
 ini_set('session.save_path', ROOT_PATH.'cache/sessions');
@@ -39,7 +38,7 @@ session_cache_limiter('nocache');
 session_name($dbsettings["secretword"]);
 ini_set('session.use_trans_sid', 0);
 ini_set('session.auto_start', '0');
-ini_set('session.serialize_handler', 'php');  
+ini_set('session.serialize_handler', 'php');
 ini_set('session.gc_maxlifetime', SESSION_LIFETIME);
 ini_set('session.gc_probability', '1');
 ini_set('session.gc_divisor', '1000');
@@ -50,10 +49,10 @@ ini_set('error_log', ROOT_PATH.'includes/error.log');
 
 if(!defined('LOGIN'))
 	session_start();
-	
+
 if(!function_exists('bcadd'))
 	require_once(ROOT_PATH . 'includes/bcmath.php');
-	
+
 require_once(ROOT_PATH . 'includes/GeneralFunctions.php');
 set_exception_handler('exception_handler');
 
@@ -61,13 +60,13 @@ require_once(ROOT_PATH . 'includes/classes/class.MySQLi.php');
 require_once(ROOT_PATH . 'includes/classes/class.Lang.php');
 require_once(ROOT_PATH . 'includes/classes/class.theme.php');
 require_once(ROOT_PATH . 'includes/classes/class.Session.php');
-	
+
 $db 	= new DB_MySQLi();
-$THEME	= new Theme();	
-$LANG	= new Language();	
+$THEME	= new Theme();
+$LANG	= new Language();
 $CONFIG	= array();
 
-$UNI	= getUniverse();	
+$UNI	= getUniverse();
 unset($database);
 
 // Say Browsers to Allow ThirdParty Cookies (Thanks to morktadela)
@@ -77,7 +76,7 @@ if(UNIS_MULTIVARS)
 	require_once(ROOT_PATH.'includes/vars_uni'.$UNI.'.php');
 else
 	require_once(ROOT_PATH.'includes/vars.php');
-	
+
 $CONF = $db->uniquequery("SELECT HIGH_PRIORITY * FROM `".CONFIG."` WHERE `uni` = '".$UNI."';");
 //$CONF	= getConfig($UNI);
 $CONF['moduls']         = explode(";", $CONF['moduls']);
@@ -86,29 +85,29 @@ $LANG->setDefault($CONF['lang']);
 
 require(ROOT_PATH.'includes/libs/FirePHP/FirePHP.class.php');
 require(ROOT_PATH.'includes/libs/FirePHP/fb.php');
-	
+
 $FirePHP	= FirePHP::getInstance(true);
 $FirePHP->setEnabled((bool) $GLOBALS['CONF']['debug']);
 if($GLOBALS['CONF']['debug']) {
  	ob_start();
 	$FirePHP->registerErrorHandler(true);
-}	
+}
 
 if (!defined('CLI') && !defined('LOGIN') && !defined('IN_CRON') && !defined('AJAX') && !defined('ROOT'))
 {
 	$SESSION       	= new Session();
-	
+
 	if(!$SESSION->IsUserLogin()) redirectTo('index.php?code=3');
-	
+
 	$SESSION->UpdateSession();
-	
+
 	if($CONF['game_disable'] == 0 && $_SESSION['authlevel'] == AUTH_USR) {
 		message($CONF['close_reason']);
 	}
 
 	if(!CheckModule(10) && !defined('IN_ADMIN') && request_var('ajax', 0) == 0)
 		require(ROOT_PATH.'includes/FleetHandler.php');
-			
+
 	$USER	= $db->uniquequery("SELECT u.*, s.`total_points`, s.`total_rank` FROM ".USERS." as u LEFT JOIN ".STATPOINTS." as s ON s.`id_owner` = u.`id` AND s.`stat_type` = '1' WHERE u.`id` = '".$_SESSION['id']."';");
 	$FirePHP->log("Cargar Usuario: ".$USER['id']);
 	if(empty($USER)) {
@@ -118,8 +117,8 @@ if (!defined('CLI') && !defined('LOGIN') && !defined('IN_CRON') && !defined('AJA
 		$db->query("UPDATE ".USERS." SET `lang` = '".$USER['lang']."' WHERE `id` = '".$USER['id']."';");
 	    $FirePHP->log("Cargar Usuario: ".$USER['id']);
 	}
-	
-	$LANG->setUser($USER['lang']);	
+
+	$LANG->setUser($USER['lang']);
 	$LANG->includeLang(array('INGAME', 'TECH'));
 	$THEME->setUserTheme($USER['dpath']);
 	if($USER['bana'] == 1)
@@ -127,7 +126,7 @@ if (!defined('CLI') && !defined('LOGIN') && !defined('IN_CRON') && !defined('AJA
 		message("<font size=\"6px\">".$LNG['css_account_banned_message']."</font><br><br>".sprintf($LNG['css_account_banned_expire'],date("d. M y H:i", $USER['banaday']))."<br><br>".$LNG['css_goto_homeside']);
 		exit;
 	}
-	
+
 	if (!defined('IN_ADMIN'))
 	{
 		require_once(ROOT_PATH . 'includes/classes/class.PlanetRessUpdate.php');
@@ -135,7 +134,7 @@ if (!defined('CLI') && !defined('LOGIN') && !defined('IN_CRON') && !defined('AJA
 
 		if(empty($PLANET)){
 			$PLANET = $db->uniquequery("SELECT * FROM `".PLANETS."` WHERE `id` = '".$USER['id_planet']."';");
-			
+
 			if(empty($PLANET)){
 				throw new Exception("El planeta principal no existe!");
 			}
@@ -154,22 +153,22 @@ if (!defined('CLI') && !defined('LOGIN') && !defined('IN_CRON') && !defined('AJA
 
 if (!defined('AJAX') && !defined('CLI'))
 	require_once(ROOT_PATH.'includes/classes/class.template.php');
-	
+
 for($Officier=600;$Officier<616;$Officier++)
 {
    $x=$USER[$resource[$Officier]];
    $USER[$resource[$Officier]]=array();
    if(empty($x))
      continue;
-   $offsOfSameType=explode(',',$x); 
+   $offsOfSameType=explode(',',$x);
    $level=1;
    foreach($offsOfSameType as $off)
    {
      $USER[$resource[$Officier]][$level]=$off;
      $level++;
-   } 
-   if($level==1) 
+   }
+   if($level==1)
      $USER[$resource[$Officier]][$level]=$x;
-}   
+}
 
 ?>

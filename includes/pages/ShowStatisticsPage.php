@@ -1,11 +1,10 @@
 <?php
 
 /**
- _  \_/ |\ | /¯¯\ \  / /\    |¯¯) |_¯ \  / /¯¯\ |  |   |´¯|¯` | /¯¯\ |\ |5
- ¯  /¯\ | \| \__/  \/ /--\   |¯¯\ |__  \/  \__/ |__ \_/   |   | \__/ | \|Core.
- * @author: Copyright (C) 2011 by Brayan Narvaez (Prinick) developer of xNova Revolution
- * @author web: http://www.bnarvaez.com
- * @link: http://www.xnovarev.com
+ _  \_/ |\ | /Â¯Â¯\ \  / /\    |Â¯Â¯) |_Â¯ \  / /Â¯Â¯\ |  |   |Â´Â¯|Â¯` | /Â¯Â¯\ |\ |6
+ Â¯  /Â¯\ | \| \__/  \/ /--\   |Â¯Â¯\ |__  \/  \__/ |__ \_/   |   | \__/ | \|Core Redesigned.
+ * @author: Copyright (C) 2017 by xNova Revolution
+ * @author web: https://danieljsaldaÃ±a.com
 
  * @package 2Moons
  * @author Slaver <slaver7@gmail.com>
@@ -21,16 +20,16 @@
 function ShowStatisticsPage()
 {
 	global $USER, $PLANET, $CONF, $dpath, $LNG, $db, $UNI;
-	
+
 	$PlanetRess = new ResourceUpdate();
 	$PlanetRess->CalcResource();
 	$PlanetRess->SavePlanetToDB();
-	
+
 	$template	= new template();
 	$who   	= request_var('who', 1);
 	$type  	= request_var('type', 1);
 	$range 	= request_var('range', 1);
-	
+
 	switch ($type)
 	{
 		case 2:
@@ -69,14 +68,14 @@ function ShowStatisticsPage()
 			$OldRank = "total_old_rank";
 		break;
 	}
-	
+
 	switch($who)
 	{
 		case 1:
 			$MaxUsers 	= $CONF['users_amount'];
-			$range		= min($range, $MaxUsers);			
+			$range		= min($range, $MaxUsers);
 			$LastPage 	= ceil($MaxUsers / 100);
-			
+
 			for ($Page = 0; $Page < $LastPage; $Page++)
 			{
 				$PageValue      				= ($Page * 100) + 1;
@@ -92,9 +91,9 @@ function ShowStatisticsPage()
 			ORDER BY `'. $Order .'` ASC LIMIT '. $start .',100;';
 
 			$query = $db->query($stats_sql);
-			
+
 			while ($StatRow = $db->fetch_array($query))
-			{			
+			{
 				$RangeList[]	= array(
 					'id'		=> $StatRow['id'],
 					'name'		=> $StatRow['username'],
@@ -106,7 +105,7 @@ function ShowStatisticsPage()
 					'raza'	=> $StatRow['raza'],
 				);
 			}
-			
+
 			$db->free_result($query);
 		break;
 		case 2:
@@ -142,14 +141,14 @@ function ShowStatisticsPage()
 					'ranking'	=> $StatRow[$OldRank] - $StatRow[$Rank],
 				);
 			}
-			
+
 			$db->free_result($query);
 		break;
 	}
-	
+
 	$Selector['who'] 	= array(1 => $LNG['st_player'], 2 => $LNG['st_alliance']);
 	$Selector['type']	= array(1 => $LNG['st_points'], 2 => $LNG['st_fleets'], 3 => $LNG['st_researh'], 4 => $LNG['st_buildings'], 5 => $LNG['st_defenses']);
-	$template->assign_vars(array(	
+	$template->assign_vars(array(
 		'Selectors'				=> $Selector,
 		'who'					=> $who,
 		'type'					=> $type,
@@ -175,7 +174,7 @@ function ShowStatisticsPage()
 		'voltra' => $LNG['Raza_1'],
 		'raza_dif' => $USER['raza'],
 	));
-	
+
 	$template->show("estadisticas/stat_overview.tpl");
 }
 ?>

@@ -1,11 +1,10 @@
 <?php
 
 /**
- _  \_/ |\ | /¯¯\ \  / /\    |¯¯) |_¯ \  / /¯¯\ |  |   |´¯|¯` | /¯¯\ |\ |5
- ¯  /¯\ | \| \__/  \/ /--\   |¯¯\ |__  \/  \__/ |__ \_/   |   | \__/ | \|Core.
- * @author: Copyright (C) 2011 by Brayan Narvaez (Prinick) developer of xNova Revolution
- * @author web: http://www.bnarvaez.com
- * @link: http://www.xnovarev.com
+ _  \_/ |\ | /Â¯Â¯\ \  / /\    |Â¯Â¯) |_Â¯ \  / /Â¯Â¯\ |  |   |Â´Â¯|Â¯` | /Â¯Â¯\ |\ |6
+ Â¯  /Â¯\ | \| \__/  \/ /--\   |Â¯Â¯\ |__  \/  \__/ |__ \_/   |   | \__/ | \|Core Redesigned.
+ * @author: Copyright (C) 2017 by xNova Revolution
+ * @author web: https://danieljsaldaÃ±a.com
 
  * @package 2Moons
  * @author Slaver <slaver7@gmail.com>
@@ -18,21 +17,21 @@
  * Please do not remove the credits
 */
 
-require(ROOT_PATH.'includes/classes/class.Records.php');	
+require(ROOT_PATH.'includes/classes/class.Records.php');
 
 function ShowRecordsPage()
 {
 	global $USER, $PLANET, $LNG, $resource, $db, $CONF, $UNI;
-		
+
 	$PlanetRess = new ResourceUpdate();
 	$PlanetRess->CalcResource();
 	$PlanetRess->SavePlanetToDB();
 
 	$template	= new template();
-	
+
 	$Records		= new records();
 	$RecordsArray	= $Records->GetRecords($UNI);
-	
+
 	foreach($RecordsArray as $ElementID => $ElementIDArray) {
 		if ($ElementID >=   1 && $ElementID <=  39 || $ElementID == 44) {
 			$Builds[$LNG['tech'][$ElementID]]	= array(
@@ -66,7 +65,7 @@ function ShowRecordsPage()
 			);
 		}
 	}
-	
+
 	$Records	= array(
 		$LNG['rec_build']	=> $Builds,
 		$LNG['rec_specb']	=> $MoonsBuilds,
@@ -74,15 +73,15 @@ function ShowRecordsPage()
 		$LNG['rec_fleet']	=> $Fleet,
 		$LNG['rec_defes']	=> $Defense,
 	);
-	
-	$template->assign_vars(array(	
+
+	$template->assign_vars(array(
 		'Records'	 	=> $Records,
 		'update'		=> sprintf($LNG['rec_last_update_on'],date(TDFORMAT,$CONF['stat_last_update'])),
 		'level'			=> $LNG['rec_level'],
 		'player'		=> $LNG['rec_playe'],
 	));
-	
+
 	$template->show("records/records_overview.tpl");
 }
 
-?> 
+?>

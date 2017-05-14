@@ -1,11 +1,10 @@
 <?php
 
 /**
- _  \_/ |\ | /¯¯\ \  / /\    |¯¯) |_¯ \  / /¯¯\ |  |   |´¯|¯` | /¯¯\ |\ |5
- ¯  /¯\ | \| \__/  \/ /--\   |¯¯\ |__  \/  \__/ |__ \_/   |   | \__/ | \|Core.
- * @author: Copyright (C) 2011 by Brayan Narvaez (Prinick) developer of xNova Revolution
- * @author web: http://www.bnarvaez.com
- * @link: http://www.xnovarev.com
+ _  \_/ |\ | /Â¯Â¯\ \  / /\    |Â¯Â¯) |_Â¯ \  / /Â¯Â¯\ |  |   |Â´Â¯|Â¯` | /Â¯Â¯\ |\ |6
+ Â¯  /Â¯\ | \| \__/  \/ /--\   |Â¯Â¯\ |__  \/  \__/ |__ \_/   |   | \__/ | \|Core Redesigned.
+ * @author: Copyright (C) 2017 by xNova Revolution
+ * @author web: https://danieljsaldaÃ±a.com
 
  * @package 2Moons
  * @author Slaver <slaver7@gmail.com>
@@ -24,16 +23,16 @@ class MissionCaseAttack extends MissionFunctions
 	{
 		$this->_fleet	= $Fleet;
 	}
-	
+
 	function TargetEvent()
-	{	
+	{
 		global $pricelist, $resource, $reslist, $db, $LANG;
-		
+
 		$targetPlanet 	= $db->uniquequery("SELECT * FROM ".PLANETS." WHERE `id` = '". $this->_fleet['fleet_end_id'] ."';");
 		$targetUser   	= $db->uniquequery("SELECT * FROM ".USERS." WHERE id = '".$targetPlanet['id_owner']."';");
-				
+
 		require_once(ROOT_PATH.'includes/classes/class.PlanetRessUpdate.php');
-		
+
 		#list($targetUser['factor'], $targetPlanet['factor'])	= getFactors($targetUser, $targetPlanet, 'basic', $this->_fleet['fleet_start_time']);
 		$targetUser['factor']				= getFactors($targetUser, 'basic', $this->_fleet['fleet_start_time']);
 		$PlanetRess 						= new ResourceUpdate();
@@ -119,7 +118,7 @@ class MissionCaseAttack extends MissionFunctions
 		$defense[0]['user']['factor'] 	= getFactors($defense[0]['user'], 'attack', $this->_fleet['fleet_start_time']);
 		$DefenderRow['id'][] 	= $defense[0]['user']['id'];
 		$DefenderRow['name'][]	= $defense[0]['user']['username'];
-		
+
 		foreach(array_merge($reslist['fleet'], $reslist['defense']) as $ID)
 		{
 			if ($ID >= 500)
@@ -136,28 +135,28 @@ class MissionCaseAttack extends MissionFunctions
 		require_once('calculateAttack.php');
 		$result 	= calculateAttack($attackFleets, $defense,  $GLOBALS['CONFIG'][$this->_fleet['fleet_universe']]['Fleet_Cdr'],  $GLOBALS['CONFIG'][$this->_fleet['fleet_universe']]['Defs_Cdr']);
 		$SQL		= "";
-			
+
 		foreach ($attackFleets as $fleetID => $attacker)
 		{
 			$fleetArray = '';
 			$totalCount = 0;
 			foreach ($attacker['detail'] as $element => $amount)
-			{				
+			{
 				if ($amount)
 					$fleetArray .= $element.','.floattostring($amount).';';
 
 				$totalCount += $amount;
 			}
-			
+
 			$SQL .= $totalCount <= 0 ? "DELETE FROM ".FLEETS." WHERE `fleet_id`= '".$fleetID."';" : "UPDATE ".FLEETS." SET `fleet_mess` = '1', `fleet_array` = '".substr($fleetArray, 0, -1)."', `fleet_amount` = '".$totalCount."' WHERE `fleet_id` = '".$fleetID."';";
-		}	
-		
+		}
+
 		if ($result['won'] == "a")
 		{
 			require_once('calculateSteal.php');
 			$steal = calculateSteal($attackFleets, $targetPlanet);
 		}
-		
+
 		foreach ($defense as $fleetID => $defender)
 		{
 			if ($fleetID != 0)
@@ -169,10 +168,10 @@ class MissionCaseAttack extends MissionFunctions
 				{
 					if ($amount)
 						$fleetArray .= $element.','.floattostring($amount).';';
-						
+
 					$totalCount += $amount;
 				}
-				
+
 				$SQL .= $totalCount <= 0 ? "DELETE FROM ".FLEETS." WHERE `fleet_id`= '".$fleetID."';" : "UPDATE ".FLEETS." SET `fleet_array` = '".substr($fleetArray, 0, -1)."', `fleet_amount` = '".$totalCount."' WHERE `fleet_id` = '".$fleetID."';";
 			}
 			else
@@ -182,7 +181,7 @@ class MissionCaseAttack extends MissionFunctions
 				{
 					$fleetArray .= "`".$resource[$element]."` = '".floattostring($amount)."', ";
 				}
-				
+
 				$SQL .= "UPDATE ".PLANETS." SET ";
 				$SQL .= $fleetArray;
 				$SQL .= "`metal` = `metal` - '".$steal['metal']."', ";
@@ -193,27 +192,27 @@ class MissionCaseAttack extends MissionFunctions
 				$SQL .= "`id` = '".$this->_fleet['fleet_end_id']."';";
 			}
 		}
-		
+
 		$db->multi_query($SQL);
-		
+
 		if($this->_fleet['fleet_end_type'] == 3)
 			$targetPlanet 		= array_merge($targetPlanet, $db->uniquequery("SELECT `der_metal`, `der_crystal` FROM ".PLANETS." WHERE `id_luna` = '".$this->_fleet['fleet_end_id']."';"));
 		$ShootMetal			= $result['debree']['att'][0] + $result['debree']['def'][0];
 		$ShootCrystal		= $result['debree']['att'][1] + $result['debree']['def'][1];
 		$FleetDebris		= $ShootMetal + $ShootCrystal;
 		$DerbisMetal		= $targetPlanet['der_metal']+ $ShootMetal;
-		$DerbisCrystal		= $targetPlanet['der_crystal']+ $ShootCrystal;	
+		$DerbisCrystal		= $targetPlanet['der_crystal']+ $ShootCrystal;
 		$MoonChance       	= min(round($FleetDebris / 100000 * MOON_CHANCE_FACTOR, 0), MAX_MOON_CHANCE);
 		$UserChance 		= mt_rand(1, 100);
-		
+
 		if ($targetPlanet['planet_type'] == 1 && $targetPlanet['id_luna'] == 0 && $MoonChance > 0 && $UserChance <= $MoonChance)
-		{		
+		{
 			require_once(ROOT_PATH.'includes/functions/CreateOneMoonRecord.php');
 			$INFO['moon']['name'] 	= CreateOneMoonRecord($this->_fleet['fleet_end_galaxy'], $this->_fleet['fleet_end_system'], $this->_fleet['fleet_end_planet'], $this->_fleet['fleet_universe'], $TargetUserID, $this->_fleet['fleet_start_time'], '', $MoonChance);
 			$INFO['end_galaxy'] = $this->_fleet['fleet_end_galaxy'];
 			$INFO['end_system'] = $this->_fleet['fleet_end_system'];
 			$INFO['end_planet'] = $this->_fleet['fleet_end_planet'];
-			
+
 			if(DESTROY_DERBIS_MOON_CREATE) {
 			#if($GLOBALS['CONFIG'][$this->_fleet['fleet_universe']]['debris_moon'] == 1) {
 				$DerbisMetal	  = 0;
@@ -229,16 +228,16 @@ class MissionCaseAttack extends MissionFunctions
 		require_once('GenerateReport.php');
 		$raport						= GenerateReport($result, $INFO);
 		$rid						= md5(microtime(true).mt_rand(1,100));
-	
+
 		file_put_contents(ROOT_PATH.'raports/raport_'.$rid.'.php', '<?php'."\n".'$raport = '.$raport.';'."\n".'?>');
 		file_put_contents(ROOT_PATH.'raports/topkb_'.$rid.'.php', '<?php'."\n".'$raport = '.preg_replace("/\[\d+\:\d+\:\d+\]/i", "[X:X:X]", $raport).';'."\n".'?>');
-	
+
 		if(DEBUG_EXTRA)
 			file_put_contents(ROOT_PATH.'includes/attack.log', date('[d-M-Y H:i:s]', $this->_fleet['fleet_start_time']).'(FleetID: '.$this->_fleet['fleet_id'].') Attacker: '.$this->_fleet['fleet_owner'].'/ Defender: '.$this->_fleet['fleet_target_owner'].' | TF: '.floattostring($DerbisMetal).'/'.floattostring($DerbisCrystal));
-		
+
 		$WhereAtt = "";
 		$WhereDef = "";
-			
+
 		foreach($Attacker['id'] as $id)
 		{
 			$WhereAtt .= "`id` = '".$id."' OR ";
@@ -249,9 +248,9 @@ class MissionCaseAttack extends MissionFunctions
 		}
 
 		$Won = 0;
-		$Lose = 0; 
+		$Lose = 0;
 		$Draw = 0;
-		
+
 		switch($result['won'])
 		{
 			case "a":
@@ -264,7 +263,7 @@ class MissionCaseAttack extends MissionFunctions
 				$Lose = 1;
 			break;
 		}
-							
+
 		$SQL  = "UPDATE ".PLANETS." SET ";
 		$SQL .= "`der_metal` = ".floattostring($DerbisMetal).", ";
 		$SQL .= "`der_crystal` = ".floattostring($DerbisCrystal)." ";
@@ -287,7 +286,7 @@ class MissionCaseAttack extends MissionFunctions
 		$SQL .= "`gesamtunits` = '".floattostring($result['lost']['att'] + $result['lost']['def'])."', ";
 		$SQL .= "`rid` = '". $rid ."', ";
 		$SQL .= "`universe` = '".$this->_fleet['fleet_universe']."', ";
-		$SQL .= "`fleetresult` = '". $result['won'] ."';";		
+		$SQL .= "`fleetresult` = '". $result['won'] ."';";
 		$SQL .= "UPDATE ".USERS." SET ";
         $SQL .= "`wons` = wons + ".$Won.", ";
         $SQL .= "`loos` = loos + ".$Lose.", ";
@@ -309,7 +308,7 @@ class MissionCaseAttack extends MissionFunctions
         $SQL .= "WHERE ";
         $SQL .= substr($WhereDef, 0, -4).";";
 		$db->multi_query($SQL);
-		
+
 		switch($result['won'])
 		{
 			case "r":
@@ -318,13 +317,13 @@ class MissionCaseAttack extends MissionFunctions
 			break;
 			case "w":
 				$ColorAtt = "orange";
-				$ColorDef = "orange";	
+				$ColorDef = "orange";
 			case "a":
 				$ColorAtt = "green";
 				$ColorDef = "red";
 			break;
 		}
-				
+
 		foreach ($Attacker['id'] as $AttackersID)
 		{
 			if(empty($AttackersID))
@@ -339,28 +338,28 @@ class MissionCaseAttack extends MissionFunctions
 		{
 			if(empty($DefenderID))
 				continue;
-				
+
 			$LNG			= $LANG->GetUserLang($DefenderID);
 			$MessageDef 	= sprintf('<a href="CombatReport.php?raport=%s" onclick="OpenPopup(\'CombatReport.php?raport=%s\', \'combat\', screen.width, screen.height);return false" target="combat"><font color="%s">%s %s</font></a><br><br><font color="%s">%s: %s</font> <font color="%s">%s: %s</font><br>%s %s:<font color="#fff">%s</font> %s:<font color="#fff">%s</font> %s:<font color="#fff">%s</font> %s:<font color="#fff">%s</font><br><br>%s %s:<font color="#fff">%s</font> %s:<font color="#fff">%s</font><br />', $rid, $rid, $ColorDef, $LNG['sys_mess_attack_report'], sprintf($LNG['sys_adress_planet'], $this->_fleet['fleet_end_galaxy'], $this->_fleet['fleet_end_system'], $this->_fleet['fleet_end_planet']), $ColorDef, $LNG['sys_perte_attaquant'], pretty_number($result['lost']['att']), $ColorAtt, $LNG['sys_perte_defenseur'], pretty_number($result['lost']['def']), $LNG['sys_gain'], $LNG['Metal'], pretty_number($steal['metal']), $LNG['Crystal'], pretty_number($steal['crystal']), $LNG['Deuterium'], pretty_number($steal['deuterium']), $LNG['Norio'], pretty_number($steal['norio']), $LNG['sys_debris'], $LNG['Metal'], pretty_number($result['debree']['att'][0]+$result['debree']['def'][0]), $LNG['Crystal'], pretty_number($result['debree']['att'][1]+$result['debree']['def'][1]));
 			SendSimpleMessage($DefenderID, 0, $this->_fleet['fleet_start_time'], 3, $LNG['sys_mess_tower'], $LNG['sys_mess_attack_report'], $MessageDef);// review 3
 		}
 	}
-	
+
 	function EndStayEvent()
 	{
 		return;
 	}
-	
+
 	function ReturnEvent()
 	{
 		global $LANG;
 		$LNG			= $LANG->GetUserLang($this->_fleet['fleet_owner']);
-	
+
 		$Message		= sprintf( $LNG['sys_fleet_won'], $TargetName, GetTargetAdressLink($this->_fleet, ''), pretty_number($this->_fleet['fleet_resource_metal']), $LNG['Metal'], pretty_number($this->_fleet['fleet_resource_crystal']), $LNG['Crystal'], pretty_number($this->_fleet['fleet_resource_deuterium']), $LNG['Deuterium'], pretty_number($this->_fleet['fleet_resource_norio']), $LNG['Norio']);
 		SendSimpleMessage($this->_fleet['fleet_owner'], 0, $this->_fleet['fleet_end_time'], 3, $LNG['sys_mess_tower'], $LNG['sys_mess_fleetback'], $Message);
-			
+
 		$this->RestoreFleet();
 	}
 }
-	
+
 ?>

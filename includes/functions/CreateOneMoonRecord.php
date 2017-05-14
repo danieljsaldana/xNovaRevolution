@@ -1,11 +1,10 @@
 <?php
 
 /**
- _  \_/ |\ | /¯¯\ \  / /\    |¯¯) |_¯ \  / /¯¯\ |  |   |´¯|¯` | /¯¯\ |\ |5
- ¯  /¯\ | \| \__/  \/ /--\   |¯¯\ |__  \/  \__/ |__ \_/   |   | \__/ | \|Core.
- * @author: Copyright (C) 2011 by Brayan Narvaez (Prinick) developer of xNova Revolution
- * @author web: http://www.bnarvaez.com
- * @link: http://www.xnovarev.com
+ _  \_/ |\ | /Â¯Â¯\ \  / /\    |Â¯Â¯) |_Â¯ \  / /Â¯Â¯\ |  |   |Â´Â¯|Â¯` | /Â¯Â¯\ |\ |6
+ Â¯  /Â¯\ | \| \__/  \/ /--\   |Â¯Â¯\ |__  \/  \__/ |__ \_/   |   | \__/ | \|Core Redesigned.
+ * @author: Copyright (C) 2017 by xNova Revolution
+ * @author web: https://danieljsaldaÃ±a.com
 
  * @package 2Moons
  * @author Slaver <slaver7@gmail.com>
@@ -37,11 +36,11 @@ if(!defined('INSIDE')) die('Hacking attempt!');
 			return false;
 
 		if($Size == 0) {
-			$size	= floor(pow(mt_rand(10, 20) + 3 * $Chance, 0.5) * 1000); 
+			$size	= floor(pow(mt_rand(10, 20) + 3 * $Chance, 0.5) * 1000);
 		} else {
 			$size	= $Size;
 		}
-		
+
 		$maxtemp    = $MoonPlanet['temp_max'] - mt_rand(10, 45);
 		$mintemp    = $MoonPlanet['temp_min'] - mt_rand(10, 45);
 
@@ -73,7 +72,7 @@ if(!defined('INSIDE')) die('Hacking attempt!');
 		$SQL .= "`norio_perhour` = '0', ";
 		$SQL .= "`norio_max` = '".BASE_STORAGE_SIZE."'; ";
 		$db->query($SQL);
-				
+
 		$SQL  = "UPDATE ".PLANETS." SET ";
 		$SQL .= "`id_luna` = '".$db->GetInsertID()."' ";
 		$SQL .= "WHERE ";
@@ -81,7 +80,7 @@ if(!defined('INSIDE')) die('Hacking attempt!');
 		$SQL .= "`galaxy` = '".$Galaxy."' AND ";
 		$SQL .= "`system` = '".$System."' AND ";
 		$SQL .= "`planet` = '".$Planet."' AND ";
-		$SQL .= "`planet_type` = '1';";				
+		$SQL .= "`planet_type` = '1';";
 		$db->query($SQL);
 
 		return $MoonPlanet['name'];

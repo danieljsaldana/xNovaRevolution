@@ -1,10 +1,10 @@
 <?php
 
 /**
- _  \_/ |\ | /¯¯\ \  / /\    |¯¯) |_¯ \  / /¯¯\ |  |   |´¯|¯` | /¯¯\ |\ |5
- ¯  /¯\ | \| \__/  \/ /--\   |¯¯\ |__  \/  \__/ |__ \_/   |   | \__/ | \|Core.
- * @author: Copyright (C) 2011 by Brayan Narvaez (Prinick) developer of xNova Revolution
- * @link: http://www.xnovarevolution.con.ar
+ _  \_/ |\ | /¯¯\ \  / /\    |¯¯) |_¯ \  / /¯¯\ |  |   |´¯|¯` | /¯¯\ |\ |6
+ ¯  /¯\ | \| \__/  \/ /--\   |¯¯\ |__  \/  \__/ |__ \_/   |   | \__/ | \|Core Redesigned.
+ * @author: Copyright (C) 2017 by xNova Revolution
+ * @author web: https://danieljsaldaña.com
 
  * @package 2Moons
  * @author Slaver <slaver7@gmail.com>
@@ -116,7 +116,7 @@ $LNG['sys_expe_found_ships_1_2']			= 'Wir haben eine verlassene Piratenbasis gef
 $LNG['sys_expe_found_ships_1_3']			= 'Unsere Expedition fand einen Planeten, der wohl durch anhaltende Kriege fast komplett zerstört wurde. In der Umlaufbahn trieben diverse Schiffswracks. Die Techniker versuchen, einige davon zu reparieren. Vielleicht erhalten wir so auch Information darüber, was hier geschehen ist.';
 $LNG['sys_expe_found_ships_1_4']			= 'Deine Expedition ist auf eine alte Sternenfestung gestoßen, die wohl seit Ewigkeiten verlassen ist. Im Hangar der Festung wurden ein paar Schiffe gefunden. Die Techniker schauen, ob sie einige davon wieder flott bekommen. ';
 $LNG['sys_expe_found_ships_2_1']			= 'Wir haben die Reste einer Armada gefunden. Die Techniker der Expeditionsflotte haben sich sofort auf die halbwegs intakten Schiffe begeben und versuchen, diese wieder instandzusetzen.';
-$LNG['sys_expe_found_ships_2_2']			= 'Unsere Expedition stieß auf eine alte, automatische Schiffswerft. Einige Schiffe sind noch in der Produktionsphase, und unsere Techniker versuchen, die Energieversorgung der Werft wiederherzustellen.'; 
+$LNG['sys_expe_found_ships_2_2']			= 'Unsere Expedition stieß auf eine alte, automatische Schiffswerft. Einige Schiffe sind noch in der Produktionsphase, und unsere Techniker versuchen, die Energieversorgung der Werft wiederherzustellen.';
 $LNG['sys_expe_found_ships_3_1']			= 'Wir haben einen riesigen Raumschiffsfriedhof gefunden. Einigen Technikern der Expeditionsflotte ist es gelungen, das eine oder andere Schiff wieder in Betrieb zu nehmen.';
 $LNG['sys_expe_found_ships_3_2']			= 'Wir haben einen Planeten mit Resten einer Zivilisation entdeckt. Aus dem Orbit ist noch ein riesiger Raumbahnhof zu erkennen, der als einziges Gebäude noch intakt ist. Einige unserer Techniker und Piloten haben sich auf die Oberfläche begeben um nachzuschauen, ob ein paar der dort abgestellten Schiffe noch zu gebrauchen sind.';
 $LNG['sys_expe_lost_fleet_1']				= 'Von der Expedition ist nur noch folgender Funkspruch übrig geblieben: Zzzrrt Oh Gott! Krrrzzzzt das zrrrtrzt sieht krgzzzz ja aus wie Krzzzzzzzztzzzz...';
@@ -140,7 +140,7 @@ $LNG['sys_expe_nothing_5'] 				= 'Nun, zumindest weiß man jetzt, dass rote Anom
 $LNG['sys_expe_nothing_6'] 				= 'Trotz der ersten, vielversprechenden Scans dieses Sektors kommen wir leider mit leeren Händen zurück.';
 $LNG['sys_expe_nothing_7'] 				= 'Vielleicht hätte man den Geburtstag des Captains nicht auf diesem abgelegenen Planeten feiern sollen. Ein fieses Dschungelfieber hat große Teile der Crew gezwungen die Expedition in der Krankenstation zu begleiten. Der akute Personalausfall führte dazu, dass die Expedition scheiterte.';
 $LNG['sys_expe_nothing_8'] 				= 'Deine Expedition hat, wortwörtlich, mit der Leere des Alls Bekanntschaft gemacht. Es gab nicht einmal einen kleinen Asteroiden, oder Strahlung, oder Partikel, oder irgendetwas, dass diese Expedition aufregend gestaltet hätte.';
-$LNG['sys_expe_nothing_9'] 				= 'Ein Reaktorfehler des Führungsschiffes hätte beinahe die gesamte Expedition vernichtet. Zum Glück waren die Techniker mehr als fähig und konnten das Schlimmste verhindern. Die Reparatur nahm jedoch soviel Zeit in Anspruch, dass die Expedition unverrichteter Dinge wieder zurückkehrte.'; 	
+$LNG['sys_expe_nothing_9'] 				= 'Ein Reaktorfehler des Führungsschiffes hätte beinahe die gesamte Expedition vernichtet. Zum Glück waren die Techniker mehr als fähig und konnten das Schlimmste verhindern. Die Reparatur nahm jedoch soviel Zeit in Anspruch, dass die Expedition unverrichteter Dinge wieder zurückkehrte.';
 $LNG['sys_expe_attack_1_1_1'] 				= 'Ein paar anscheinend sehr verzweifelte Weltraumpiraten haben versucht, unsere Expeditionsflotte zu kapern.';
 $LNG['sys_expe_attack_1_1_2'] 				= 'Einige primitive Barbaren greifen uns mit Raumschiffen an, die nicht einmal ansatzweise die Bezeichnung Raumschiff verdient haben. Sollte der Beschuss ernst zu nehmende Ausmaße annehmen, sehen wir uns gezwungen das Feuer zu erwidern.';
 $LNG['sys_expe_attack_1_1_3'] 				= 'Wir haben ein paar Funksprüche sehr betrunkener Piraten aufgefangen. Anscheinend sollen wir überfallen werden.';
@@ -160,8 +160,8 @@ $LNG['sys_expe_attack_2_2_2'] 				= 'Deine Expeditionsflotte hat anscheinend das
 $LNG['sys_expe_attack_2_2_3'] 				= 'Die Verbindung zu unserer Expeditionsflotte wurde kurzfristig gestört. Soweit wir die letzte Botschaft richtig entschlüsselt haben, steht die Flotte unter schwerem Feuer – die Aggressoren konnten nicht identifiziert werden.';
 $LNG['sys_expe_attack_2_3_1'] 				= 'Deine Expedition ist in eine Alien-Invasions-Flotte geraten und meldet schwere Gefechte!';
 $LNG['sys_expe_attack_2_3_2'] 				= 'Ein großer Verband kristalliner Schiffe unbekannter Herkunft hält direkten Kollisionskurs mit unserer Expeditionsflotte. Wir müssen nun wohl vom Schlimmsten ausgehen.';
-$LNG['sys_expe_attackname_1']				= 'Piraten'; 	
-$LNG['sys_expe_attackname_2'] 				= 'Aliens'; 	
+$LNG['sys_expe_attackname_1']				= 'Piraten';
+$LNG['sys_expe_attackname_2'] 				= 'Aliens';
 $LNG['sys_expe_back_home'] 				= 'Deine Flotte ist von der Expedition wieder zurükgekehrt.<br>Sie haben %s %s, %s %s, %s %s, %s %s und %s %s mitgebracht.';
 $LNG['sys_expe_back_home_without_dm']		= 'Deine Flotte ist von der Expedition wieder zurükgekehrt.';
 $LNG['sys_expe_back_home_with_dm']			= 'Deine Flotte ist von der Expedition wieder zurükgekehrt.<br>Die gefundende %s(%s) hat die Schiffe verformt und wurden verschrottet.<br>Die %s konnte noch gerettet werden.';

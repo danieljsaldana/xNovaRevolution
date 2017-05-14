@@ -1,11 +1,10 @@
 <?php
 
 /**
- _  \_/ |\ | /¯¯\ \  / /\    |¯¯) |_¯ \  / /¯¯\ |  |   |´¯|¯` | /¯¯\ |\ |5
+ _  \_/ |\ | /¯¯\ \  / /\    |¯¯) |_¯ \  / /¯¯\ |  |   |´¯|¯` | /¯¯\ |\ |6
  ¯  /¯\ | \| \__/  \/ /--\   |¯¯\ |__  \/  \__/ |__ \_/   |   | \__/ | \|Core Redesigned.
- * @author: Copyright (C) 2011 by Brayan Narvaez (Prinick) developer of xNova Revolution
- * @author web: http://www.bnarvaez.com
- * @link: http://www.xnovarev.com
+ * @author: Copyright (C) 2017 by xNova Revolution
+ * @author web: https://danieljsaldaña.com
 
  * @package 2Moons
  * @author Slaver <slaver7@gmail.com>
@@ -169,7 +168,7 @@ $LNG['changelog']   = array(
 - FIX: Global styles .css by kmti212
 - FIX: All javascript problems
 - FIX: Recycle problem
-- FIX: MissionCaseDestruction	
+- FIX: MissionCaseDestruction
 - FIX: Jump Cuantic link Dialog
 - FIX: Phalanx
 - FIX: Defended planet mission SQL problem
@@ -230,7 +229,7 @@ The design was created by <a href="http://princk.deviantart.com/" target="_blank
 - FIX: Division by Zero bug
 - FIX: Names of Universe
 - FIX: Alliance Create on Multi Universe
-- FIX: Phalanx 
+- FIX: Phalanx
 - FIX: Wrong UserCount, if a new player joins the game
 - FIX: Dropped HyperSpeed for ShipBulid (Fixed BCMath Iusses)
 - FIX: ResearchQueue (1st)
@@ -248,7 +247,7 @@ The design was created by <a href="http://princk.deviantart.com/" target="_blank
 - FIX: Missions
 - FIX: .5 Floating Bug
 - FIX: Research List in colonies (ResearchQueue (2st))
-- FIX: Ressource Storage be now display correct, if Tech or Shipyard = 0 
+- FIX: Ressource Storage be now display correct, if Tech or Shipyard = 0
 - FIX: Fixed Del Ships, if you have same Jobs
 - FIX: Moon destruction mission
 - FIX: Resource Update on options
@@ -265,7 +264,7 @@ The design was created by <a href="http://princk.deviantart.com/" target="_blank
 - FIX: FirePHP Log System
 - FIX: Time on messages
 - FIX: UTF8 names on fleet shortcuts
-- FIX: Alliance mails 
+- FIX: Alliance mails
 - FIX: Modules in Galaxy
 - FIX: Search page
 - FIX: Attackbonus on Missions

@@ -1,18 +1,35 @@
 <?php
 
+/**
+ _  \_/ |\ | /¯¯\ \  / /\    |¯¯) |_¯ \  / /¯¯\ |  |   |´¯|¯` | /¯¯\ |\ |6
+ ¯  /¯\ | \| \__/  \/ /--\   |¯¯\ |__  \/  \__/ |__ \_/   |   | \__/ | \|Core Redesigned.
+ * @author: Copyright (C) 2017 by xNova Revolution
+ * @author web: https://danieljsaldaña.com
+
+ * @package 2Moons
+ * @author Slaver <slaver7@gmail.com>
+ * @copyright 2009 Lucky <douglas@crockford.com> (XGProyecto)
+ * @copyright 2011 Slaver <slaver7@gmail.com> (Fork/2Moons)
+ * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
+ * @version 1.3 (2011-01-21)
+ * @link http://code.google.com/p/2moons/
+
+ * Please do not remove the credits
+*/
+
 function ShowPlayerCard()
 {
 	global $USER, $PLANET, $LNG, $UNI, $db, $dpath;
-	
+
 	$template	= new template();
 	$template->isDialog(true);
-	
+
     $playerid 	= request_var('id', 0);
-		
+
     $query 		= $db->uniquequery("SELECT a.wons, a.loos, a.draws, a.kbmetal, a.kbcrystal, a.kbnorio, a.lostunits, a.desunits, a.ally_id, a.ally_name, a.username, a.galaxy, a.system, a.planet, a.raza, a.dpath, b.name, c.tech_rank, c.tech_points, c.build_rank, c.build_points, c.defs_rank, c.defs_points, c.fleet_rank, c.fleet_points, c.total_rank, c.total_points FROM ".USERS." as a, ".PLANETS." as b, ".STATPOINTS." as c WHERE a.universe = '".$UNI."' AND a.id = '". $db->sql_escape($playerid) ."' AND a.id_planet = b.id AND a.id = c.id_owner AND c.stat_type = 1;");
 
 	$totalfights = $query['wons'] + $query['loos'] + $query['draws'];
-	
+
 	if ($totalfights == 0) {
 		$siegprozent                = 0;
 		$loosprozent                = 0;
@@ -28,9 +45,9 @@ function ShowPlayerCard()
 	$raza_tipo = 'gultra';
 	} elseif ($query['raza'] == 1) {
 	$raza_tipo = 'voltra';
-	} 
-	
-	$template->assign_vars(array(	
+	}
+
+	$template->assign_vars(array(
 		'id'			=> $playerid,
 		'yourid'		=> $USER['id'],
 		'name'			=> $query['username'],
@@ -97,7 +114,7 @@ function ShowPlayerCard()
 		'Raza_skin' 	=> $raza_tipo,
 		'dpath' 		=> $query['dpath'],
 	));
-	
+
 	$template->show("playercard_overview.tpl");
 
 }

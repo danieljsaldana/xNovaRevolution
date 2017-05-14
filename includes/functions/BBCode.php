@@ -1,11 +1,10 @@
 <?php
 
 /**
- _  \_/ |\ | /¯¯\ \  / /\    |¯¯) |_¯ \  / /¯¯\ |  |   |´¯|¯` | /¯¯\ |\ |5
- ¯  /¯\ | \| \__/  \/ /--\   |¯¯\ |__  \/  \__/ |__ \_/   |   | \__/ | \|Core.
- * @author: Copyright (C) 2011 by Brayan Narvaez (Prinick) developer of xNova Revolution
- * @author web: http://www.bnarvaez.com
- * @link: http://www.xnovarev.com
+ _  \_/ |\ | /Â¯Â¯\ \  / /\    |Â¯Â¯) |_Â¯ \  / /Â¯Â¯\ |  |   |Â´Â¯|Â¯` | /Â¯Â¯\ |\ |6
+ Â¯  /Â¯\ | \| \__/  \/ /--\   |Â¯Â¯\ |__  \/  \__/ |__ \_/   |   | \__/ | \|Core Redesigned.
+ * @author: Copyright (C) 2017 by xNova Revolution
+ * @author web: https://danieljsaldaÃ±a.com
 
  * @package 2Moons
  * @author Slaver <slaver7@gmail.com>
@@ -29,7 +28,7 @@ function bbcode($text) {
 	$bbcode->addCode("spoiler", "simple_replace", null, array('start_tag'=>'<div class="bbcode_spoiler"><p><b>Spoiler:</b></p><div>', 'end_tag'=>'</div></div>'), "block", array("block"), array('inline','link','list'));
 	$bbcode->addCode("bg", "usecontent?", "bbcode_background", array('usecontent_param'=>'default'), 'link', array('block','inline','listitem'), array('link'));
 	$bbcode->addCode("bgcolor", "callback_replace", "bbcode_bgcolor", array(), 'inline', array('block','inline','link','listitem'), array());
-	
+
 	//Inline-Elements
 	$bbcode->addCode("b", "simple_replace", null, array('start_tag'=>'<b>', 'end_tag'=>'</b>'), 'inline', array('block','inline','link','listitem'), array());
 	$bbcode->addCode("i", "simple_replace", null, array('start_tag'=>'<i>', 'end_tag'=>'</i>'), 'inline', array('block','inline','link','listitem'), array());

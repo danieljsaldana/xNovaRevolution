@@ -1,11 +1,10 @@
 <?php
 
 /**
- _  \_/ |\ | /¯¯\ \  / /\    |¯¯) |_¯ \  / /¯¯\ |  |   |´¯|¯` | /¯¯\ |\ |5
- ¯  /¯\ | \| \__/  \/ /--\   |¯¯\ |__  \/  \__/ |__ \_/   |   | \__/ | \|Core.
- * @author: Copyright (C) 2011 by Brayan Narvaez (Prinick) developer of xNova Revolution
- * @author web: http://www.bnarvaez.com
- * @link: http://www.xnovarev.com
+ _  \_/ |\ | /Â¯Â¯\ \  / /\    |Â¯Â¯) |_Â¯ \  / /Â¯Â¯\ |  |   |Â´Â¯|Â¯` | /Â¯Â¯\ |\ |6
+ Â¯  /Â¯\ | \| \__/  \/ /--\   |Â¯Â¯\ |__  \/  \__/ |__ \_/   |   | \__/ | \|Core Redesigned.
+ * @author: Copyright (C) 2017 by xNova Revolution
+ * @author web: https://danieljsaldaÃ±a.com
 
  * @package 2Moons
  * @author Slaver <slaver7@gmail.com>
@@ -21,13 +20,13 @@
 function DeleteSelectedUser($UserID)
 {
 	global $db ,$CONF;
-	
+
 	if(ROOT_USER == $UserId)
 			return false;
-	
+
 	$TheUser = $db->uniquequery("SELECT universe, ally_id FROM ".USERS." WHERE `id` = '".$UserID."';");
 	$SQL 	 = "";
-	
+
 	if ($TheUser['ally_id'] != 0 )
 	{
 		$TheAlly =  $db->uniquequery("SELECT ally_members FROM ".ALLIANCE." WHERE `id` = '".$TheUser['ally_id']."';");
@@ -52,7 +51,7 @@ function DeleteSelectedUser($UserID)
 	$SQL .= "DELETE FROM ".USERS." WHERE `id` = '".$UserID."';";
 	$SQL .= "DELETE FROM ".STATPOINTS." WHERE `stat_type` = '1' AND `id_owner` = '".$UserID."';";
 	$db->multi_query($SQL);
-	
+
 	$SQL	= $db->query("SELECT fleet_id FROM ".FLEETS." WHERE `fleet_target_owner` = '".$UserID."';");
 	while($FleetID = $db->fetch_array($SQL)) {
 		SendFleetBack($UserID, $FleetID);
@@ -62,12 +61,12 @@ function DeleteSelectedUser($UserID)
 
 function SendFleetBack($CurrentUser, $FleetID)
 {
-	global $db;	
+	global $db;
 
 	$FleetRow = $db->uniquequery("SELECT `start_time`, `fleet_mission`, `fleet_group`, `fleet_owner`, `fleet_mess` FROM ".FLEETS." WHERE `fleet_id` = '". $FleetID ."';");
 	if ($FleetRow['fleet_owner'] != $CurrentUser || $FleetRow['fleet_mess'] == 1)
 		return;
-		
+
 	$where		= 'fleet_id';
 
 	if($FleetRow['fleet_mission'] == 1 && $FleetRow['fleet_group'] > 0)
@@ -81,7 +80,7 @@ function SendFleetBack($CurrentUser, $FleetID)
 			$where		= 'fleet_group';
 		}
 	}
-	
+
 	$db->query("UPDATE ".FLEETS." SET `fleet_group` = '0', `start_time` = '".TIMESTAMP."', `fleet_end_stay` = '".TIMESTAMP."', `fleet_end_time` = '".((TIMESTAMP - $FleetRow['start_time']) + TIMESTAMP)."', `fleet_mess` = '1' WHERE `".$where."` = '".$FleetID."';");
 }
 

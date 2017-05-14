@@ -1,11 +1,10 @@
 <?php
 
 /**
- _  \_/ |\ | /¯¯\ \  / /\    |¯¯) |_¯ \  / /¯¯\ |  |   |´¯|¯` | /¯¯\ |\ |5
- ¯  /¯\ | \| \__/  \/ /--\   |¯¯\ |__  \/  \__/ |__ \_/   |   | \__/ | \|Core.
- * @author: Copyright (C) 2011 by Brayan Narvaez (Prinick) developer of xNova Revolution
- * @author web: http://www.bnarvaez.com
- * @link: http://www.xnovarev.com
+ _  \_/ |\ | /Â¯Â¯\ \  / /\    |Â¯Â¯) |_Â¯ \  / /Â¯Â¯\ |  |   |Â´Â¯|Â¯` | /Â¯Â¯\ |\ |6
+ Â¯  /Â¯\ | \| \__/  \/ /--\   |Â¯Â¯\ |__  \/  \__/ |__ \_/   |   | \__/ | \|Core Redesigned.
+ * @author: Copyright (C) 2017 by xNova Revolution
+ * @author web: https://danieljsaldaÃ±a.com
 
  * @package 2Moons
  * @author Slaver <slaver7@gmail.com>
@@ -20,7 +19,7 @@
 if (!defined('INSIDE')) die(header("location:../../"));
 
 class FlyingFleetHandler
-{	
+{
 	function __construct($fleetquery)
 	{
 		global $db;
@@ -38,32 +37,32 @@ class FlyingFleetHandler
 			11	=> 'MissionCaseFoundDM',
 			15	=> 'MissionCaseExpedition',
 		);
-		
+
 		require_once(ROOT_PATH.'includes/classes/class.MissionFunctions.php');
 		while ($CurrentFleet = $db->fetch_array($fleetquery))
 		{
 			if(!$this->IfFleetBusy($CurrentFleet['fleet_id'])) continue;
-			
+
 			if(!isset($GLOBALS['CONFIG'][$CurrentFleet['fleet_universe']]))
 			$GLOBALS['CONFIG'][$CurrentFleet['fleet_universe']]	= $db->uniquequery("SELECT * FROM `".CONFIG."` WHERE `uni` = '".$CurrentFleet['fleet_universe']."';");
 
 			require_once(ROOT_PATH.'includes/classes/missions/'.$MissionsPattern[$CurrentFleet['fleet_mission']].'.php');
 			$Mission	= new $MissionsPattern[$CurrentFleet['fleet_mission']]($CurrentFleet);
-			
+
 			if($CurrentFleet['fleet_mess'] == 0 && $CurrentFleet['fleet_start_time'] <= TIMESTAMP)
 				$Mission->TargetEvent();
-			elseif($CurrentFleet['fleet_mess'] == 2 && $CurrentFleet['fleet_end_stay'] <= TIMESTAMP)	
+			elseif($CurrentFleet['fleet_mess'] == 2 && $CurrentFleet['fleet_end_stay'] <= TIMESTAMP)
 				$Mission->EndStayEvent();
 			elseif($CurrentFleet['fleet_mess'] == 1 && $CurrentFleet['fleet_end_time'] <= TIMESTAMP)
 				$Mission->ReturnEvent();
-				
+
 			$Mission = NULL;
 			unset($Mission);
 
 			$db->query("UPDATE ".FLEETS." SET `fleet_busy` = '0' WHERE `fleet_id` = '".$CurrentFleet['fleet_id']."';");
 		}
 	}
-	
+
 	function IfFleetBusy($FleetID)
 	{
 		global $db;

@@ -1,10 +1,10 @@
 <?php
 
 /**
- _  \_/ |\ | /¯¯\ \  / /\    |¯¯) |_¯ \  / /¯¯\ |  |   |´¯|¯` | /¯¯\ |\ |5
- ¯  /¯\ | \| \__/  \/ /--\   |¯¯\ |__  \/  \__/ |__ \_/   |   | \__/ | \|Core.
- * @author: Copyright (C) 2011 by Brayan Narvaez (Prinick) developer of xNova Revolution
- * @link: http://www.xnovarevolution.con.ar
+ _  \_/ |\ | /¯¯\ \  / /\    |¯¯) |_¯ \  / /¯¯\ |  |   |´¯|¯` | /¯¯\ |\ |6
+ ¯  /¯\ | \| \__/  \/ /--\   |¯¯\ |__  \/  \__/ |__ \_/   |   | \__/ | \|Core Redesigned.
+ * @author: Copyright (C) 2017 by xNova Revolution
+ * @author web: https://danieljsaldaña.com
 
  * @package 2Moons
  * @author Slaver <slaver7@gmail.com>
@@ -595,7 +595,7 @@ $LNG['al_close_ally'] 						= 'Möchten sie wirklich die Allianz aufgeben?';
 $LNG['al_kick_player']						= 'Möchten sie wirklich den Spieler %s aus der Allianz entfernen?';
 $LNG['al_circular_sended'] 					= "Nachricht gesendet.\nFolgenden Spielern wurde die Mail gesendet:";
 $LNG['al_all_players'] 						= 'Alle Spieler';
-$LNG['al_no_ranks_defined'] 				= 'Keine definierten Ränge.'; 
+$LNG['al_no_ranks_defined'] 				= 'Keine definierten Ränge.';
 $LNG['al_request_text']						= 'Bewerbungstext';
 $LNG['al_inside_text']						= 'Interner Text';
 $LNG['al_outside_text']						= 'Externer Text';
@@ -1066,9 +1066,9 @@ $LNG['pl_etc']   							= 'Kontakt';
 // Chat
 
 $LNG['chat_title']                         	= 'Chat';
-$LNG['chat_ally_title']                    	= 'Allianzchat';  
-$LNG['chat_bbcode']                    		= 'BB-Codes';  
-$LNG['chat_fontcolor']                    	= 'Schriftfarbe';  
+$LNG['chat_ally_title']                    	= 'Allianzchat';
+$LNG['chat_bbcode']                    		= 'BB-Codes';
+$LNG['chat_fontcolor']                    	= 'Schriftfarbe';
 
 $LNG['chat_disc']                          	= 'Chat';
 $LNG['chat_message']                       	= 'Nachricht';
@@ -1118,7 +1118,7 @@ $LNG['supp_admin_answer'] 					= 'Admin-Antwort';
 $LNG['supp_player_answer'] 					= 'Spieler-Antwort';
 
 //----------------------------------------------------------------------------//
-// Rekorde 
+// Rekorde
 
 $LNG['rec_build']  							= 'Gebäude';
 $LNG['rec_specb']							= 'Besondere Gebäude';

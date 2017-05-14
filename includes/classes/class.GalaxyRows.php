@@ -1,12 +1,11 @@
 <?php
 
 /**
- _  \_/ |\ | /¯¯\ \  / /\    |¯¯) |_¯ \  / /¯¯\ |  |   |´¯|¯` | /¯¯\ |\ |5
- ¯  /¯\ | \| \__/  \/ /--\   |¯¯\ |__  \/  \__/ |__ \_/   |   | \__/ | \|Core.
- * @author: Copyright (C) 2011 by Brayan Narvaez (Prinick) developer of xNova Revolution
- * @author web: http://www.bnarvaez.com
- * @link: http://www.xnovarev.com
- 
+ _  \_/ |\ | /Â¯Â¯\ \  / /\    |Â¯Â¯) |_Â¯ \  / /Â¯Â¯\ |  |   |Â´Â¯|Â¯` | /Â¯Â¯\ |\ |6
+ Â¯  /Â¯\ | \| \__/  \/ /--\   |Â¯Â¯\ |__  \/  \__/ |__ \_/   |   | \__/ | \|Core Redesigned.
+ * @author: Copyright (C) 2017 by xNova Revolution
+ * @author web: https://danieljsaldaÃ±a.com
+
  * @package 2Moons
  * @author Slaver <slaver7@gmail.com>
  * @copyright 2009 Lucky <douglas@crockford.com> (XGProyecto)
@@ -20,29 +19,29 @@
 
  class GalaxyRows
 {
-	
+
 	public function allowMissiles($GalaxyRowPlanet)
 	{
 	global $USER, $PLANET, $resource;
 		if ($PLANET[$resource[503]] == 0 || $GalaxyRowPlanet['galaxy'] != $PLANET['galaxy'] || $PLANET['planet_type'] != 1 || CheckModule(40))
 		return false;
-	
+
 	$Range = $this->GetMissileRange($USER[$resource[117]]);
 	$SystemLimitMin = max($PLANET['system'] - $Range, 1);
 	$SystemLimitMax = $PLANET['system'] + $Range;
 	return $GalaxyRowPlanet['system'] <= $SystemLimitMax && $GalaxyRowPlanet['system'] >= $SystemLimitMin ? true : false;
 	}
-	
+
 	public function allowPhalanx($GalaxyRowPlanet)
     {
      global $USER, $PLANET, $resource;
-           
+
      $PhRange                  = $this->GetPhalanxRange($PLANET[$resource[42]]);
      $SystemLimitMin  = max(1, $PLANET['system'] - $PhRange);
      $SystemLimitMax  = $PLANET['system'] + $PhRange;
      return $GalaxyRowPlanet['system'] <= $SystemLimitMax && $GalaxyRowPlanet['system'] >= $SystemLimitMin;
     }
-	
+
 	public function GetMissileRange($Level)
 	{
 		return max(($Level * 5) - 1, 0);
@@ -82,7 +81,7 @@
 			'tag'		=> $GalaxyRowPlanet['ally_tag'],
 			'rank'		=> $GalaxyRowPlanet['ally_rank'],
 		);
-		
+
 		return $Result;
 	}
 
@@ -96,8 +95,8 @@
 		$Result = array(
 			'metal'			=> pretty_number($GalaxyRowPlanet["der_metal"]),
 			'crystal'		=> pretty_number($GalaxyRowPlanet["der_crystal"]),
-			'RecSended'		=> $RecNeeded,			
-			'GRecSended'	=> $GRecNeeded,			
+			'RecSended'		=> $RecNeeded,
+			'GRecSended'	=> $GRecNeeded,
 			'recycle'		=> (!CheckModule(32)) ? $LNG['type_mission'][8]:false,
 		);
 
@@ -110,7 +109,7 @@
 
 		$Result = array(
 			'name'		=> htmlspecialchars($GalaxyRowMoon['name'], ENT_QUOTES, "UTF-8"),
-			'temp_min'	=> number_format($GalaxyRowMoon['temp_min'], 0, '', '.'), 
+			'temp_min'	=> number_format($GalaxyRowMoon['temp_min'], 0, '', '.'),
 			'diameter'	=> number_format($GalaxyRowMoon['diameter'], 0, '', '.'),
 			'attack'	=> (!CheckModule(1) && $GalaxyRowMoon['id_owner'] != $USER['id']) ? $LNG['type_mission'][1]:false,
 			'transport'	=> (!CheckModule(34)) ? $LNG['type_mission'][3]:false,
@@ -126,7 +125,7 @@
 	/* public function GalaxyRowPlanet($GalaxyRowPlanet)
 	{
 		global $resource, $USER, $PLANET, $CONF, $LNG;
-		
+
 		if($PLANET[$resource[42]] > 0 && $GalaxyRowPlanet['userid'] != $USER['id'] && $GalaxyRowPlanet["galaxy"] == $PLANET['galaxy'] && !CheckModule(19))
 		{
 			$PhRange 		 = $this->GetPhalanxRange($PLANET[$resource[42]]);
@@ -146,13 +145,13 @@
 		} else {
 			$MissileBtn 	= false;
 		}
-		
+
 		if ($GalaxyRowPlanet['id']) {
 		$imagen	= "planeta";
 		} else {
 		$imagen	= "planeta_o";
 		}
-		
+
 		$Result = array(
 			'id'			=> $GalaxyRowPlanet['id'],
 			'name'			=> htmlspecialchars($GalaxyRowPlanet['name'],ENT_QUOTES,"UTF-8"),
@@ -168,13 +167,13 @@
 		);
 		return $Result;
 	} */
-	
+
 	public function GalaxyRowPlanet($GalaxyRowPlanet, $IsOwn)
         {
                 global $resource, $USER, $PLANET, $CONF, $LNG;
-                
+
                 if(!$IsOwn && $GalaxyRowPlanet['galaxy'] == $PLANET['galaxy'])
-                {       
+                {
                         $PhalanxTypeLink        = $this->allowPhalanx($GalaxyRowPlanet);
                         $MissileBtn             = $this->allowMissiles($GalaxyRowPlanet);
                 } else {
@@ -202,19 +201,19 @@
 		global $USER, $LNG;
 
 		$Onlinetime			= floor((TIMESTAMP - $GalaxyRowPlanet['last_update']) / 60);
-		
+
 		if ($Onlinetime < 4)
 			$Activity	= $LNG['gl_activity'];
 		elseif($Onlinetime < 15)
-			$Activity	= sprintf($LNG['gl_activity_inactive'], $Onlinetime);	
-		else		
+			$Activity	= sprintf($LNG['gl_activity_inactive'], $Onlinetime);
+		else
 			$Activity	= '';
-				
+
 		$Result = array(
 			'name'			=> htmlspecialchars($GalaxyRowPlanet['name'],ENT_QUOTES,"UTF-8"),
 			'activity'		=> $Activity,
 		);
-		
+
 		return $Result;
 	}
 
@@ -228,7 +227,7 @@
 		$CurrentPoints 		= $USER['total_points'];
 		$RowUserPoints 		= $GalaxyRowPlanet['total_points'];
 		$IsNoobProtec		= CheckNoobProtec($USER, $GalaxyRowPlanet, $GalaxyRowPlanet);
-		
+
 		if ($GalaxyRowPlanet['banaday'] > TIMESTAMP && $GalaxyRowPlanet['urlaubs_modus'] == 1)
 		{
 			$Systemtatus2 	= $LNG['gl_v']." <a href=\"game.php?page=banned\"><span class=\"banned\">".$LNG['gl_b']."</span></a>";

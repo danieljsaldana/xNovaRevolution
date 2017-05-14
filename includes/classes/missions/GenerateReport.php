@@ -1,11 +1,10 @@
 <?php
 
 /**
- _  \_/ |\ | /¯¯\ \  / /\    |¯¯) |_¯ \  / /¯¯\ |  |   |´¯|¯` | /¯¯\ |\ |5
- ¯  /¯\ | \| \__/  \/ /--\   |¯¯\ |__  \/  \__/ |__ \_/   |   | \__/ | \|Core.
- * @author: Copyright (C) 2011 by Brayan Narvaez (Prinick) developer of xNova Revolution
- * @author web: http://www.bnarvaez.com
- * @link: http://www.xnovarev.com
+ _  \_/ |\ | /Â¯Â¯\ \  / /\    |Â¯Â¯) |_Â¯ \  / /Â¯Â¯\ |  |   |Â´Â¯|Â¯` | /Â¯Â¯\ |\ |6
+ Â¯  /Â¯\ | \| \__/  \/ /--\   |Â¯Â¯\ |__  \/  \__/ |__ \_/   |   | \__/ | \|Core Redesigned.
+ * @author: Copyright (C) 2017 by xNova Revolution
+ * @author web: https://danieljsaldaÃ±a.com
 
  * @package 2Moons
  * @author Slaver <slaver7@gmail.com>
@@ -22,15 +21,15 @@ function GenerateReport($RESULT, $INFO)
 {
 	$html 		= '"<div style=\"width:100%;text-align:center\"><center>';
 
-		
+
 	$round_no 	= 1;
 	$des		= array('att' => array(), 'def' => array());
-	
+
 	foreach($RESULT['rw'] as $round => $data1)
 	{
 		if($round_no > MAX_ATTACK_ROUNDS) #FIX
 			break;
-		
+
 		$html 		.= '<h3>".$LNG["sys_attack_round"]." '.$round_no.' </h3><br><br>';
 		$attackers1 = $data1['attackers'];
 		$attackers2 = $data1['infoA'];
@@ -70,7 +69,7 @@ function GenerateReport($RESULT, $INFO)
 					} elseif ($USER['raza'] == 1) {
 					$skin_raza = "voltra";
 					}
-				
+
 					if ($ship_count1 <= 0)
 						continue;
 
@@ -125,13 +124,13 @@ function GenerateReport($RESULT, $INFO)
 				$html .= $info_part1[$fleet_id2];
 			}
 		}
-		
+
 		$html .= '</tr></table>';
 		$html .= '<br><br>';
-		
-		
-		
-		
+
+
+
+
 		$html .= '<table cellspacing=\"5\"><tr>';
 	foreach($defenders1 as $fleet_id1 => $data2)
 		{
@@ -155,7 +154,7 @@ function GenerateReport($RESULT, $INFO)
 
 					if($round_no < count($RESULT['rw']) and $round_no < MAX_ATTACK_ROUNDS )
 						$fark = ($ship_count1-$RESULT['rw'][$round_no]['defenders'][$fleet_id1]['def'][$ship_id1]);
-	
+
 					$ships1 .= '<td class=\"transparent\"><img src=\"styles/theme/' .$skin_raza .'/gebaeude/'.$ship_id1.'.png\" width=\"50\" height=\"50\"></td>';
 					$count1 .= '<td class=\"transparent\">'.pretty_number($ship_count1).(($round_no < count($RESULT['rw']) and $round_no < MAX_ATTACK_ROUNDS) ? ('<font color=red>-'.$fark) : '').'</font></td>';
 				}
@@ -207,13 +206,13 @@ function GenerateReport($RESULT, $INFO)
 				$html .= '</table></td></tr></table><br><br>';
 			}
 		}
-				
+
 		$html .= '</tr></table>';
 		if (array_sum($des['att']) == count($attackers2) || array_sum($des['def']) == count($defenders2)) break;
-				
+
 		$html .= '".$LNG["fleet_attack_1"]." '.pretty_number($data1['attack']).' ".$LNG["fleet_attack_2"]." '.pretty_number($data1['defShield']).' ".$LNG["damage"]."<br>';
 		$html .= '".$LNG["fleet_defs_1"]." '.pretty_number($data1['defense']).' ".$LNG["fleet_defs_2"]." '.pretty_number($data1['attackShield']).' ".$LNG["damage"]."<br><br>';
-		$round_no++;			
+		$round_no++;
 	}
 
 	switch($RESULT['won'])
@@ -233,18 +232,18 @@ function GenerateReport($RESULT, $INFO)
 	$html .= '".$LNG["sys_attacker_lostunits"]." '.pretty_number($RESULT['lost']['att']).' ".$LNG["sys_units"]."<br>';
 	$html .= '".$LNG["sys_defender_lostunits"]." '.pretty_number($RESULT['lost']['def']).' ".$LNG["sys_units"]."<br>';
 	$html .= '".$LNG["debree_field_1"]." '.pretty_number($RESULT['debree']['att'][0] + $RESULT['debree']['def'][0]).' ".$LNG["Metal"]." '.pretty_number($RESULT['debree']['att'][1] + $RESULT['debree']['def'][1]).' ".$LNG["Crystal"]." ".$LNG["sys_and"]." '.pretty_number($RESULT['debree']['att'][2] + $RESULT['debree']['def'][2]).' ".$LNG["Norio"]." ".$LNG["debree_field_2"]."<br><br>';
-		
+
 	if($INFO['moon']['des'] == 1) {
-		$html .= '".sprintf($LNG["sys_destruc_mess"], "'.$INFO['start_galaxy'].'", "'.$INFO['start_system'].'", "'.$INFO['start_planet'].'", "'.$INFO['end_galaxy'].'", "'.$INFO['end_system'].'", "'.$INFO['end_planet'].'")."<br>';	
+		$html .= '".sprintf($LNG["sys_destruc_mess"], "'.$INFO['start_galaxy'].'", "'.$INFO['start_system'].'", "'.$INFO['start_planet'].'", "'.$INFO['end_galaxy'].'", "'.$INFO['end_system'].'", "'.$INFO['end_planet'].'")."<br>';
 		if($INFO['moon']['desfail'] == 1) {
 			$html .= '".$LNG["sys_destruc_stop"]."<br>';
 		} else {
 			$html .= '".sprintf($LNG["sys_destruc_lune"], "'.$INFO['moon']['chance'].'")."<br>".$LNG["sys_destruc_mess1"]."';
-			$html .= $INFO['moon']['desfail'] == 0 ? '".$LNG["sys_destruc_reussi"]."' : '".$LNG["sys_destruc_null"]."';			
+			$html .= $INFO['moon']['desfail'] == 0 ? '".$LNG["sys_destruc_reussi"]."' : '".$LNG["sys_destruc_null"]."';
 			$html .= '<br>".sprintf($LNG["sys_destruc_rip"], "'.$INFO['moon']['chance2'].'")."';
 			if($INFO['moon']['fleetfail'] == 1) {
 				$html .= '<br>".$LNG["sys_destruc_echec"]."';
-			}			
+			}
 		}
 	} else {
 		$html .= '".$LNG["sys_moonproba"]." '.$INFO['moon']['chance'].' %<br>';
@@ -253,12 +252,12 @@ function GenerateReport($RESULT, $INFO)
 			$html .= '".sprintf($LNG["sys_moonbuilt"], "'.$INFO['moon']['name'].'", "'.$INFO['end_galaxy'].'", "'.$INFO['end_system'].'", "'.$INFO['end_planet'].'")."';
 		}
 	}
-	
+
 	if(isset($INFO['moon']['battlesim'])) {
 		$html .= $INFO['moon']['battlesim'];
 	}
 	$html .= '</center></div><script type=\"text/javascript\">RaportInfo = '.addcslashes(json_encode(array($RESULT['won'], ($RESULT['lost']['att'] + $RESULT['lost']['def']), $RESULT['debree']['att'][0], $RESULT['debree']['def'][0], $INFO['attvsdef'])), '"').';</script>"';
 	return $html;
 }
-	
+
 ?>

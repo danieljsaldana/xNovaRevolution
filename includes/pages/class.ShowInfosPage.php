@@ -1,11 +1,10 @@
 <?php
 
 /**
- _  \_/ |\ | /¯¯\ \  / /\    |¯¯) |_¯ \  / /¯¯\ |  |   |´¯|¯` | /¯¯\ |\ |5
- ¯  /¯\ | \| \__/  \/ /--\   |¯¯\ |__  \/  \__/ |__ \_/   |   | \__/ | \|Core.
- * @author: Copyright (C) 2011 by Brayan Narvaez (Prinick) developer of xNova Revolution
- * @author web: http://www.bnarvaez.com
- * @link: http://www.xnovarev.com
+ _  \_/ |\ | /Â¯Â¯\ \  / /\    |Â¯Â¯) |_Â¯ \  / /Â¯Â¯\ |  |   |Â´Â¯|Â¯` | /Â¯Â¯\ |\ |6
+ Â¯  /Â¯\ | \| \__/  \/ /--\   |Â¯Â¯\ |__  \/  \__/ |__ \_/   |   | \__/ | \|Core Redesigned.
+ * @author: Copyright (C) 2017 by xNova Revolution
+ * @author web: https://danieljsaldaÃ±a.com
 
  * @package 2Moons
  * @author Slaver <slaver7@gmail.com>
@@ -23,15 +22,15 @@ class ShowInfosPage
 	private function GetNextJumpWaitTime($CurMoon, $ReturnString = false)
 	{
 		global $resource, $CONF;
-		
+
 		$JumpGateLevel  = $CurMoon[$resource[43]];
 		$LastJumpTime   = $CurMoon['last_jump_time'];
 
 		$RestWait   = 0;
-		$RestString = "";		
+		$RestString = "";
 
 		$NextJumpTime   = $LastJumpTime + JUMPGATE_WAIT_TIME;
-		
+
 		if ($NextJumpTime >= TIMESTAMP) {
 			$RestWait   = $NextJumpTime - TIMESTAMP;
 			$RestString = pretty_time($RestWait);
@@ -50,18 +49,18 @@ class ShowInfosPage
 
 		if (!empty($NextJumpTime))
 			return json_encode(array('message' => $LNG['in_jump_gate_already_used'].' '.pretty_time($LastJumpTime), 'error' => true));
-			
+
 		$TargetPlanet = request_var('jmpto', $PLANET['id']);
 		$TargetGate   = $db->uniquequery("SELECT `id`, `last_jump_time` FROM ".PLANETS." WHERE `id` = '".$TargetPlanet."' AND `sprungtor` > '0';");
 
 		if (!isset($TargetGate) || $TargetPlanet == $PLANET['id'])
 			return json_encode(array('message' =>  $LNG['in_jump_gate_doesnt_have_one'], 'error' => true));
-			
+
 		$RestString   = $this->GetNextJumpWaitTime($TargetGate, true);
-		
+
 		if (!empty($RestString))
 			return json_encode(array('message' =>  $LNG['in_jump_gate_not_ready_target'].' '.$RestString, 'error' => true));
-		
+
 		$ShipArray   = array();
 		$SubQueryOri = "";
 		$SubQueryDes = "";
@@ -71,7 +70,7 @@ class ShowInfosPage
 			$ShipArray[$Ship]	=	min(request_var('ship'.$Ship, 0.0), $PLANET[$resource[$Ship]]);
 			if($Ship == 212 || $ShipArray[$Ship] <= 0)
 				continue;
-				
+
 			$SubQueryOri 		.= "`".$resource[$Ship]."` = `".$resource[$Ship]."` - '". floattostring($ShipArray[$Ship])."', ";
 			$SubQueryDes 		.= "`".$resource[$Ship]."` = `".$resource[$Ship]."` + '". floattostring($ShipArray[$Ship])."', ";
 			$PLANET[$resource[$Ship]] -= $ShipArray[$Ship];
@@ -104,14 +103,14 @@ class ShowInfosPage
 		{
 			if ($Ship == 212 || $PLANET[$resource[$Ship]] <= 0)
 				continue;
-			
+
 			$GateFleetList[]	= array(
 				'id'        => $Ship,
 				'name'      => $LNG['tech'][$Ship],
 				'max'       => ($PLANET[$resource[$Ship]]),
 			);
 		}
-		
+
 		return $GateFleetList;
 	}
 
@@ -132,10 +131,10 @@ class ShowInfosPage
 		global $USER, $PLANET, $dpath, $LNG, $resource, $pricelist, $reslist, $CombatCaps, $ProdGrid, $CONF;
 
 		$BuildID 	= request_var('gid', 0);
-		
+
 		$template	= new template();
 		$template->isDialog(true);
-	
+
 		if(in_array($BuildID, $reslist['prod']) && $BuildID != 212)
 		{
 			$BuildLevelFactor	= 10;
@@ -150,12 +149,12 @@ class ShowInfosPage
 			$Prod[4] 			= round(eval($ProdGrid[$BuildID]['formule']['energy'])    * $CONF['resource_multiplier']);
 			$Prod[12] 			= round(eval($ProdGrid[$BuildID]['formule']['energy'])    * $CONF['resource_multiplier']);
 			$BuildStartLvl   	= max($CurrentBuildtLvl - 2, 1);
-						
+
 			$ActualProd			= floor($Prod[$BuildID]);
 			$ActualNeed			= $BuildID != 12 ? floor($Prod[4]) : floor($Prod[3]);
 
 			$ProdFirst = 0;
-			
+
 			for($BuildLevel = $BuildStartLvl; $BuildLevel < $BuildStartLvl + 15; $BuildLevel++ )
 			{
 				$Prod[1]    = round(eval($ProdGrid[$BuildID]['formule']['metal'])     * $CONF['resource_multiplier']);
@@ -164,9 +163,9 @@ class ShowInfosPage
 				$Prod[7]    = round(eval($ProdGrid[$BuildID]['formule']['norio'])     * $CONF['resource_multiplier']);
 				$Prod[4] 	= round(eval($ProdGrid[$BuildID]['formule']['energy'])    * $CONF['resource_multiplier']);
 				$Prod[12] 	= round(eval($ProdGrid[$BuildID]['formule']['energy'])    * $CONF['resource_multiplier']);
-				
+
 				$NeesRess	= $BuildID != 12 ? floor($Prod[4]) : floor($Prod[3]);
-				
+
 				$prod		= pretty_number(floor($Prod[$BuildID]));
 				$prod_diff	= colorNumber(pretty_number(floor($Prod[$BuildID] - $ActualProd)));
 				$need		= colorNumber(pretty_number(floor($NeesRess)));
@@ -174,7 +173,7 @@ class ShowInfosPage
 
 				if ($ProdFirst == 0)
 					$ProdFirst = floor($Prod[$BuildID]);
-				
+
 				$ProductionTable[] = array(
 					'BuildLevel'		=> $BuildLevel,
 					'prod'	     		=> $prod,
@@ -190,7 +189,7 @@ class ShowInfosPage
 			{
 				if ($CombatCaps[$BuildID]['sd'][$Type] > 1)
 					$RapidFire['to'][$LNG['tech'][$Type]] = $CombatCaps[$BuildID]['sd'][$Type];
-					
+
 				if ($CombatCaps[$Type]['sd'][$BuildID] > 1)
 					$RapidFire['from'][$LNG['tech'][$Type]] = $CombatCaps[$Type]['sd'][$BuildID];
 			}
@@ -210,7 +209,7 @@ class ShowInfosPage
 			{
 				if ($CombatCaps[$BuildID]['sd'][$Type] > 1)
 					$RapidFire['to'][$LNG['tech'][$Type]] = $CombatCaps[$BuildID]['sd'][$Type];
-					
+
 				if ($CombatCaps[$Type]['sd'][$BuildID] > 1)
 					$RapidFire['from'][$LNG['tech'][$Type]] = $CombatCaps[$Type]['sd'][$BuildID];
 			}
@@ -233,9 +232,9 @@ class ShowInfosPage
 				'gate_moons'		=> $this->BuildJumpableMoonCombo($USER, $PLANET),
 				'gate_fleets'		=> $this->BuildFleetListRows($PLANET),
 			));
-				
+
 		}
-		
+
 		if (in_array($BuildID, $reslist['tech']))
 		{
 			$description = $OfficerInfo[$BuildID]['info'] ? sprintf($LNG['info'][$BuildID]['description'], ((is_float($OfficerInfo[$BuildID]['info']))? $OfficerInfo[$BuildID]['info'] * 100 : $OfficerInfo[$BuildID]['info']), $pricelist[$BuildID]['max']) : sprintf($LNG['info'][$BuildID]['description'], $pricelist[$BuildID]['max']);
@@ -244,38 +243,38 @@ class ShowInfosPage
 		{
 			$description = $LNG['info'][$BuildID]['description'];
 		}
-	
+
 		if($USER['raza'] == 0) {
 		$skin = "gultra";
 		} elseif ($USER['raza'] == 1) {
 		$skin = "voltra";
-		} 
-	
+		}
+
 		if($BuildID == 202 or $BuildID == 203 or $BuildID == 209 or $BuildID == 217 or $BuildID == 219) {
 			$tipo = "<div class=\"imagen_tipo\"><center><img src=\"styles/theme/" .$skin ."/imagenes/otros/fragata.png\" width=\"70\" height=\"69\"/><br /><b>" .$LNG['fragatas'] ."</b></center></div>";
 		}
-		
+
 		if($BuildID == 204 or $BuildID == 205) {
 			$tipo = "<div class=\"imagen_tipo\"><center><img src=\"styles/theme/" .$skin ."/imagenes/otros/cazador.png\" width=\"70\" height=\"64\"/><br /><b>" .$LNG['cazador'] ."</b></center></div>";
 		}
-		
+
 		if($BuildID == 206 or $BuildID == 207) {
 			$tipo = "<div class=\"imagen_tipo\"><center><img src=\"styles/theme/" .$skin ."/imagenes/otros/crucero.png\" width=\"70\" height=\"66\"/><br /><b>" .$LNG['cruceros'] ."</b></center></div>";
 		}
-		
+
 		if($BuildID == 208 or $BuildID == 212 or $BuildID == 210 or $BuildID == 220) {
 			$tipo = "<div class=\"imagen_tipo\"><center><img src=\"styles/theme/" .$skin ."/imagenes/otros/civil.png\" width=\"70\" height=\"69\"/><br /><b>" .$LNG['civil'] ."</b></center></div>";
 		}
-		
+
 		if($BuildID == 211 or $BuildID == 213 or $BuildID == 215) {
 			$tipo = "<div class=\"imagen_tipo\"><center><img src=\"styles/theme/" .$skin ."/imagenes/otros/insignia.png\" width=\"70\" height=\"77\"/><br /><b>" .$LNG['insignia'] ."</b></center></div>";
 		}
-		
+
 		if($BuildID == 214 or $BuildID == 216 or $BuildID == 218) {
 			$tipo = "<div class=\"imagen_tipo\"><center><img src=\"styles/theme/" .$skin ."/imagenes/otros/capital.png\" width=\"70\" height=\"77\"/><br /><b>" .$LNG['capital'] ."</b></center></div>";
 		}
-		
-		$template->assign_vars(array(		
+
+		$template->assign_vars(array(
 			'id'							=> $BuildID,
 			'name'							=> $LNG['info'][$BuildID]['name'],
 			'image'							=> $BuildID,
@@ -302,7 +301,7 @@ class ShowInfosPage
 			'in_jump_gate_wait_time'		=> $LNG['in_jump_gate_wait_time'],
 			'Raza_skin'		=> $skin,
 		));
-		
+
 		$template->show('info_overview.tpl');
 	}
 }

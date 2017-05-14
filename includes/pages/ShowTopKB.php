@@ -1,11 +1,10 @@
 <?php
 
 /**
- _  \_/ |\ | /¯¯\ \  / /\    |¯¯) |_¯ \  / /¯¯\ |  |   |´¯|¯` | /¯¯\ |\ |5
- ¯  /¯\ | \| \__/  \/ /--\   |¯¯\ |__  \/  \__/ |__ \_/   |   | \__/ | \|Core.
- * @author: Copyright (C) 2011 by Brayan Narvaez (Prinick) developer of xNova Revolution
- * @author web: http://www.bnarvaez.com
- * @link: http://www.xnovarev.com
+ _  \_/ |\ | /Â¯Â¯\ \  / /\    |Â¯Â¯) |_Â¯ \  / /Â¯Â¯\ |  |   |Â´Â¯|Â¯` | /Â¯Â¯\ |\ |6
+ Â¯  /Â¯\ | \| \__/  \/ /--\   |Â¯Â¯\ |__  \/  \__/ |__ \_/   |   | \__/ | \|Core Redesigned.
+ * @author: Copyright (C) 2017 by xNova Revolution
+ * @author web: https://danieljsaldaÃ±a.com
 
  * @package 2Moons
  * @author Slaver <slaver7@gmail.com>
@@ -24,12 +23,12 @@ function ShowTopKB()
 	$mode = request_var('mode','');
 
 	$template	= new template();
-	
+
 	switch($mode){
 		case "showkb":
-			
+
 			$LANG->includeLang(array('FLEET'));
-			
+
 			$ReportID 	= request_var('rid','');
 			if(file_exists(ROOT_PATH.'raports/topkb_'.$ReportID.'.php')) {
 				require_once(ROOT_PATH.'raports/topkb_'.$ReportID.'.php');
@@ -38,7 +37,7 @@ function ShowTopKB()
 					$template->message($LNG['sys_raport_not_found'], 0, false, true);
 					exit;
 			}
-			
+
 			foreach ($LNG['tech_rc'] as $id => $s_name)
 			{
 				$ship[]  		= "[ship[".$id."]]";
@@ -46,21 +45,21 @@ function ShowTopKB()
 			}
 
 			$raport			= preg_replace("/\[\d+\:\d+\:\d+\]/i", "[X:X:X]", $raport);
-			
+
 			$template->isPopup(true);
 			$template->assign_vars(array(
 				'attacker'	=> $RaportRAW['angreifer'],
 				'defender'	=> $RaportRAW['defender'],
 				'report'	=> $raport,
 			));
-			
+
 			$template->show("topkb/topkb_report.tpl");
 		break;
 		default:
 			$PlanetRess = new ResourceUpdate();
 			$PlanetRess->CalcResource();
 			$PlanetRess->SavePlanetToDB();
-			
+
 			$top = $db->query("SELECT * FROM ".TOPKB." WHERE `universe` = '".$UNI."' ORDER BY gesamtunits DESC LIMIT 100;");
 			while($data = $db->fetch_array($top)) {
 				$TopKBList[]	= array(
@@ -73,10 +72,10 @@ function ShowTopKB()
 					'result'	=> $data['fleetresult'],
 				);
 			}
-			
+
 			$db->free_result($top);
-			
-			$template->assign_vars(array(	
+
+			$template->assign_vars(array(
 				'tkb_units'		=> $LNG['tkb_units'],
 				'tkb_datum'		=> $LNG['tkb_datum'],
 				'tkb_owners'	=> $LNG['tkb_owners'],
@@ -88,7 +87,7 @@ function ShowTopKB()
 				'tkb_verlierer'	=> $LNG['tkb_verlierer'],
 				'TopKBList'		=> $TopKBList,
 			));
-			
+
 			$template->show("topkb/topkb_overview.tpl");
 		break;
 	}

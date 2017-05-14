@@ -1,11 +1,10 @@
 <?php
 
 /**
- _  \_/ |\ | /¯¯\ \  / /\    |¯¯) |_¯ \  / /¯¯\ |  |   |´¯|¯` | /¯¯\ |\ |5
- ¯  /¯\ | \| \__/  \/ /--\   |¯¯\ |__  \/  \__/ |__ \_/   |   | \__/ | \|Core.
- * @author: Copyright (C) 2011 by Brayan Narvaez (Prinick) developer of xNova Revolution
- * @author web: http://www.bnarvaez.com
- * @link: http://www.xnovarev.com
+ _  \_/ |\ | /Â¯Â¯\ \  / /\    |Â¯Â¯) |_Â¯ \  / /Â¯Â¯\ |  |   |Â´Â¯|Â¯` | /Â¯Â¯\ |\ |6
+ Â¯  /Â¯\ | \| \__/  \/ /--\   |Â¯Â¯\ |__  \/  \__/ |__ \_/   |   | \__/ | \|Core Redesigned.
+ * @author: Copyright (C) 2017 by xNova Revolution
+ * @author web: https://danieljsaldaÃ±a.com
 
  * @package 2Moons
  * @author Slaver <slaver7@gmail.com>
@@ -23,24 +22,24 @@ if(!defined('INSIDE')) die('Hacking attempt!');
 	function GetBuildingTime ($USER, $PLANET, $Element, $Destroy = false)
 	{
 		global $pricelist, $resource, $reslist, $requeriments;
-		
+
 		$CONF	= getConfig($USER['universe']);
 		$level = isset($PLANET[$resource[$Element]]) ? $PLANET[$resource[$Element]] : $USER[$resource[$Element]];
-				
+
 		$Cost   = floor($pricelist[$Element]['metal'] * pow($pricelist[$Element]['factor'], $level)) + floor($pricelist[$Element]['crystal'] * pow($pricelist[$Element]['factor'], $level));
-	
+
 		if (in_array($Element, $reslist['build'])) {
-			
-		if($USER['commander'] >= 1 xor $USER['raza'] == 0) {		
-			$tiempo	= $Cost / ($CONF['game_speed'] * (1 + $PLANET[$resource[14]])) * pow(0.5, $PLANET[$resource[15]]);	
+
+		if($USER['commander'] >= 1 xor $USER['raza'] == 0) {
+			$tiempo	= $Cost / ($CONF['game_speed'] * (1 + $PLANET[$resource[14]])) * pow(0.5, $PLANET[$resource[15]]);
 			$porcentaje = $tiempo * 10/100;
 			$time = $tiempo - $porcentaje;
 		} elseif($USER['commander'] >= 1 and $USER['raza'] == 0) {
-		$tiempo	= $Cost / ($CONF['game_speed'] * (1 + $PLANET[$resource[14]])) * pow(0.5, $PLANET[$resource[15]]);	
+		$tiempo	= $Cost / ($CONF['game_speed'] * (1 + $PLANET[$resource[14]])) * pow(0.5, $PLANET[$resource[15]]);
 			$porcentaje = $tiempo * 20/100;
 			$time = $tiempo - $porcentaje;
 		} else {
-			$time			= $Cost / ($CONF['game_speed'] * (1 + $PLANET[$resource[14]])) * pow(0.5, $PLANET[$resource[15]]);	
+			$time			= $Cost / ($CONF['game_speed'] * (1 + $PLANET[$resource[14]])) * pow(0.5, $PLANET[$resource[15]]);
 		} } elseif (in_array($Element, $reslist['fleet'])) {
 			if($USER['commander'] >= 1 xor $USER['raza'] == 1) {
 			@$tiempo			= $Cost / ($CONF['game_speed'] * (1 + ($PLANET[$resource[21]] + $PLANET[$resource[14]]))) * pow(0.5, $PLANET[$resource[15]]);
@@ -51,7 +50,7 @@ if(!defined('INSIDE')) die('Hacking attempt!');
 			$porcentaje = $tiempo * 20/100;
 			$time = $tiempo - $porcentaje;
 		} else {
-			@$time			= $Cost / ($CONF['game_speed'] * (1 + ($PLANET[$resource[21]] + $PLANET[$resource[14]]))) * pow(0.5, $PLANET[$resource[15]]);	
+			@$time			= $Cost / ($CONF['game_speed'] * (1 + ($PLANET[$resource[21]] + $PLANET[$resource[14]]))) * pow(0.5, $PLANET[$resource[15]]);
 		} }elseif (in_array($Element, $reslist['defense'])) {
 			if($USER['commander'] >= 1) {
 			@$tiempo= $Cost / ($CONF['game_speed'] * (1 + ($PLANET[$resource[21]] + $PLANET[$resource[14]]))) * pow(0.5, $PLANET[$resource[15]]);
@@ -72,7 +71,7 @@ if(!defined('INSIDE')) die('Hacking attempt!');
 			} else{
 				$Level	= $PLANET[$resource[31]];
 			}
-			
+
 			if($USER['commander'] >= 1 and $USER['technocratic'] >= 1) {
 				#Nuevo valor de prueba, hay que ver si ahora resulta.
 				$tiempo			= $Cost / ($CONF['game_speed'] * (1 + $PLANET[$resource[31]])) * pow(0.5, $PLANET[$resource[6]]) + (0.3 - $comandante_tecnos);
@@ -100,14 +99,14 @@ if(!defined('INSIDE')) die('Hacking attempt!');
 				$time = $tiempo - $porcentaje;
 			} else { #Nuevo valor de prueba, hay que ver si ahora resulta (Sin comandante).
 				$time			= $Cost / ($CONF['game_speed'] * (1 + $PLANET[$resource[31]])) * pow(0.5, $PLANET[$resource[6]]) + (0.3 - $comandante_tecnos);
-			}			
+			}
         }
-		
+
 		if(!$Destroy)
 			$time	= floor($time * 3600);
 		else
 			$time	= floor($time * 1300);
-		
+
 		return max($time, $CONF['min_build_time']);
 	}
 

@@ -1,11 +1,10 @@
 <?php
 
 /**
- _  \_/ |\ | /¯¯\ \  / /\    |¯¯) |_¯ \  / /¯¯\ |  |   |´¯|¯` | /¯¯\ |\ |5
- ¯  /¯\ | \| \__/  \/ /--\   |¯¯\ |__  \/  \__/ |__ \_/   |   | \__/ | \|Core.
- * @author: Copyright (C) 2011 by Brayan Narvaez (Prinick) developer of xNova Revolution
- * @author web: http://www.bnarvaez.com
- * @link: http://www.xnovarev.com
+ _  \_/ |\ | /Â¯Â¯\ \  / /\    |Â¯Â¯) |_Â¯ \  / /Â¯Â¯\ |  |   |Â´Â¯|Â¯` | /Â¯Â¯\ |\ |6
+ Â¯  /Â¯\ | \| \__/  \/ /--\   |Â¯Â¯\ |__  \/  \__/ |__ \_/   |   | \__/ | \|Core Redesigned.
+ * @author: Copyright (C) 2017 by xNova Revolution
+ * @author web: https://danieljsaldaÃ±a.com
 
  * @package 2Moons
  * @author Slaver <slaver7@gmail.com>
@@ -32,25 +31,25 @@ class ShowAlliancePage
 			elseif($CurDiplo['accept'] == 0 && $CurDiplo['owner_1'] == $allyid)
 				$Return[6][$CurDiplo['id']] = array($CurDiplo['ally_name'], $CurDiplo['ally_id'], $CurDiplo['level'], $CurDiplo['accept_text'], $CurDiplo['ally_tag']);
 			else
-				$Return[$CurDiplo['level']][$CurDiplo['id']] = array($CurDiplo['ally_name'], $CurDiplo['ally_id'], $CurDiplo['owner_1'], $CurDiplo['ally_tag']);				
+				$Return[$CurDiplo['level']][$CurDiplo['id']] = array($CurDiplo['ally_name'], $CurDiplo['ally_id'], $CurDiplo['owner_1'], $CurDiplo['ally_tag']);
 		}
 		return $Return;
 	}
 
-	private function ainfo($ally, $template) 
+	private function ainfo($ally, $template)
 	{
 		global $LNG, $db, $USER, $PLANET;
-		
+
 		require_once(ROOT_PATH.'includes/functions/BBCode.php');
-		
+
 		if ($ally['ally_diplo'] == 1 && ($DiploInfo = $this->GetDiplo($ally['id'])) !== array())
 		{
 			$template->assign_vars(array(
-				'DiploInfo'			=> $DiploInfo,		
+				'DiploInfo'			=> $DiploInfo,
 				'al_diplo_level'	=> $LNG['al_diplo_level'],
 				'al_diplo'			=> $LNG['al_diplo'],
 			));
-		}	
+		}
 		if ($ally['ally_stats'] == 1)
 		{
 			$StatsData 					= $db->uniquequery("SELECT SUM(wons) as wons, SUM(loos) as loos, SUM(draws) as draws, SUM(kbmetal) as kbmetal, SUM(kbcrystal) as kbcrystal, SUM(kbnorio) as kbnorio, SUM(lostunits) as lostunits, SUM(desunits) as desunits FROM ".USERS." WHERE ally_id='" . $ally['id'] . "';");
@@ -59,7 +58,7 @@ class ShowAlliancePage
 	$skin_raza = "gultra";
 		} elseif ($USER['raza'] == 1) {
 	$skin_raza = "voltra";
-	} 
+	}
 			$template->assign_vars(array(
 				'al_Allyquote'	=> $LNG['al_Allyquote'],
 				'pl_totalfight'	=> $LNG['pl_totalfight'],
@@ -83,7 +82,7 @@ class ShowAlliancePage
 				'dernorio'	    => pretty_number($StatsData['kbnorio']),
 			));
 		}
-	
+
 		$template->assign_vars(array(
 			'al_ally_info_members'		=> $LNG['al_ally_info_members'],
 			'al_ally_info_name'			=> $LNG['al_ally_info_name'],
@@ -106,10 +105,10 @@ class ShowAlliancePage
 			'ally_diplo' 				=> $ally['ally_diplo'],
 			'ally_request'          	=> ($USER['ally_id'] == 0 && $ally['ally_request_notallow'] == 0) ? true : false,
 		));
-		
+
 		$template->show("alianza/alliance_ainfo.tpl");
 	}
-	
+
 	public function __construct()
 	{
 		global $USER, $PLANET, $LNG, $db, $UNI;
@@ -127,19 +126,19 @@ class ShowAlliancePage
 		$action   	= request_var('action' 		, '');
 		$allyid   	= request_var('allyid'  	, '');
 		$tag      	= request_var('tag' 		, '');
-		
+
 		$PlanetRess = new ResourceUpdate();
 		$PlanetRess->CalcResource();
 		$PlanetRess->SavePlanetToDB();
-			
-	
+
+
 		$template	= new template();
 		if ($USER['ally_id'] != 0 && $USER['ally_request'] != 0)
 		{
 			$db->query("UPDATE `".USERS."` SET `ally_id` = 0 WHERE `id` = ".$USER['id'].";");
 			redirectTo("game.php?page=alliance");
 		}
-		
+
 		switch($USER['ally_id'])
 		{
 			case 0:
@@ -148,26 +147,26 @@ class ShowAlliancePage
 						$allyrow = $db->uniquequery("SELECT * FROM ".ALLIANCE." WHERE ally_tag='".$db->sql_escape($tag)."' OR id='".$db->sql_escape($a)."';");
 
 						if (!$allyrow) die(redirectTo("game.php?page=alliance"));
-						
-						$this->ainfo($allyrow, $template);					
+
+						$this->ainfo($allyrow, $template);
 					break;
 					case 'make':
-						
+
 						if($USER['total_points'] < 10000) {
-						 $template->message($LNG['al_nivel_error'], "?page=alliance", 5);		
+						 $template->message($LNG['al_nivel_error'], "?page=alliance", 5);
 						 exit;
 						}
-						
+
 						if($USER['ally_request'] == 0)
-						{	
+						{
 							if ($action == "send")
 							{
 								$atag	= request_var('atag' , '', UTF8_SUPPORT);
 								$aname	= request_var('aname', '', UTF8_SUPPORT);
-								
+
 						if (empty($atag)) {
                            $template->message($LNG['al_tag_required'], "?page=alliance&mode=make", 3);
-                        exit;   
+                        exit;
                         }
                         if (empty($aname)) {
                            $template->message($LNG['al_name_required'], "?page=alliance&mode=make", 3);
@@ -176,12 +175,12 @@ class ShowAlliancePage
                         if (!AlianzaNombre($aname) || !AlianzaNombre($atag)) {
                            $template->message((UTF8_SUPPORT) ? $LNG['al_newname_no_space'] : $LNG['al_newname_alphanum'], "?page=alliance&mode=make", 3);
                         exit;
-                        }								
+                        }
 								$tagquery = $db->countquery("SELECT COUNT(*) FROM `".ALLIANCE."` WHERE `ally_universe` = '".$UNI."' AND (ally_tag = '".$db->sql_escape($atag)."' OR ally_name = '".$db->sql_escape($aname)."');");
 
 								if ($tagquery != 0)
 									$template->message(sprintf($LNG['al_already_exists'], $aname), "?page=alliance&mode=make", 3);
-								
+
 								$db->multi_query("INSERT INTO ".ALLIANCE." SET
 								`ally_name`                             = '".$db->sql_escape($aname)."',
                                 `ally_tag`                              = '".$db->sql_escape($atag)."' ,
@@ -198,24 +197,24 @@ class ShowAlliancePage
                                 UPDATE ".STATPOINTS." SET
                                 `id_ally`                               = (SELECT `id` FROM ".ALLIANCE." WHERE `ally_universe` = ".$UNI." AND ally_name = '".$db->sql_escape($aname)."')
                                 WHERE `id_owner` = ".$USER['id'].";");
-										
+
 								$template->message(sprintf($LNG['al_created'], $atag),"?page=alliance", 3);
 							} else {
 									if($USER['raza'] == 0) {
 	$skin_raza = "gultra";
 		} elseif ($USER['raza'] == 1) {
 	$skin_raza = "voltra";
-	} 
+	}
 								$template->assign_vars(array(
 									'al_make_alliance'				=> $LNG['al_make_alliance'],
 									'al_make_ally_tag_required'		=> $LNG['al_make_ally_tag_required'],
 									'al_make_ally_name_required'	=> $LNG['al_make_ally_name_required'],
 									'Raza_skin'   => $skin_raza,
 									'al_make_submit'				=> $LNG['al_make_submit'],
-								));	
+								));
 								$template->show("alianza/alliance_make.tpl");
-							}		
-						
+							}
+
 						} else {
 							redirectTo("game.php?page=alliance");
 						}
@@ -229,23 +228,23 @@ class ShowAlliancePage
 							{
 								$Search = $db->query("SELECT id, ally_tag, ally_name, ally_members FROM ".ALLIANCE." WHERE ally_name LIKE '%".$db->sql_escape($searchtext, true)."%' OR ally_tag LIKE '%".$db->sql_escape($searchtext, true)."%' LIMIT 30;");
 								$SeachResult	= array();
-								
+
 								while ($CurrRow = $db->fetch_array($Search))
 								{
 									$SeachResult[]	= array(
 										'id'		=> $CurrRow['id'],
 										'tag'		=> $CurrRow['ally_tag'],
 										'name'		=> $CurrRow['ally_name'],
-										'members' 	=> $CurrRow['ally_members'],									
+										'members' 	=> $CurrRow['ally_members'],
 									);
 								}
 							}
-							
+
 								if($USER['raza'] == 0) {
 	$skin_raza = "gultra";
 		} elseif ($USER['raza'] == 1) {
 	$skin_raza = "voltra";
-	} 
+	}
 							$template->assign_vars(array(
 								'searchtext'						=> $searchtext,
 								'SeachResult'						=> $SeachResult,
@@ -258,8 +257,8 @@ class ShowAlliancePage
 								'al_ally_info_name'					=> $LNG['al_ally_info_name'],
 								'Raza_skin'   => $skin_raza,
 								'al_ally_info_tag'					=> $LNG['al_ally_info_tag'],
-							));	
-							
+							));
+
 							$template->show("alianza/alliance_searchform.tpl");
 						} else {
 							redirectTo("game.php"."?page=alliance");
@@ -269,12 +268,12 @@ class ShowAlliancePage
 						if($USER['ally_request'] == 0)
 						{
 							$text	= request_var('text' , '', true);
-							
+
 							$allyrow = $db->uniquequery("SELECT `ally_tag`, `ally_request`, `ally_request_notallow` FROM ".ALLIANCE." WHERE id='".$db->sql_escape($allyid)."';");
 
 							if (!$allyrow)
 								redirectTo("game.php?page=alliance");
-									
+
 							if($allyrow['ally_request_notallow'] == 1)
 							{
 								$template->message($LNG['al_alliance_closed']);
@@ -292,7 +291,7 @@ class ShowAlliancePage
 	$skin_raza = "gultra";
 		} elseif ($USER['raza'] == 1) {
 	$skin_raza = "voltra";
-	} 
+	}
 									$template->assign_vars(array(
 										'allyid'					=> $allyid,
 										'al_your_request_title'		=> $LNG['al_your_request_title'],
@@ -302,8 +301,8 @@ class ShowAlliancePage
 										'al_applyform_send'			=> $LNG['al_applyform_send'],
 										'Raza_skin'   => $skin_raza,
 										'al_message'				=> $LNG['al_message'],
-									));	
-									
+									));
+
 									$template->show("alianza/alliance_applyform.tpl");
 								}
 							}
@@ -312,11 +311,11 @@ class ShowAlliancePage
 						}
 					break;
 					default:
-						if ($USER['ally_request'] != 0) 
+						if ($USER['ally_request'] != 0)
 						{
 							$allyquery 	= $db->uniquequery("SELECT ally_tag FROM ".ALLIANCE." WHERE id = '".$USER['ally_request']. "' ORDER BY `id`;");
 							$bcancel	= request_var('bcancel', '');
-							
+
 							if ($bcancel)
 							{
 								$db->query("UPDATE ".USERS." SET `ally_request`= 0 WHERE `id`='".$USER['id']."';");
@@ -325,22 +324,22 @@ class ShowAlliancePage
 									'button_text'					=> $LNG['al_continue'],
 									'request_text'					=> sprintf($LNG['al_request_deleted'], $allyquery['ally_tag']),
 									'al_make_submit'				=> $LNG['al_continue'],
-								));	
+								));
 							}
 							else
-							{								
+							{
 									if($USER['raza'] == 0) {
 	$skin_raza = "gultra";
 		} elseif ($USER['raza'] == 1) {
 	$skin_raza = "voltra";
-	} 
+	}
 								$template->assign_vars(array(
 									'al_your_request_title'			=> $LNG['al_your_request_title'],
 									'button_text'					=> $LNG['al_delete_request'],
 									'request_text'					=> sprintf($LNG['al_request_wait_message'], $allyquery['ally_tag']),
 									'Raza_skin'   => $skin_raza,
 									'al_make_submit'				=> $LNG['al_make_submit'],
-								));	
+								));
 							}
 
 							$template->show("alianza/alliance_apply_waitform.tpl");
@@ -351,13 +350,13 @@ class ShowAlliancePage
 	$skin_raza = "gultra";
 		} elseif ($USER['raza'] == 1) {
 	$skin_raza = "voltra";
-	} 
+	}
 							$template->assign_vars(array(
 								'al_alliance_search'			=> $LNG['al_alliance_search'],
 								'al_alliance_make'				=> $LNG['al_alliance_make'],
 								'Raza_skin'   => $skin_raza,
 								'al_alliance'					=> $LNG['al_alliance'],
-							));	
+							));
 							$template->show("alianza/alliance_defaultmenu.tpl");
 						}
 					break;
@@ -372,7 +371,7 @@ class ShowAlliancePage
 					redirectTo("game.php?page=alliance");
 				}
 				$ally_ranks = unserialize($ally['ally_ranks']);
-				
+
 				$USER['rights']['memberlist_on']	= ($ally_ranks[$USER['ally_rank_id']-1]['onlinestatus'] == 1 || $ally['ally_owner'] == $USER['id']) ? true : false;
 				$USER['rights']['memberlist']		= ($ally_ranks[$USER['ally_rank_id']-1]['memberlist'] == 1 || $ally['ally_owner'] == $USER['id']) ? true : false;
 				$USER['rights']['roundmail']		= ($ally_ranks[$USER['ally_rank_id']-1]['mails'] == 1 || $ally['ally_owner'] == $USER['id']) ? true : false;
@@ -388,8 +387,8 @@ class ShowAlliancePage
 						$allyrow = $db->uniquequery("SELECT * FROM ".ALLIANCE." WHERE ally_tag='".$db->sql_escape($tag)."' OR id='".$db->sql_escape($a)."';");
 
 						if (!$allyrow) redirectTo("game.php?page=alliance");
-						
-						$this->ainfo($allyrow, $template);	
+
+						$this->ainfo($allyrow, $template);
 					break;
 					case 'exit':
 						if ($ally['ally_owner'] == $USER['id'])
@@ -405,7 +404,7 @@ class ShowAlliancePage
 					case 'memberslist':
 						if (!$USER['rights']['memberlist'])
 							redirectTo("game.php?page=alliance");
-						
+
 						if ($sort1 && $sort2)
 						{
 							switch($sort1)
@@ -429,13 +428,13 @@ class ShowAlliancePage
 									$sort = " ORDER BY `id`";
 								break;
 							}
-							
+
 							if ($sort2 == 1) {
 								$sort .= " DESC;";
 							} elseif ($sort2 == 2) {
 								$sort .= " ASC;";
 							}
-							
+
 							$listuser = $db->query("SELECT DISTINCT u.id, u.username,u.galaxy, u.system, u.planet, u.ally_register_time, u.onlinetime, u.ally_rank_id, s.total_points FROM `".USERS."` as u LEFT JOIN ".STATPOINTS." as s ON s.`stat_type` = '1' AND s.`id_owner` = u.`id` WHERE ally_id = '".$USER['ally_id']."'".$sort.";");
 						}
 						else
@@ -449,7 +448,7 @@ class ShowAlliancePage
 								$UserRow['ally_range'] = $ally_ranks[$UserRow['ally_rank_id']-1]['name'];
 							else
 								$UserRow['ally_range'] = $LNG['al_new_member_rank_text'];
-							
+
 							$Memberlist[]	= array(
 								'id'			=> $UserRow['id'],
 								'username'		=> $UserRow['username'],
@@ -462,16 +461,16 @@ class ShowAlliancePage
 								'onlinetime'	=> floor((TIMESTAMP - $UserRow['onlinetime']) / 60),
 							);
 						}
-						
+
 						if (count($Memberlist) != $ally['ally_members'])
-							$db->query("UPDATE ".ALLIANCE." SET `ally_members`='".count($Memberlist)."' WHERE `id`='".$ally['id']."';");				
-						
+							$db->query("UPDATE ".ALLIANCE." SET `ally_members`='".count($Memberlist)."' WHERE `id`='".$ally['id']."';");
+
 							if($USER['raza'] == 0) {
 	$skin_raza = "gultra";
 		} elseif ($USER['raza'] == 1) {
 	$skin_raza = "voltra";
-	} 
-	
+	}
+
 						$template->assign_vars(array(
 							'Memberlist'		=> $Memberlist,
 							'sort'				=> ($sort2 == 1) ? 2 : 1,
@@ -491,8 +490,8 @@ class ShowAlliancePage
 							'Raza_skin'   => $skin_raza,
 							'al_memberlist_min'	=> $LNG['al_memberlist_min'],
 						));
-						
-						$template->show("alianza/alliance_memberslist.tpl");						
+
+						$template->show("alianza/alliance_memberslist.tpl");
 					break;
 					case 'circular':
 						if (!$USER['rights']['roundmail'])
@@ -503,13 +502,13 @@ class ShowAlliancePage
 							$r 			= request_var('r', 0);
 							$subject 	= request_var('subject', '', true);
 							$text 		= makebr(request_var('text', '', true));
-								
+
 							$sq = $r == 0 ? $db->query("SELECT id, username FROM ".USERS." WHERE `ally_id` = '".$USER['ally_id']."';") : $db->query("SELECT id, username FROM ".USERS." WHERE `ally_id` = '".$USER['ally_id']."' AND `ally_rank_id` = '".$r."';");
 
 							$list 	= '';
 							$title	= $LNG['al_circular_alliance'].$ally['ally_tag'];
 							$text	= sprintf($LNG['al_circular_front_text'], $USER['username'])."<br>".$text;
-							
+
 							while ($u = $db->fetch_array($sq))
 							{
 								SendSimpleMessage($u['id'], $USER['id'], TIMESTAMP, 2, $title, $subject, $text);
@@ -527,13 +526,13 @@ class ShowAlliancePage
 								$RangeList[$id + 1]	= $array['name'];
 							}
 						}
-						
+
 							if($USER['raza'] == 0) {
 	$skin_raza = "gultra";
 		} elseif ($USER['raza'] == 1) {
 	$skin_raza = "voltra";
-	} 
-						
+	}
+
 						$template->assign_vars(array(
 							'RangeList'						=> $RangeList,
 							'al_circular_send_ciruclar'		=> $LNG['al_circular_send_ciruclar'],
@@ -546,7 +545,7 @@ class ShowAlliancePage
 							'mg_no_subject'					=> $LNG['mg_no_subject'],
 							'Raza_skin'   => $skin_raza,
 							'mg_empty_text'					=> $LNG['mg_empty_text'],
-						));	
+						));
 						$template->show("alianza/alliance_circular.tpl");
 					break;
 					case 'admin':
@@ -554,9 +553,9 @@ class ShowAlliancePage
 						switch($edit) {
 							case 'rights':
 								if (!$USER['rights']['righthand']) exit(redirectTo("game.php?page=alliance"));
-								
+
 								$rankname 	= request_var('newrangname', '', UTF8_SUPPORT);
-								$pid 		= $_POST['id'];			
+								$pid 		= $_POST['id'];
 								$d    		= request_var('d', 1337 );
 								if (!empty($rankname))
 								{
@@ -608,7 +607,7 @@ class ShowAlliancePage
 									unset($ally_ranks[$d]);
 									$db->query("UPDATE ".ALLIANCE." SET `ally_ranks`='".serialize($ally_ranks)."' WHERE `id`='".$ally['id']."';");
 								}
-													
+
 								if (is_array($ally_ranks))
 								{
 									foreach($ally_ranks as $a => $b)
@@ -633,7 +632,7 @@ class ShowAlliancePage
 	$skin_raza = "gultra";
 		} elseif ($USER['raza'] == 1) {
 	$skin_raza = "voltra";
-	} 
+	}
 								$template->assign_vars(array(
 									'AllyRanks'						=> $AllyRanks,
 									'memberlist_on'					=> $USER['rights']['memberlist_on'],
@@ -657,7 +656,7 @@ class ShowAlliancePage
 									'al_legend'						=> $LNG['al_legend'],
 									'Raza_skin'   => $skin_raza,
 									'al_legend_right_hand'			=> $LNG['al_legend_right_hand'],
-									'al_no_ranks_defined'			=> $LNG['al_no_ranks_defined'],  	
+									'al_no_ranks_defined'			=> $LNG['al_no_ranks_defined'],
 									'al_legend_kick_users'          => $LNG['al_legend_kick_users'],
 									'al_legend_disolve_alliance'	=> $LNG['al_legend_disolve_alliance'],
 									'al_legend_see_requests'		=> $LNG['al_legend_see_requests'],
@@ -666,7 +665,7 @@ class ShowAlliancePage
 									'al_legend_admin_alliance'		=> $LNG['al_legend_admin_alliance'],
 									'al_legend_see_connected_users'	=> $LNG['al_legend_see_connected_users'],
 									'al_legend_create_circular'		=> $LNG['al_legend_create_circular'],
-								));	
+								));
 
 								$template->show("alianza/alliance_admin_ranks.tpl");
 							break;
@@ -682,7 +681,7 @@ class ShowAlliancePage
 								elseif($action == "kick" && !empty($id) && $USER['rights']['kick'])
 								{
 									$u = $db->uniquequery("SELECT id FROM ".USERS." WHERE id = '".$db->sql_escape($id)."' AND `ally_id` = '".$ally['id']."' AND 'id' != '".$ally['ally_owner']."';");
-									
+
 									!empty($u['id']) ? $db->multi_query("UPDATE ".USERS." SET `ally_id` = '0', `ally_name` = '', `ally_rank_id` = 0 WHERE `id` = '".$u['id']."';UPDATE ".ALLIANCE." SET `ally_members` = ally_members - 1 WHERE `id` = '".$ally['id']."';UPDATE ".STATPOINTS." SET `id_ally` = '0' WHERE `id_ally` = '".$ally['id']."' AND `id_owner` = '".$u['id']."';") : '';
 								}
 
@@ -715,21 +714,21 @@ class ShowAlliancePage
 									} elseif ($sort2 == 2) {
 										$sort .= " ASC;";
 									}
-									
+
 									$listuser = $db->query("SELECT DISTINCT u.id, u.username,u.galaxy, u.system, u.planet, u.ally_register_time, u.ally_rank_id, u.onlinetime, s.total_points FROM `".USERS."` as u LEFT JOIN ".STATPOINTS." as s ON s.`stat_type` = '1' AND s.`id_owner` = u.`id` WHERE ally_id = '".$USER['ally_id']."'".$sort.";");
 								}
 								else
 									$listuser = $db->query("SELECT DISTINCT u.id, u.username,u.galaxy, u.system, u.planet, u.ally_register_time, u.ally_rank_id, u.onlinetime, s.total_points FROM `".USERS."` as u LEFT JOIN ".STATPOINTS." as s ON s.`stat_type` = '1' AND s.`id_owner` = u.`id` WHERE `ally_id` = '".$USER['ally_id']."';");
 
 								$Selector[0] = $LNG['al_new_member_rank_text'];
-								
+
 								if(is_array($ally_ranks))
 								{
 									foreach($ally_ranks as $a => $b)
 									{
 										$Selector[$a + 1] = $b['name'];
 									}
-								}	
+								}
 								while ($UserRow = $db->fetch_array($listuser))
 								{
 									if ($ally['ally_owner'] == $UserRow['id'])
@@ -738,7 +737,7 @@ class ShowAlliancePage
 										$UserRow['ally_range'] = $LNG['al_new_member_rank_text'];
 									else
 										$UserRow['ally_range'] = $ally_ranks[$UserRow['ally_rank_id']-1]['name'];
-									
+
 									$Memberlist[]	= array(
 										'id'			=> $UserRow['id'],
 										'username'		=> $UserRow['username'],
@@ -754,14 +753,14 @@ class ShowAlliancePage
 										'kick'			=> sprintf($LNG['al_kick_player'], $UserRow['username'])
 									);
 								}
-								
+
 								(count($Memberlist) != $ally['ally_members']) ? $db->query("UPDATE ".ALLIANCE." SET `ally_members`='".count($Memberlist)."' WHERE `id`='".$ally['id']."';") : '';
-								
+
 									if($USER['raza'] == 0) {
 	$skin_raza = "gultra";
 		} elseif ($USER['raza'] == 1) {
 	$skin_raza = "voltra";
-	} 								
+	}
 								$template->assign_vars(array(
 									'Selector'			=> $Selector,
 									'Memberlist'		=> $Memberlist,
@@ -786,7 +785,7 @@ class ShowAlliancePage
 							break;
 							case 'diplo':
 								(!$USER['rights']['righthand']) ? redirectTo("game.php?page=alliance") : '';
-								
+
 								$action		= request_var('action', '');
 								$id			= request_var('id', 0);
 								$Level		= request_var('level', 0);
@@ -801,9 +800,9 @@ class ShowAlliancePage
 											if($Level == 4)
 											{
 												$AllyUsers 	= $db->query("SELECT `id` FROM ".USERS." as s WHERE s.ally_id = '".$ally['id']."' OR s.ally_id = '".$id."';");
-												while($User = $db->fetch_array($AllyUsers)) {	
+												while($User = $db->fetch_array($AllyUsers)) {
 													SendSimpleMessage($User['id'], $USER['id'], TIMESTAMP, 2,$LNG['al_circular_alliance'].$ally['ally_tag']." &amp; ".$Alliances['ally_tag'], $LNG['al_diplo_war'], sprintf($LNG['al_diplo_war_mes'], $ally['ally_name'], $Alliances['ally_name'], $LNG['al_diplo_level'][$Level], $text));
-												}											
+												}
 											} else {
 												$RanksRAW = $db->uniquequery("SELECT `ally_ranks`, `ally_owner` FROM ".ALLIANCE." WHERE id = '".$id."';");
 												$Ranks = unserialize($RanksRAW['ally_ranks']);
@@ -824,7 +823,7 @@ class ShowAlliancePage
 													}
 												}
 												$AllyUsers = $db->query("SELECT `id` FROM ".USERS." WHERE (ally_id = '".$ally['id']."' AND (".$SendRank[0]."`id` = '".$ally['ally_owner']."')) OR (ally_id = '".$id."' AND (".$SendRank[1]."`id` = '".$RanksRAW['ally_owner']."'));");
-												while($User = $db->fetch_array($AllyUsers)) {	
+												while($User = $db->fetch_array($AllyUsers)) {
 													SendSimpleMessage($User['id'], $USER['id'], TIMESTAMP, 2,$LNG['al_circular_alliance'].$ally['ally_tag']." &amp; ".$Alliances['ally_tag'], $LNG['al_diplo_ask'], sprintf($LNG['al_diplo_ask_mes'], $LNG['al_diplo_level'][$Level], $ally['ally_name'], $Alliances['ally_name'], $text));
 												}
 
@@ -853,7 +852,7 @@ class ShowAlliancePage
 										if(!empty($id))
 										{
 											$AllyUsers = $db->query("SELECT `id` FROM ".USERS." as s WHERE s.ally_id = '".$ally['id']."' OR s.ally_id = '".$DiploInfo[5][$id][1]."';");
-											while($User = $db->fetch_array($AllyUsers)) {	
+											while($User = $db->fetch_array($AllyUsers)) {
 												SendSimpleMessage($User['id'], $USER['id'], TIMESTAMP, 2,$LNG['al_circular_alliance'].$ally['ally_tag']." &amp; ".$DiploInfo[5][$id][5], $LNG['al_diplo_accept_yes'], sprintf($LNG['al_diplo_accept_yes_mes'], $LNG['al_diplo_level'][$Level], $ally['ally_name'], $DiploInfo[5][$id][0]));
 											}
 											$db->query("UPDATE ".DIPLO." SET `accept` = '1', `accept_text` = '' WHERE `id`='".$id."' LIMIT 1;");
@@ -864,7 +863,7 @@ class ShowAlliancePage
 										if(!empty($id))
 										{
 											$AllyUsers 	= $db->query("SELECT `id` FROM ".USERS." as s WHERE s.ally_id = '".$ally['id']."' OR s.ally_id = '".$DiploInfo[5][$id][1]."';");
-											while($User = $db->fetch_array($AllyUsers)) {	
+											while($User = $db->fetch_array($AllyUsers)) {
 												SendSimpleMessage($User['id'], $USER['id'], TIMESTAMP, 2,$LNG['al_circular_alliance'].$ally['ally_tag']." &amp; ".$DiploInfo[5][$id][5], $LNG['al_diplo_accept_no'], sprintf($LNG['al_diplo_accept_no_mes'], $LNG['al_diplo_level'][$Level], $ally['ally_name'], $DiploInfo[5][$id][0]));
 											}
 											$db->query("DELETE FROM ".DIPLO." WHERE `id` ='".$id."' LIMIT 1;");
@@ -877,7 +876,7 @@ class ShowAlliancePage
 											if(isset($DiploInfo[$Level][$id][1]))
 											{
 												$AllyUsers = $db->query("SELECT `id` FROM ".USERS." as s WHERE s.ally_id = '".$ally['id']."' OR s.ally_id = '".$DiploInfo[$Level][$id][1]."';");
-												while($User = $db->fetch_array($AllyUsers)) {	
+												while($User = $db->fetch_array($AllyUsers)) {
 													SendSimpleMessage($User['id'], $USER['id'], TIMESTAMP, 2,$LNG['al_circular_alliance'].$ally['ally_tag']." &amp; ".$DiploInfo[$Level][$id][3], $LNG['al_diplo_delete'], sprintf($LNG['al_diplo_delete_mes'], $LNG['al_diplo_level'][$Level], $ally['ally_name'], $DiploInfo[$Level][$id][0]));
 												}
 											}
@@ -890,7 +889,7 @@ class ShowAlliancePage
 	$skin_raza = "gultra";
 		} elseif ($USER['raza'] == 1) {
 	$skin_raza = "voltra";
-	} 
+	}
 										$template->assign_vars(array(
 											'DiploInfo' 					=> $DiploInfo,
 											'al_diplo_create' 				=> $LNG['al_diplo_create'],
@@ -912,7 +911,7 @@ class ShowAlliancePage
 								}
 							break;
 							case 'requests':
-								
+
 								(!$USER['rights']['seeapply'] || !$USER['rights']['changeapply']) ? redirectTo("game.php?page=alliance") : '';
 
 								$text  	= makebr(request_var('text', '', true));
@@ -945,12 +944,12 @@ class ShowAlliancePage
 										'time' 		=> date(TDFORMAT, $RequestRow['ally_register_time']),
 									);
 								}
-							
+
 								if($USER['raza'] == 0) {
 	$skin_raza = "gultra";
 		} elseif ($USER['raza'] == 1) {
 	$skin_raza = "voltra";
-	} 
+	}
 								$template->assign_vars(array(
 									'RequestList'			=> $RequestList,
 									'requestcount'			=> sprintf($LNG['al_no_request_pending'],count($RequestList)),
@@ -966,45 +965,45 @@ class ShowAlliancePage
 									'al_decline_request'	=> $LNG['al_decline_request'],
 									'Raza_skin'   => $skin_raza,
 									'al_reply_to_request'	=> $LNG['al_reply_to_request'],
-								));	
+								));
 								$template->show("alianza/alliance_admin_request.tpl");
 							break;
 							case 'tag':
 								$name = request_var('newname', '', UTF8_SUPPORT);
-								
+
 								(!empty($name)) ? $db->query("UPDATE ".ALLIANCE." SET `ally_tag` = '". $db->sql_escape($name) ."' WHERE `id` = '". $USER['ally_id'] ."';") : '';
-									
+
 								if($USER['raza'] == 0) {
 	$skin_raza = "gultra";
 		} elseif ($USER['raza'] == 1) {
 	$skin_raza = "voltra";
-	} 
+	}
 							$template->assign_vars(array(
 									'caso'					=> $LNG['al_tag'],
 									'caso_titulo'			=> $LNG['al_new_tag'],
 									'al_change_submit'		=> $LNG['al_change_submit'],
 									'Raza_skin'   => $skin_raza,
 									'al_back'				=> $LNG['al_back'],
-								));	
+								));
 								$template->show("alianza/alliance_admin_rename.tpl");
 							break;
 							case 'name':
 								$name = request_var('newname', '', UTF8_SUPPORT);
-								
+
 								(!empty($name)) ? $db->multi_query("UPDATE ".ALLIANCE." SET `ally_name` = '". $db->sql_escape($name) ."' WHERE `id` = '". $USER['ally_id'] ."';UPDATE ".USERS." SET `ally_name` = '". $db->sql_escape($name) ."' WHERE `ally_id` = '". $ally['id'] ."';") : '';
-					
+
 									if($USER['raza'] == 0) {
 	$skin_raza = "gultra";
 		} elseif ($USER['raza'] == 1) {
 	$skin_raza = "voltra";
-	} 							
+	}
 								$template->assign_vars(array(
 									'caso'					=> $LNG['al_name'],
 									'caso_titulo'			=> $LNG['al_new_name'],
 									'al_change_submit'		=> $LNG['al_change_submit'],
 									'Raza_skin'   => $skin_raza,
 									'al_back'				=> $LNG['al_back'],
-								));	
+								));
 								$template->show("alianza/alliance_admin_rename.tpl");
 							break;
 							case 'exit':
@@ -1015,7 +1014,7 @@ class ShowAlliancePage
 							break;
 							case 'transfer':
 								($ally['ally_owner'] != $USER['id']) ? redirectTo("game.php?page=alliance") : '';
-									
+
 								$postleader = request_var('newleader', 0);
 								if (!empty($postleader))
 								{
@@ -1031,12 +1030,12 @@ class ShowAlliancePage
 									{
 										$TransferUsers[$u['id']]	= !empty($u['ally_rank_id']) && $ally['ally_owner'] != $u['id'] && $ally_ranks[$u['ally_rank_id']-1]['rechtehand'] == 1 ? $u['username']." [".$ally_ranks[$u['ally_rank_id']-1]['name']."]" : '';
 									}
-						
+
 							if($USER['raza'] == 0) {
 	$skin_raza = "gultra";
 		} elseif ($USER['raza'] == 1) {
 	$skin_raza = "voltra";
-	} 				
+	}
 									$template->assign_vars(array(
 										'TransferUsers'					=> $TransferUsers,
 										'al_transfer_alliance'			=> $LNG['al_transfer_alliance'],
@@ -1044,14 +1043,14 @@ class ShowAlliancePage
 										'al_back'						=> $LNG['al_back'],
 										'Raza_skin'   => $skin_raza,
 										'al_transfer_submit'			=> $LNG['al_transfer_submit'],
-									));	
+									));
 									$template->show("alianza/alliance_admin_transfer.tpl");
 								}
 							break;
 							default:
 								$text 		= request_var('text', '0', true);
 								$t        	= request_var('t', 1 );
-								
+
 								if (isset($_POST['options']))
 								{
 
@@ -1090,10 +1089,10 @@ class ShowAlliancePage
 								switch($t)
 								{
 									case 2:
-										$text = ($text !== '0') ? $text : $ally['ally_text'];		
+										$text = ($text !== '0') ? $text : $ally['ally_text'];
 									break;
 									case 3:
-										$text = ($text !== '0') ? $text : $ally['ally_request'];	
+										$text = ($text !== '0') ? $text : $ally['ally_request'];
 									break;
 									default:
 										$text = ($text !== '0') ? $text : $ally['ally_description'];
@@ -1104,7 +1103,7 @@ class ShowAlliancePage
 	$skin_raza = "gultra";
 		} elseif ($USER['raza'] == 1) {
 	$skin_raza = "voltra";
-	} 							
+	}
 								$template->loadscript('alliance.js');
 								$template->execscript("$('#cntChars').text($('#text').val().length);");
 								$template->assign_vars(array(
@@ -1146,7 +1145,7 @@ class ShowAlliancePage
 									'ally_owner_range'			=> $ally['ally_owner_range'],
 									'ally_stats_data'			=> $ally['ally_stats'],
 									'ally_diplo_data'			=> $ally['ally_diplo'],
-								));	
+								));
 								$template->show("alianza/alliance_admin.tpl");
 							break;
 						}
@@ -1164,11 +1163,11 @@ class ShowAlliancePage
 	$skin_raza = "gultra";
 		} elseif ($USER['raza'] == 1) {
 	$skin_raza = "voltra";
-	} 
+	}
 					$StatsData 					= $db->uniquequery("SELECT SUM(wons) as wons, SUM(loos) as loos, SUM(draws) as draws, SUM(kbmetal) as kbmetal, SUM(kbcrystal) as kbcrystal, SUM(kbnorio) as kbnorio, SUM(lostunits) as lostunits, SUM(desunits) as desunits FROM ".USERS." WHERE ally_id='" . $ally['id'] . "';");
 						$Reuqests					= $db->uniquequery("SELECT COUNT(*) as state FROM ".USERS." WHERE ally_request='".$ally['id']."';");
 						$template->assign_vars(array(
-							'DiploInfo'					=> $this->GetDiplo($ally['id']),		
+							'DiploInfo'					=> $this->GetDiplo($ally['id']),
 							'al_diplo_level'			=> $LNG['al_diplo_level'],
 							'al_diplo'					=> $LNG['al_diplo'],
 							'ally_web'					=> $ally['ally_web'],
@@ -1230,7 +1229,7 @@ class ShowAlliancePage
 				}
 			break;
 		}
-		
+
 	}
 }
 ?>

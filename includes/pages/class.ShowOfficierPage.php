@@ -1,11 +1,10 @@
 <?php
 
 /**
- _  \_/ |\ | /¯¯\ \  / /\    |¯¯) |_¯ \  / /¯¯\ |  |   |´¯|¯` | /¯¯\ |\ |5
- ¯  /¯\ | \| \__/  \/ /--\   |¯¯\ |__  \/  \__/ |__ \_/   |   | \__/ | \|Core.
- * @author: Copyright (C) 2011 by Brayan Narvaez (Prinick) developer of xNova Revolution
- * @author web: http://www.bnarvaez.com
- * @link: http://www.xnovarev.com
+ _  \_/ |\ | /Â¯Â¯\ \  / /\    |Â¯Â¯) |_Â¯ \  / /Â¯Â¯\ |  |   |Â´Â¯|Â¯` | /Â¯Â¯\ |\ |6
+ Â¯  /Â¯\ | \| \__/  \/ /--\   |Â¯Â¯\ |__  \/  \__/ |__ \_/   |   | \__/ | \|Core Redesigned.
+ * @author: Copyright (C) 2017 by xNova Revolution
+ * @author web: https://danieljsaldaÃ±a.com
 
  * @package 2Moons
  * @author Slaver <slaver7@gmail.com>
@@ -14,7 +13,7 @@
  * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
  * @version 1.3 (2011-01-21)
  * @link http://code.google.com/p/2moons/
- 
+
  * @Author of original mod: Jstar
  * @Relase, Fixs and Adapted by Brayan Narvaez
 
@@ -56,7 +55,7 @@ class ShowOfficierPage
   if ( $Officier == 602 ) { $offtime =  $USER['admiral_time'];}
    if ( $Officier == 603 ) { $offtime =  $USER['engineer_time'];}
     if ( $Officier == 604 ) { $offtime =  $USER['technocratic_time'];}
-    
+
       $offInfo = $pricelist[$Officier][$Mode];
       $darkprice = $offInfo['darkmatter'];
       $diahoy = date("d-m-o G:i:s");
@@ -65,7 +64,7 @@ class ShowOfficierPage
       if ( $offtime2 < 0 ) { $offtime3 = 0;} else { $offtime3 = $offtime2;}
       $time = $offInfo['time'];
       $newEndTime = $diahoy + $time + $offtime3;
-      
+
  if ( $Officier == 600 ) { $offname =  "commander";}
  if ( $Officier == 601 ) { $offname =  "geologe";}
   if ( $Officier == 602 ) { $offname =  "admiral";}
@@ -75,7 +74,7 @@ class ShowOfficierPage
 	$db->query("UPDATE ".USERS." SET `".$offname."_time` = '".$newEndTime."' WHERE `id` = '".$USER['id']."';");
 	$db->query("UPDATE ".USERS." SET `darkmatter`=darkmatter-".$darkprice." WHERE id=".$USER['id']."");
  if ( $Officier == 604 && $USER['technocratic'] == 0 ) { $db->query("UPDATE ".USERS." SET `spy_tech`=spy_tech+2 WHERE id=".$USER['id']."");}
- 
+
 	$template->message($LNG['oficial_contratado'],"?page=oficiales", 2);
 	error_reporting(0); #Fix de message.
    }
@@ -85,7 +84,7 @@ class ShowOfficierPage
       global $pricelist;
       return $pricelist[$Officier][$Mode]['darkmatter'] <= $USER['darkmatter'];
    }
-   
+
    private function getStrTime($seconds)
    {
       $anni = floor($seconds / (365 * 24 * 60 * 60));
@@ -109,12 +108,12 @@ class ShowOfficierPage
       return $str;
    }
 
-   public function __construct(&$USER) 
-   {      
+   public function __construct(&$USER)
+   {
     global $USER, $LNG, $LANG, $dpath, $CONF, $resource, $reslist,  $pricelist, $db;
 
 	$template    = new template();
- 	
+
       if($_GET['mode'] == 2)
       {
          $Officier = intval($_GET['offi']);
@@ -122,8 +121,8 @@ class ShowOfficierPage
          if($this->IsOfficierAccessible($USER,$Officier) === 0)
             $this->addOfficier($USER,$Officier,$Mode);
       }
-       
-	
+
+
 	#Comandante
 	if ($USER['commander'] > 0) {
 		$actividad600 = "<font color=\"#3ab100\">" . $LNG['activo'] ."</font>";
@@ -140,7 +139,7 @@ class ShowOfficierPage
 	} else {
 		$link600_mes = "<font color=\"red\">" . $LNG['contratar'] . "</font>";
 	}
-	
+
 	#Ingeniero
 	if ($USER['engineer'] > 0) {
 		$actividad603 = "<font color=\"#3ab100\"><b>" . $LNG['activo'] ."</b></font>";
@@ -157,7 +156,7 @@ class ShowOfficierPage
 	} else {
 		$link603_mes = "<font color=\"red\">" . $LNG['contratar'] . "</font>";
 	}
-	
+
 	#Geologo
 	if ($USER['geologe'] > 0) {
 		$actividad601 = "<font color=\"#3ab100\"><b>" . $LNG['activo'] ."</b></font>";
@@ -174,7 +173,7 @@ class ShowOfficierPage
 	} else {
 		$link601_mes = "<font color=\"red\">" . $LNG['contratar'] . "</font>";
 	}
-	
+
 	#Tecnocrata
 	if ($USER['technocratic'] > 0) {
 		$actividad604 = "<font color=\"#3ab100\"><b>" . $LNG['activo'] ."</b></font>";
@@ -191,7 +190,7 @@ class ShowOfficierPage
 	} else {
 		$link604_mes = "<font color=\"red\">" . $LNG['contratar'] . "</font>";
 	}
-	
+
 	#Almirante
 	if ($USER['admiral'] > 0) {
 		$actividad602 = "<font color=\"#3ab100\"><b>" . $LNG['activo'] ."</b></font>";
@@ -208,7 +207,7 @@ class ShowOfficierPage
 	} else {
 		$link602_mes = "<font color=\"red\">" . $LNG['contratar'] . "</font>";
 	}
-	
+
 	$template->assign_vars(array(
 		'comandante' => $LNG['comandante'],
 		'comandante_desc' => $LNG['comandante_desc'],
@@ -223,7 +222,7 @@ class ShowOfficierPage
 		'link601_week' => $link601_week,
 		'link601_mes' => $link601_mes,
 		'precio1_601' => pretty_number($pricelist[601]['week']['darkmatter']),
-		'precio2_601' => pretty_number($pricelist[601]['months']['darkmatter']),		
+		'precio2_601' => pretty_number($pricelist[601]['months']['darkmatter']),
 		'ingeniero' => $LNG['ingeniero'],
 		'ingeniero_desc' => $LNG['ingeniero_desc'],
 		'actividad603' => $actividad603,
@@ -252,7 +251,7 @@ class ShowOfficierPage
 		'comprar' => $LNG['comprar'],
 		'oficiales' => $LNG['oficiales'],
     ));
-    $template->show("oficiales/officier_table.tpl");  
-   } 
+    $template->show("oficiales/officier_table.tpl");
+   }
 }
-?> 
+?>

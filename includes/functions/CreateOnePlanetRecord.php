@@ -1,11 +1,10 @@
 <?php
 
 /**
- _  \_/ |\ | /¯¯\ \  / /\    |¯¯) |_¯ \  / /¯¯\ |  |   |´¯|¯` | /¯¯\ |\ |5
- ¯  /¯\ | \| \__/  \/ /--\   |¯¯\ |__  \/  \__/ |__ \_/   |   | \__/ | \|Core.
- * @author: Copyright (C) 2011 by Brayan Narvaez (Prinick) developer of xNova Revolution
- * @author web: http://www.bnarvaez.com
- * @link: http://www.xnovarev.com
+ _  \_/ |\ | /Â¯Â¯\ \  / /\    |Â¯Â¯) |_Â¯ \  / /Â¯Â¯\ |  |   |Â´Â¯|Â¯` | /Â¯Â¯\ |\ |6
+ Â¯  /Â¯\ | \| \__/  \/ /--\   |Â¯Â¯\ |__  \/  \__/ |__ \_/   |   | \__/ | \|Core Redesigned.
+ * @author: Copyright (C) 2017 by xNova Revolution
+ * @author web: https://danieljsaldaÃ±a.com
 
  * @package 2Moons
  * @author Slaver <slaver7@gmail.com>
@@ -26,23 +25,23 @@ function CreateOnePlanetRecord($Galaxy, $System, $Position, $Universe, $PlanetOw
 
 	if ($CONF['max_galaxy'] < $Galaxy || 1 > $Galaxy) {
 		throw new Exception("Access denied for CreateOnePlanetRecord.php.<br>Try to create a planet at position:".$Galaxy.":".$System.":".$Position);
-	}	
-	
+	}
+
 	if ($CONF['max_system'] < $System || 1 > $System) {
 		throw new Exception("Access denied for CreateOnePlanetRecord.php.<br>Try to create a planet at position:".$Galaxy.":".$System.":".$Position);
-	}	
-	
+	}
+
 	if ($CONF['max_planets'] < $Position || 1 > $Position) {
 		throw new Exception("Access denied for CreateOnePlanetRecord.php.<br>Try to create a planet at position:".$Galaxy.":".$System.":".$Position);
 	}
-	
+
 	if (CheckPlanetIfExist($Galaxy, $System, $Position, $Universe)) {
 		return false;
 	}
 
 	$FieldFactor		= $CONF['planet_factor'];
 	require(ROOT_PATH.'includes/PlanetData.php');
-	$Pos                = ceil($Position / ($CONF['max_planets'] / count($PlanetData))); 
+	$Pos                = ceil($Position / ($CONF['max_planets'] / count($PlanetData)));
 	$TMax				= $PlanetData[$Pos]['temp'];
 	$TMin				= $TMax - 40;
 	$Fields				= $PlanetData[$Pos]['fields'] * $CONF['planet_factor'];
@@ -54,10 +53,10 @@ function CreateOnePlanetRecord($Galaxy, $System, $Position, $Universe, $PlanetOw
 
 	if(!empty($PlanetName))
 		$SQL .= "`name` = '".$db->sql_escape($PlanetName)."', ";
-	
+
 	if($CONF['adm_attack'] == 0)
 		$AuthLevel = AUTH_USR;
-	
+
 	$SQL .= "`universe` = '".$Universe."', ";
 	$SQL .= "`id_owner` = '".$PlanetOwnerID."', ";
 	$SQL .= "`galaxy` = '".$Galaxy."', ";
@@ -78,7 +77,7 @@ function CreateOnePlanetRecord($Galaxy, $System, $Position, $Universe, $PlanetOw
 	$SQL .= "`deuterium_perhour` = '".$CONF['deuterium_basic_income']."', ";
 	$SQL .= "`norio` = '".$CONF['norio_start']."', ";
 	$SQL .= "`norio_perhour` = '".$CONF['norio_basic_income']."'; ";
-	
+
 	$db->query($SQL);
 	return $db->GetInsertID();
 }

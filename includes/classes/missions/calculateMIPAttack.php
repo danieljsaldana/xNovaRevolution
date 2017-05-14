@@ -1,11 +1,10 @@
 <?php
 
 /**
- _  \_/ |\ | /¯¯\ \  / /\    |¯¯) |_¯ \  / /¯¯\ |  |   |´¯|¯` | /¯¯\ |\ |5
- ¯  /¯\ | \| \__/  \/ /--\   |¯¯\ |__  \/  \__/ |__ \_/   |   | \__/ | \|Core.
- * @author: Copyright (C) 2011 by Brayan Narvaez (Prinick) developer of xNova Revolution
- * @author web: http://www.bnarvaez.com
- * @link: http://www.xnovarev.com
+ _  \_/ |\ | /Â¯Â¯\ \  / /\    |Â¯Â¯) |_Â¯ \  / /Â¯Â¯\ |  |   |Â´Â¯|Â¯` | /Â¯Â¯\ |\ |6
+ Â¯  /Â¯\ | \| \__/  \/ /--\   |Â¯Â¯\ |__  \/  \__/ |__ \_/   |   | \__/ | \|Core Redesigned.
+ * @author: Copyright (C) 2017 by xNova Revolution
+ * @author web: https://danieljsaldaÃ±a.com
 
  * @package 2Moons
  * @author Slaver <slaver7@gmail.com>
@@ -24,14 +23,14 @@ function calculateMIPAttack($TargetDefTech, $OwnerAttTech, $ipm, $TargetDefensiv
 	// Based on http://websim.speedsim.net/ JS-IRak Simulation
 	unset($TargetDefensive[503]);
 	$GetTargetKeys	= array_keys($TargetDefensive);
-	
+
 	$life_fac		= $TargetDefTech / 10 + 1;
 	$life_fac_a 	= $CombatCaps[503]['attack'] * ($OwnerAttTech / 10 + 1);
-	
+
 	$ipm -= $adm;
 	$adm = 0;
 	$max_dam = $ipm * $life_fac_a;
-	$i = 0;	
+	$i = 0;
 
 	$ship_res = array();
 	foreach($TargetDefensive as $Element => $Count)
@@ -42,10 +41,10 @@ function calculateMIPAttack($TargetDefTech, $OwnerAttTech, $ipm, $TargetDefensiv
 			$target = $Element - 1;
 		else
 			$target = $Element;
-		
-		
+
+
 		$Dam = $max_dam - ($pricelist[$target]['metal'] + $pricelist[$target]['crystal'] + $pricelist[$target]['norio']) / 10 * $TargetDefensive[$target] * $life_fac;
-			
+
 		if($Dam > 0)
 		{
 			$dest = $TargetDefensive[$target];
@@ -60,8 +59,8 @@ function calculateMIPAttack($TargetDefTech, $OwnerAttTech, $ipm, $TargetDefensiv
 		$max_dam -= $dest * round(($pricelist[$target]['metal'] + $pricelist[$target]['crystal'] + $pricelist[$target]['norio']) / 10 * $life_fac);
 		$i++;
 	}
-		
+
 	return $ship_res;
 }
-	
+
 ?>

@@ -1,11 +1,10 @@
 <?php
 
 /**
- _  \_/ |\ | /¯¯\ \  / /\    |¯¯) |_¯ \  / /¯¯\ |  |   |´¯|¯` | /¯¯\ |\ |5
- ¯  /¯\ | \| \__/  \/ /--\   |¯¯\ |__  \/  \__/ |__ \_/   |   | \__/ | \|Core.
- * @author: Copyright (C) 2011 by Brayan Narvaez (Prinick) developer of xNova Revolution
- * @author web: http://www.bnarvaez.com
- * @link: http://www.xnovarev.com
+ _  \_/ |\ | /Â¯Â¯\ \  / /\    |Â¯Â¯) |_Â¯ \  / /Â¯Â¯\ |  |   |Â´Â¯|Â¯` | /Â¯Â¯\ |\ |6
+ Â¯  /Â¯\ | \| \__/  \/ /--\   |Â¯Â¯\ |__  \/  \__/ |__ \_/   |   | \__/ | \|Core Redesigned.
+ * @author: Copyright (C) 2017 by xNova Revolution
+ * @author web: https://danieljsaldaÃ±a.com
 
  * @package 2Moons
  * @author Slaver <slaver7@gmail.com>
@@ -26,14 +25,14 @@ class ShowNotesPage
 		$priority 	= request_var('priority',2);
 		$title 		= request_var('title', '', true);
 		$text 		= request_var('text', '', true);
-		$id			= request_var('id', 0);	
+		$id			= request_var('id', 0);
 		$title 		= !empty($title) ? $title : $LNG['nt_no_title'];
 		$text 		= !empty($text) ? $text : $LNG['nt_no_text'];
 		$sql 		= ($id == 0) ? "INSERT INTO ".NOTES." SET owner = '".$USER['id']."', time = '".TIMESTAMP."', priority = '".$db->sql_escape($priority)."', title = '".$db->sql_escape($title)."', text = '".$db->sql_escape($text)."';" : "UPDATE ".NOTES." SET time = '".TIMESTAMP."', priority = '".$db->sql_escape($priority)."', title = '".$db->sql_escape($title)."', text = '".$db->sql_escape($text)."' WHERE id = '".$db->sql_escape($id)."';";
 		$db->query($sql);
 		$this->ShowIndexPage();
 	}
-	
+
 	private function DeleteNotes()
 	{
 		global $db, $USER;
@@ -44,19 +43,19 @@ class ShowNotesPage
 			{
 				$SQLWhere[] = "`id` = '".(int) $id."'";
 			}
-			
+
 			$db->query("DELETE FROM ".NOTES." WHERE (".implode(" OR ",$SQLWhere).") AND owner = '".$USER['id']."';");
 		}
 		$this->ShowIndexPage();
 	}
-	
+
 	private function CreateNotes()
 	{
 		global $LNG;
 		$template	= new template();
 		$template->isPopup(true);
-		
-		$template->assign_vars(array(	
+
+		$template->assign_vars(array(
 			'nt_create_note'	=> $LNG['nt_create_note'],
 			'nt_priority'		=> $LNG['nt_priority'],
 			'nt_important'		=> $LNG['nt_important'],
@@ -69,7 +68,7 @@ class ShowNotesPage
 			'nt_characters'		=> $LNG['nt_characters'],
 			'nt_back'			=> $LNG['nt_back'],
 		));
-		
+
 		$template->show('notas/notes_send_form.tpl');
 	}
 
@@ -82,11 +81,11 @@ class ShowNotesPage
 
 		if(!$Note)
 			redirectTo("game.php?page=notes");
-		
+
 		$template	= new template();
 		$template->isPopup(true);
 		$template->execscript("$('#cntChars').text($('#text').val().length);");
-		$template->assign_vars(array(	
+		$template->assign_vars(array(
 			'nt_edit_note'		=> $LNG['nt_edit_note'],
 			'nt_priority'		=> $LNG['nt_priority'],
 			'nt_important'		=> $LNG['nt_important'],
@@ -104,17 +103,17 @@ class ShowNotesPage
 			'ntitle'			=> $Note['title'],
 			'ntext'				=> $Note['text'],
 		));
-		
+
 		$template->show('notas/notes_edit_form.tpl');
 
 	}
-	
+
 	private function ShowIndexPage()
 	{
 		global $LNG, $db, $USER;
 
 		$template	= new template();
-		$template->isPopup(true);				
+		$template->isPopup(true);
 		$NotesRAW 	= $db->query("SELECT * FROM ".NOTES." WHERE owner = ".$USER['id']." ORDER BY time DESC;");
 		$NoteList	= array();
 		while($Note = $db->fetch_array($NotesRAW))
@@ -127,8 +126,8 @@ class ShowNotesPage
 				'priority'	=> $Note['priority'],
 			);
 		}
-		
-		$template->assign_vars(array(	
+
+		$template->assign_vars(array(
 			'NoteList'					=> $NoteList,
 			'nt_priority'				=> $LNG['nt_you_dont_have_notes'],
 			'nt_size_note'				=> $LNG['nt_size_note'],
@@ -139,10 +138,10 @@ class ShowNotesPage
 			'nt_dlte_note'				=> $LNG['nt_dlte_note'],
 			'nt_you_dont_have_notes'	=> $LNG['nt_you_dont_have_notes'],
 		));
-		
+
 		$template->show('notas/notes_body.tpl');
 	}
-				
+
 	public function __construct()
 	{
 
