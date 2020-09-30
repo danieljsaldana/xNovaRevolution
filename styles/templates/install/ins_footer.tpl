@@ -1,4 +1,0 @@
-</center>
-</table>
-</body>
-</html>
