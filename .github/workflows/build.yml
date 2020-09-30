@@ -10,7 +10,7 @@ jobs:
       uses: kitabisa/sonarqube-action@master
       with:
    sonar-scanner 
-    -Dsonar.projectKey=xNovaRevoluion \
+    -Dsonar.projectKey=xNovaRevoluion  \
     -Dsonar.sources=. \
     -Dsonar.host.url=https://sonar.xn--danieljsaldaa-tkb.com \
     -Dsonar.login=175c233740a3831f51ea08ddc3ab188cb7accb4b
