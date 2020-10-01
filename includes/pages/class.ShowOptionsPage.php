@@ -1,20 +1,19 @@
 <?php
 
 /**
- _  \_/ |\ | /Â¯Â¯\ \  / /\    |Â¯Â¯) |_Â¯ \  / /Â¯Â¯\ |  |   |Â´Â¯|Â¯` | /Â¯Â¯\ |\ |6
- Â¯  /Â¯\ | \| \__/  \/ /--\   |Â¯Â¯\ |__  \/  \__/ |__ \_/   |   | \__/ | \|Core Redesigned.
- * @author: Copyright (C) 2017 by xNova Revolution
- * @author web: https://danieljsaldaÃ±a.com
+ _  \_/ |\ | /¯¯\ \  / /\    |¯¯) |_¯ \  / /¯¯\ |  |   |´¯|¯` | /¯¯\ |\ |6
+ ¯  /¯\ | \| \__/  \/ /--\   |¯¯\ |__  \/  \__/ |__ \_/   |   | \__/ | \|Core.
+ * @author: Copyright (C) 2011  developer of xNova Revolution
+ * @link: http://xnovarevolution.wordpress.com
 
-* @package 2Moons
-* @author Slaver <slaver7@gmail.com>
-* @copyright 2009 Lucky <douglas@crockford.com> (XGProyecto)
-* @copyright 2011 Slaver <slaver7@gmail.com> (Fork/2Moons)
-* @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
-* @version 1.3 (2011-01-21)
-* @link http://code.google.com/p/2moons/
+ * @package 2Moons
+ * @author Slaver <slaver7@gmail.com>
+ * @copyright 2009 Lucky <douglas@crockford.com> (XGProyecto)
+ * @copyright 2011 Slaver <slaver7@gmail.com> (Fork/2Moons)
+ * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
+ * @version 1.3 (2011-01-21)
 
-* Please do not remove the credits
+ * Please do not remove the credits
 */
 
 class ShowOptionsPage
@@ -29,27 +28,27 @@ class ShowOptionsPage
       $fleets = $db->countquery("SELECT COUNT(*) FROM ".FLEETS." WHERE `fleet_owner` = '".$USER['id']."' OR `fleet_target_owner` = '".$USER['id']."';");
       if($fleets != 0)
          return false;
-
+               
       $query = $db->query("SELECT * FROM ".PLANETS." WHERE id_owner = '".$USER['id']."' AND id != '".$PLANET['id']."' AND `destruyed` = 0;");
-
+            
       while($CPLANET = $db->fetch_array($query))
       {
          $PlanetRess = new ResourceUpdate();
-
+		 
 		 list($USER['factor'], $CPLANET['factor'])    = getFactors($USER, $CPLANET);
 		 list($USER, $CPLANET)	= $PlanetRess->CalcResource($USER, $CPLANET, true, TIMESTAMP);
-
+      
          if(!empty($CPLANET['b_building']) || !empty($CPLANET['b_hangar']))
             return false;
-
+         
          unset($CPLANET);
       }
 
       $db->free_result($query);
-
+      
       return true;
    }
-
+   
    public function __construct()
    {
       global $USER, $PLANET, $CONF, $LNG, $LANG, $UNI, $db, $SESSION, $THEME;
@@ -57,11 +56,11 @@ class ShowOptionsPage
       $mode          = request_var('mode', '');
       $exit          = request_var('exit_modus', '');
       $db_deaktjava    = request_var('db_deaktjava', '');
-
+      
       $PlanetRess = new ResourceUpdate();
       $PlanetRess->CalcResource();
       $PlanetRess->SavePlanetToDB();
-
+   
       $template   = new template();
       $SQLQuery = "";
       switch($mode)
@@ -71,7 +70,7 @@ class ShowOptionsPage
                $SQLQuery   .= "UPDATE ".USERS." SET `urlaubs_modus` = '0', `urlaubs_until` = '0' WHERE `id` = '".$USER['id']."' LIMIT 1;UPDATE ".PLANETS." SET `last_update` = '".TIMESTAMP."', `energy_used` = '10', `energy_max` = '10', `metal_mine_porcent` = '10', `crystal_mine_porcent` = '10', `deuterium_sintetizer_porcent` = '10', `norio_mine_porcent` = '10', `solar_plant_porcent` = '10', `fusion_plant_porcent` = '10', `solar_satelit_porcent` = '10' WHERE `id_owner` = '".$USER["id"]."';";
 
             $SQLQuery .= $db_deaktjava == 'on' ? "UPDATE ".USERS." SET `db_deaktjava` = '".TIMESTAMP."' WHERE `id` = '".$USER['id']."' LIMIT 1;" : "UPDATE ".USERS." SET `db_deaktjava` = '0' WHERE `id` = '".$USER['id']."' LIMIT 1;";
-
+            
             $db->multi_query($SQLQuery);
             $template->message($LNG['op_options_changed'], '?page=options', 1);
          break;
@@ -95,11 +94,11 @@ class ShowOptionsPage
             $SetOrder             = request_var('settings_order', 0);
             $db_password         = request_var('db_password', '');
             $newpass1            = request_var('newpass1', '');
-            $newpass2            = request_var('newpass2', '');
-            $hof               = request_var('hof', '');
-            $adm_pl_prot         = request_var('adm_pl_prot', '');
-            $langs               = request_var('langs', $LANG->getUser());
-            $dpath               = request_var('dpath', $THEME->getThemeName());
+            $newpass2            = request_var('newpass2', '');      
+            $hof               = request_var('hof', '');   
+            $adm_pl_prot         = request_var('adm_pl_prot', '');   
+            $langs               = request_var('langs', $LANG->getUser());   
+            $dpath               = request_var('dpath', $THEME->getThemeName());   
             $design             = ($design == 'on') ? 1 : 0;
             $hof                = ($hof == 'on') ? 1 : 0;
             $noipcheck             = ($noipcheck == 'on') ? 1 : 0;
@@ -114,7 +113,7 @@ class ShowOptionsPage
             $langs               = in_array($langs, $LANG->getAllowedLangs()) ? $langs : $LANG->getUser();
 			$dpath				= array_key_exists($dpath, Theme::getAvalibleSkins()) ? $dpath : $THEME->getThemeName();
             $authattack				= ($adm_pl_prot == 'on' && $USER['authlevel'] != AUTH_USR) ? $USER['authlevel'] : 0;
-
+            
             if ($urlaubs_modus == 'on')
             {
                if(!$this->CheckVMode())
@@ -122,7 +121,7 @@ class ShowOptionsPage
                   $template->message($LNG['op_cant_activate_vacation_mode'], '?page=options', 3);
                   exit;
                }
-
+               
                $SQLQuery   .= "UPDATE ".USERS." SET
                            `urlaubs_modus` = '1',
                            `urlaubs_until` = '".(TIMESTAMP + VACATION_MIN_TIME)."'
@@ -165,25 +164,25 @@ class ShowOptionsPage
                         `hof` = '".$hof."',
                         `settings_rep` = '".$settings_rep."'
                         WHERE `id` = '".$USER["id"]."';";
-
-
+            
+                        
             if (!empty($db_email) && $db_email != $USER['email'] && md5($db_password) == $USER['password'])
             {
                if(!ValidateAddress($db_email)) {
                   $template->message($LNG['op_not_vaild_mail'], '?page=options', 3);
                   exit;
                }
-
+            
                $query = $db->uniquequery("SELECT id FROM ".USERS." WHERE email = '".$db->sql_escape($db_email)."' OR email_2 = '".$db->sql_escape($db_email)."';");
 
                if (!empty($query)) {
                   $template->message(sprintf($LNG['op_change_mail_exist'], $db_email), '?page=options', 3);
                   exit;
                }
-
+               
                $SQLQuery   .= "UPDATE ".USERS." SET `email` = '".$db->sql_escape($db_email)."', `setmail` = '".(TIMESTAMP + 604800)."' WHERE `id` = '".$USER['id']."';";
-            }
-
+            }            
+            
             if (!empty($newpass1) && md5($db_password) == $USER["password"] && $newpass1 == $newpass2)
             {
                $newpass     = md5($newpass1);
@@ -200,7 +199,7 @@ class ShowOptionsPage
                else
                {
                   $query = $db->uniquequery("SELECT id FROM ".USERS." WHERE username='".$db->sql_escape($USERname)."';");
-
+                  
                   if (!empty($query))
                      $template->message(sprintf($LNG['op_change_name_exist'], $USERname), '?page=options', 3);
                   else
@@ -217,13 +216,13 @@ class ShowOptionsPage
             }
             else
                $template->message($LNG['op_options_changed'], '?page=options', 3);
-
+            
             $db->multi_query($SQLQuery);
          break;
          default:
             if($USER['urlaubs_modus'] == 1)
             {
-               $template->assign_vars(array(
+               $template->assign_vars(array(   
                   'vacation_until'               => date(TDFORMAT,$USER['urlaubs_until']),
                   'op_save_changes'               => $LNG['op_save_changes'],
                   'op_end_vacation_mode'            => $LNG['op_end_vacation_mode'],
@@ -237,7 +236,7 @@ class ShowOptionsPage
             }
             else
             {
-               $template->assign_vars(array(
+               $template->assign_vars(array(   
                   'opt_usern_data'               => $USER['username'],
                   'opt_mail1_data'               => $USER['email'],
                   'opt_mail2_data'               => $USER['email_2'],
@@ -259,8 +258,8 @@ class ShowOptionsPage
                   'user_settings_bud'             => $USER['settings_bud'],
                   'opt_hof'                     => $USER['hof'],
                   'langs'                        => $USER['lang'],
-                  'adm_pl_prot_data'			=> $USER['authattack'],
-                  'user_authlevel'               => $USER['authlevel'],
+                  'adm_pl_prot_data'			=> $USER['authattack'],               
+                  'user_authlevel'               => $USER['authlevel'],               
                   'Selectors'                     => array('Sort' => array(0 => $LNG['op_sort_normal'], 1 => $LNG['op_sort_koords'], 2 => $LNG['op_sort_abc']), 'SortUpDown' => array(0 => $LNG['op_sort_up'], 1 => $LNG['op_sort_down']), 'Skins' => Theme::getAvalibleSkins(), 'lang' => $LANG->getAllowedLangs(false)),
                   'planet_sort'                  => $USER['planet_sort'],
                   'planet_sort_order'               => $USER['planet_sort_order'],
@@ -308,7 +307,7 @@ class ShowOptionsPage
                   'ov_userbanner'                    => $LNG['ov_userbanner'],
                   'path'                          => PROTOCOL.$_SERVER['HTTP_HOST'].HTTP_ROOT,
                ));
-
+               
                $template->show("opciones/options_overview.tpl");
             }
          break;

@@ -1,10 +1,10 @@
 <?php
 
 /**
- _  \_/ |\ | /Â¯Â¯\ \  / /\    |Â¯Â¯) |_Â¯ \  / /Â¯Â¯\ |  |   |Â´Â¯|Â¯` | /Â¯Â¯\ |\ |6
- Â¯  /Â¯\ | \| \__/  \/ /--\   |Â¯Â¯\ |__  \/  \__/ |__ \_/   |   | \__/ | \|Core Redesigned.
- * @author: Copyright (C) 2017 by xNova Revolution
- * @author web: https://danieljsaldaÃ±a.com
+ _  \_/ |\ | /¯¯\ \  / /\    |¯¯) |_¯ \  / /¯¯\ |  |   |´¯|¯` | /¯¯\ |\ |6
+ ¯  /¯\ | \| \__/  \/ /--\   |¯¯\ |__  \/  \__/ |__ \_/   |   | \__/ | \|Core.
+ * @author: Copyright (C) 2011  developer of xNova Revolution
+ * @link: http://xnovarevolution.wordpress.com
 
  * @package 2Moons
  * @author Slaver <slaver7@gmail.com>
@@ -12,7 +12,6 @@
  * @copyright 2011 Slaver <slaver7@gmail.com> (Fork/2Moons)
  * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
  * @version 1.3 (2011-01-21)
- * @link http://code.google.com/p/2moons/
 
  * Please do not remove the credits
 */
@@ -32,43 +31,43 @@ class ShowGalaxyPage extends GalaxyRows
 		}
 
 		$db->free_result($GalaxyPlanets);
-
+		
 		for ($Planet = 1; $Planet < (1 + MAX_PLANET_IN_SYSTEM); $Planet++)
 		{
-			if (!isset($PlanetsInGalaxy[$Planet]))
+			if (!isset($PlanetsInGalaxy[$Planet])) 
 			{
 				$Result[$Planet]	= false;
 				continue;
 			}
-
+			
 			$GalaxyRowPlanet			= $PlanetsInGalaxy[$Planet];
 			$GalaxyRowPlanet['galaxy']	= $Galaxy;
 			$GalaxyRowPlanet['system']	= $System;
-
+			
 			if ($GalaxyRowPlanet['destruyed'] != 0)
 			{
 				$Result[$Planet]	= $LNG['gl_planet_destroyed'];
 				continue;
 			}
-
+			
 			if ($GalaxyRowPlanet['id_luna'] != 0)
 			{
 				$GalaxyRowMoon 				= $db->uniquequery("SELECT `destruyed`, `id`, `id_owner`, `diameter`, `name`, `temp_min`, `last_update` FROM ".PLANETS." WHERE `id` = '".$GalaxyRowPlanet['id_luna']."' AND planet_type='3';");
 				$Result[$Planet]['moon']	= $this->GalaxyRowMoon($GalaxyRowMoon);
-
+				
 				$GalaxyRowPlanet['last_update'] = max($GalaxyRowPlanet['last_update'], $GalaxyRowMoon['last_update']);
 			} else {
 				$Result[$Planet]['moon']	= false;
 			}
-
+			
 			$Result[$Planet]['user']		= $this->GalaxyRowUser($GalaxyRowPlanet);
 			$Result[$Planet]['planet']              = $this->GalaxyRowPlanet($GalaxyRowPlanet, $IsOwn);
 			$Result[$Planet]['planetname']	= $this->GalaxyRowPlanetName ($GalaxyRowPlanet);
-
+			
 			$Result[$Planet]['action']	= $GalaxyRowPlanet['userid'] != $USER['id'] ? $this->GalaxyRowActions($GalaxyRowPlanet) : false;
 			$Result[$Planet]['ally']	= $GalaxyRowPlanet['ally_id'] != 0 ? $this->GalaxyRowAlly($GalaxyRowPlanet) : false;
 			$Result[$Planet]['derbis']	= $GalaxyRowPlanet['der_metal'] > 0 || $GalaxyRowPlanet['der_crystal'] > 0 ? $this->GalaxyRowDebris($GalaxyRowPlanet) : false;
-
+											
 		}
 		return array('Result' => $Result, 'planetcount' => $COUNT);
 	}
@@ -76,12 +75,12 @@ class ShowGalaxyPage extends GalaxyRows
 	public function __construct()
 	{
 		global $USER, $PLANET, $dpath, $resource, $LNG, $db, $reslist, $CONF;
-
-		$template		= new template();
-		$template->loadscript('galaxy.js');
-
+		
+		$template		= new template();	
+		$template->loadscript('galaxy.js');	
+		
 		$maxfleet       = $db->num_rows($db->query("SELECT fleet_id FROM ".FLEETS." WHERE `fleet_owner` = '". $USER['id'] ."' AND `fleet_mission` != 10;"));
-
+		
 		$mode			= request_var('mode', 0);
 		$galaxyLeft		= request_var('galaxyLeft', '');
 		$galaxyRight	= request_var('galaxyRight', '');
@@ -93,7 +92,7 @@ class ShowGalaxyPage extends GalaxyRows
 		$type			= request_var('type', 1);
 		$current		= request_var('current', 0);
 		$gl_cp           = request_var('gl_cp', 0);
-
+			
 		if ($mode == 1)
 		{
 			if (!empty($galaxyLeft))
@@ -110,28 +109,28 @@ class ShowGalaxyPage extends GalaxyRows
 		if (!($galaxy == $PLANET['galaxy'] && $system == $PLANET['system']) && $mode != 0)
 		{
 			if($PLANET['deuterium'] < DEUTERIUM_PER_GALAXY_CLICK)
-			{
+			{	
 				$template->message($LNG['gl_no_deuterium_to_view_galaxy'], "game.php?page=galaxy&mode=0", 2);
 				exit;
 			}
 			else
 				$PLANET['deuterium']	-= DEUTERIUM_PER_GALAXY_CLICK;
 		}
-
+		
 		$PlanetRess = new ResourceUpdate();
 		$PlanetRess->CalcResource();
 		$PlanetRess->SavePlanetToDB();
-
+	
 		unset($reslist['defense'][array_search(502, $reslist['defense'])]);
 		$MissleSelector[0]	= $LNG['gl_all_defenses'];
 		foreach($reslist['defense'] as $Element)
-		{
+		{	
 			$MissleSelector[$Element] = $LNG['tech'][$Element];
 		}
-
+		
 		$Result	= $this->ShowGalaxyRows($galaxy, $system);
 
-		$template->assign_vars(array(
+		$template->assign_vars(array(	
 			'GalaxyRows'				=> $Result['Result'],
 			'planetcount'				=> sprintf($LNG['gl_populed_planets'], $Result['planetcount']),
 			'mode'						=> $mode,
@@ -212,8 +211,8 @@ class ShowGalaxyPage extends GalaxyRows
 			'gl_ajax_status_fail'		=> $LNG['gl_ajax_status_fail'],
 			'write_message'				=> $LNG['write_message'],
 		));
-
-		$template->show('galaxy_overview.tpl');
+		
+		$template->show('galaxy_overview.tpl');	
 	}
 }
 ?>

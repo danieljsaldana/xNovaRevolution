@@ -1,10 +1,10 @@
 <?php
 
 /**
- _  \_/ |\ | /Â¯Â¯\ \  / /\    |Â¯Â¯) |_Â¯ \  / /Â¯Â¯\ |  |   |Â´Â¯|Â¯` | /Â¯Â¯\ |\ |6
- Â¯  /Â¯\ | \| \__/  \/ /--\   |Â¯Â¯\ |__  \/  \__/ |__ \_/   |   | \__/ | \|Core Redesigned.
- * @author: Copyright (C) 2017 by xNova Revolution
- * @author web: https://danieljsaldaÃ±a.com
+ _  \_/ |\ | /¯¯\ \  / /\    |¯¯) |_¯ \  / /¯¯\ |  |   |´¯|¯` | /¯¯\ |\ |6
+ ¯  /¯\ | \| \__/  \/ /--\   |¯¯\ |__  \/  \__/ |__ \_/   |   | \__/ | \|Core.
+ * @author: Copyright (C) 2011  developer of xNova Revolution
+ * @link: http://xnovarevolution.wordpress.com
 
  * @package 2Moons
  * @author Slaver <slaver7@gmail.com>
@@ -12,14 +12,13 @@
  * @copyright 2011 Slaver <slaver7@gmail.com> (Fork/2Moons)
  * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
  * @version 1.3 (2011-01-21)
- * @link http://code.google.com/p/2moons/
 
  * Please do not remove the credits
 */
 
 //SET TIMEZONE (if Server Timezone are not correct)
 //date_default_timezone_set('Europe/Berlin');
-
+ 
 //TEMPLATES DEFAULT SETTINGS
 define('DEFAULT_THEME'	 		  , 'gow');
 
@@ -53,7 +52,7 @@ define('STANDART_PLAYER_PLANETS'  , 9);
 define('MAX_PLANETS'              , 10);
 
 // ADDED PLANET PRO 2 TECH LEVELS
-define('PLANETS_PER_TECH' 		  , 1);
+define('PLANETS_PER_TECH' 		  , 1);	
 
 // NUMBER OF BUILDINGS THAT CAN GO IN THE CONSTRUCTION QUEUE
 define('MAX_BUILDING_QUEUE_SIZE'  , 5);
@@ -62,7 +61,7 @@ define('MAX_BUILDING_QUEUE_SIZE'  , 5);
 define('MAX_RESEACH_QUEUE_SIZE'  ,2);
 
 // NUMBER OF SHIPS THAT CAN BUILD FOR ONCE
-define('MAX_FLEET_OR_DEFS_PER_ROW', 999999999);
+define('MAX_FLEET_OR_DEFS_PER_ROW', 999999999); 
 
 // NUMBER OF SHIPS THAT CAN BUILD FOR ONCE
 define('MAX_FLEET_OR_DEFS_IN_BUILD', 10);
@@ -127,13 +126,13 @@ define('BUILD_FB_DARKMATTER'      , 0);
 // Invisible Missions for Phalanx
 // Exsample: '1','4','7','10'
 define('INV_PHALANX_MISSIONS' 	  , '');
-
+	
 
 // Max Round on Combats
 define('MAX_ATTACK_ROUNDS'		  , 6);
 
 // Min Time for VMod in Seconds!
-define('VACATION_MIN_TIME'		  , 259200);
+define('VACATION_MIN_TIME'		  , 259200);	
 
 // Enable the one-Click SImulation on Spy-Raports
 define('ENABLE_SIMULATOR_LINK'    , true);
@@ -158,8 +157,8 @@ define('JUMPGATE_WAIT_TIME', 3600); // Tiempo de espera entre saltos.
 define('JUMPGATE_REDUCTION_PER_LEVEL', 120); // Tiempo de reduccion entre saltos por nivel del Salto Cuantico.
 define('JUMPGATE_MAX_REDUCTION', 1200); // Maximo tiempo a reducir.
 
-// UTF-8 Support for Names
-define('UTF8_SUPPORT'          	  , true);
+// UTF-8 Support for Names 
+define('UTF8_SUPPORT'          	  , true);	
 
 // Root IDs
 define('ROOT_UNI'        	  	  , 1);

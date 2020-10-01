@@ -15,6 +15,11 @@
 {include file="left_menu.tpl"}
 <div id="contenidoMostrado">                               
 <div id="elCosoxD">
+<div class="coso_izquierda"></div>
+<div class="coso_derecha"></div>
+<div id="planeta">
+{$header}
+</div>
 <div id="cabezza" style="background-image: url(styles/theme/{$Raza_skin}/imagenes/navegacion/head2.png);"></div>
 <div id="eins_small">
  <div>	

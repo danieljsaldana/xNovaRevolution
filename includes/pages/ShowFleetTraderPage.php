@@ -1,10 +1,10 @@
-<?php
+<?
 
 /**
- _  \_/ |\ | /Â¯Â¯\ \  / /\    |Â¯Â¯) |_Â¯ \  / /Â¯Â¯\ |  |   |Â´Â¯|Â¯` | /Â¯Â¯\ |\ |6
- Â¯  /Â¯\ | \| \__/  \/ /--\   |Â¯Â¯\ |__  \/  \__/ |__ \_/   |   | \__/ | \|Core Redesigned.
- * @author: Copyright (C) 2017 by xNova Revolution
- * @author web: https://danieljsaldaÃ±a.com
+ _  \_/ |\ | /¯¯\ \  / /\    |¯¯) |_¯ \  / /¯¯\ |  |   |´¯|¯` | /¯¯\ |\ |6
+ ¯  /¯\ | \| \__/  \/ /--\   |¯¯\ |__  \/  \__/ |__ \_/   |   | \__/ | \|Core.
+ * @author: Copyright (C) 2011  developer of xNova Revolution
+ * @link: http://xnovarevolution.wordpress.com
 
  * @package 2Moons
  * @author Slaver <slaver7@gmail.com>
@@ -12,29 +12,6 @@
  * @copyright 2011 Slaver <slaver7@gmail.com> (Fork/2Moons)
  * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
  * @version 1.3 (2011-01-21)
- * @link http://code.google.com/p/2moons/
-
- * Please do not remove the credits
-*/
-
- * @package 2Moons
- * @author Slaver <slaver7@gmail.com>
- * @copyright 2009 Lucky <douglas@crockford.com> (XGProyecto)
- * @copyright 2011 Slaver <slaver7@gmail.com> (Fork/2Moons)
- * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
- * @version 1.3 (2011-01-21)
- * @link http://code.google.com/p/2moons/
-
- * Please do not remove the credits
-*/
-
- * @package 2Moons
- * @author Slaver <slaver7@gmail.com>
- * @copyright 2009 Lucky <douglas@crockford.com> (XGProyecto)
- * @copyright 2011 Slaver <slaver7@gmail.com> (Fork/2Moons)
- * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
- * @version 1.3 (2011-01-21)
- * @link http://code.google.com/p/2moons/
 
  * Please do not remove the credits
 */
@@ -46,7 +23,7 @@ function ShowFleetTraderPage()
 	$PlanetRess->CalcResource();
 	$CONF['trade_allowed_ships']	= explode(',', $CONF['trade_allowed_ships']);
 	$ID								= request_var('id', 0);
-
+	
 	if(!empty($ID) && in_array($ID, $CONF['trade_allowed_ships'])) {
 		$Count						= min(request_outofint('count'), $PLANET[$resource[$ID]]);
 		$metal_total 				=  $Count * $pricelist[$ID]['metal'] * (1 - ($CONF['trade_charge'] / 100));
@@ -55,10 +32,10 @@ function ShowFleetTraderPage()
 		$PLANET['crystal']			+= $crystal_total;
 		$deuterium_total 			=  $Count * $pricelist[$ID]['deuterium'] * (1 - ($CONF['trade_charge'] / 100));
 		$PLANET['deuterium']		+= $deuterium_total ;
-		$norio_total		    	+= $Count * $pricelist[$ID]['norio'] * (1 - ($CONF['trade_charge'] / 100));
+		$norio_total		    	+= $Count * $pricelist[$ID]['norio'] * (1 - ($CONF['trade_charge'] / 100));	
 		$PLANET['norio']		    += $norio_total;
 		$darkmatter_total 			+= $Count * $pricelist[$ID]['darkmatter'] * (1 - ($CONF['trade_charge'] / 100));
-		$USER['darkmatter']			+= $darkmatter_total;
+		$USER['darkmatter']			+= $darkmatter_total;				
 		$PLANET[$resource[$ID]]		-= $Count;
 		$PlanetRess->Builded[$ID]	-= $Count;
 	}
@@ -75,7 +52,7 @@ function ShowFleetTraderPage()
 		//$SQL .= "`norio_total` = '".$norio_total."',";
 		//$SQL .= "`darkmatter_total` = '".$darkmatter_total."'";
 		//$db->query($SQL);
-		$PlanetRess->SavePlanetToDB();
+		$PlanetRess->SavePlanetToDB(); 
 	//}
 
 	$template	= new template();
@@ -87,19 +64,19 @@ function ShowFleetTraderPage()
 		if(in_array($ID, $reslist['fleet']))
 			$Cost[$ID]	= array($PLANET[$resource[$ID]], $pricelist[$ID]['metal'], $pricelist[$ID]['crystal'], $pricelist[$ID]['deuterium'], $pricelist[$ID]['darkmatter'], $pricelist[$ID]['norio']);
 	}
-
+	
 	if(empty($Cost)) {
 		$template->message($LNG['ft_empty']);
 		exit;
 	}
-	$template->assign_vars(array(
+	$template->assign_vars(array(	
 		'ft_selecciona'				=> $LNG['ft_selecciona'],
 		'ft_uniselec'				=> $LNG['ft_uniselec'],
 		'tech'						=> $LNG['tech'],
 		'ft_unidad'					=> $LNG['ft_unidad'],
 		'ft_max'					=> $LNG['ft_max'],
 		'ft_total'					=> $LNG['ft_total'],
-		'ft_coste'					=> $LNG['ft_coste'],
+		'ft_coste'					=> $LNG['ft_coste'],		
 		'ft_cantidad'				=> $LNG['ft_cantidad'],
 		'ft_absenden'				=> $LNG['ft_absenden'],
 		'ft_cau'					=> $LNG['ft_cau'],
@@ -109,7 +86,7 @@ function ShowFleetTraderPage()
 		'Charge'					=> $CONF['trade_charge'],
 		'ft_charge'					=> $LNG['ft_charge'],
 	));
-
+	
 	$template->show("fleettrader_overview.tpl");
 }
 ?>

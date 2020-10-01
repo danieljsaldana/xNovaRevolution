@@ -1,10 +1,10 @@
 <?php
 
 /**
- _  \_/ |\ | /Â¯Â¯\ \  / /\    |Â¯Â¯) |_Â¯ \  / /Â¯Â¯\ |  |   |Â´Â¯|Â¯` | /Â¯Â¯\ |\ |6
- Â¯  /Â¯\ | \| \__/  \/ /--\   |Â¯Â¯\ |__  \/  \__/ |__ \_/   |   | \__/ | \|Core Redesigned.
- * @author: Copyright (C) 2017 by xNova Revolution
- * @author web: https://danieljsaldaÃ±a.com
+ _  \_/ |\ | /¯¯\ \  / /\    |¯¯) |_¯ \  / /¯¯\ |  |   |´¯|¯` | /¯¯\ |\ |6
+ ¯  /¯\ | \| \__/  \/ /--\   |¯¯\ |__  \/  \__/ |__ \_/   |   | \__/ | \|Core.
+ * @author: Copyright (C) 2011  developer of xNova Revolution
+ * @link: http://xnovarevolution.wordpress.com
 
  * @package 2Moons
  * @author Slaver <slaver7@gmail.com>
@@ -12,26 +12,25 @@
  * @copyright 2011 Slaver <slaver7@gmail.com> (Fork/2Moons)
  * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
  * @version 1.3 (2011-01-21)
- * @link http://code.google.com/p/2moons/
 
  * Please do not remove the credits
 */
 
-require(ROOT_PATH.'includes/classes/class.Records.php');
+require(ROOT_PATH.'includes/classes/class.Records.php');	
 
 function ShowRecordsPage()
 {
 	global $USER, $PLANET, $LNG, $resource, $db, $CONF, $UNI;
-
+		
 	$PlanetRess = new ResourceUpdate();
 	$PlanetRess->CalcResource();
 	$PlanetRess->SavePlanetToDB();
 
 	$template	= new template();
-
+	
 	$Records		= new records();
 	$RecordsArray	= $Records->GetRecords($UNI);
-
+	
 	foreach($RecordsArray as $ElementID => $ElementIDArray) {
 		if ($ElementID >=   1 && $ElementID <=  39 || $ElementID == 44) {
 			$Builds[$LNG['tech'][$ElementID]]	= array(
@@ -65,7 +64,7 @@ function ShowRecordsPage()
 			);
 		}
 	}
-
+	
 	$Records	= array(
 		$LNG['rec_build']	=> $Builds,
 		$LNG['rec_specb']	=> $MoonsBuilds,
@@ -73,15 +72,15 @@ function ShowRecordsPage()
 		$LNG['rec_fleet']	=> $Fleet,
 		$LNG['rec_defes']	=> $Defense,
 	);
-
-	$template->assign_vars(array(
+	
+	$template->assign_vars(array(	
 		'Records'	 	=> $Records,
 		'update'		=> sprintf($LNG['rec_last_update_on'],date(TDFORMAT,$CONF['stat_last_update'])),
 		'level'			=> $LNG['rec_level'],
 		'player'		=> $LNG['rec_playe'],
 	));
-
+	
 	$template->show("records/records_overview.tpl");
 }
 
-?>
+?> 

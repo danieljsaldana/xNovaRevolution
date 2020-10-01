@@ -1,10 +1,10 @@
 <?php
 
 /**
- _  \_/ |\ | /Â¯Â¯\ \  / /\    |Â¯Â¯) |_Â¯ \  / /Â¯Â¯\ |  |   |Â´Â¯|Â¯` | /Â¯Â¯\ |\ |6
- Â¯  /Â¯\ | \| \__/  \/ /--\   |Â¯Â¯\ |__  \/  \__/ |__ \_/   |   | \__/ | \|Core Redesigned.
- * @author: Copyright (C) 2017 by xNova Revolution
- * @author web: https://danieljsaldaÃ±a.com
+ _  \_/ |\ | /¯¯\ \  / /\    |¯¯) |_¯ \  / /¯¯\ |  |   |´¯|¯` | /¯¯\ |\ |6
+ ¯  /¯\ | \| \__/  \/ /--\   |¯¯\ |__  \/  \__/ |__ \_/   |   | \__/ | \|Core.
+ * @author: Copyright (C) 2011  developer of xNova Revolution
+ * @link: http://xnovarevolution.wordpress.com
 
  * @package 2Moons
  * @author Slaver <slaver7@gmail.com>
@@ -12,7 +12,6 @@
  * @copyright 2011 Slaver <slaver7@gmail.com> (Fork/2Moons)
  * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
  * @version 1.3 (2011-01-21)
- * @link http://code.google.com/p/2moons/
 
  * Please do not remove the credits
 */
@@ -33,7 +32,7 @@ class FlyingFleetsTable
 	{
 		global $LNG, $db;
 		$Table	= array();
-
+		
 		$FlyingFleets = $db->query("SELECT * FROM ".FLEETS." WHERE `fleeT_universe` = '".$_SESSION['adminuni']."' ORDER BY `fleet_end_time` ASC;");
 
 		while ($CurrentFleet = $db->fetch_array($FlyingFleets))
@@ -71,14 +70,14 @@ class FlyingFleetsTable
 
 			$Bloc['En_Time']  = date(TDFORMAT, $CurrentFleet['fleet_end_time']);
 			$Bloc['lock'] 	  = $CurrentFleet['fleet_busy'] == 0 ? "<a href='?page=fleets&amp;id=".$CurrentFleet['fleet_id']."&amp;lock=1'><font color='red'>".$LNG['ff_lock']."</font></a>" : "<a href='?page=fleets&amp;id=".$CurrentFleet['fleet_id']."&amp;lock=0'><font color='green'>".$LNG['ff_unlock']."</font></a>";
-
+			
 			$Table[]	= $Bloc;
 		}
 
 		return $Table;
 	}
 
-
+       
 	 private function CreateFleetPopupedMissionLink($FleetRow, $Texte, $FleetType)
    {
       global $LNG;
@@ -123,7 +122,7 @@ class FlyingFleetsTable
 				{
 					if (empty($Group))
 						continue;
-
+						
 					$Ship    = explode(',', $Group);
 					if($FleetRow['fleet_owner'] == $_SESSION['id'])
 						$FleetPopup .= '<tr><td style=\'width:50%;color:white\'>'. $LNG['tech'][$Ship[0]] .':</td><td style=\'width:50%;color:white\'>'.pretty_number($Ship[1]).'</td></tr>';
@@ -133,7 +132,7 @@ class FlyingFleetsTable
 							$FleetPopup .= '<tr><td style=\'width:50%;color:white\'>'. $LNG['tech'][$Ship[0]] .':</td><td style=\'width:50%;color:white\'>'.pretty_number($Ship[1]).'</td></tr>';
 						else
 							$FleetPopup .= '<tr><td style=\'width:100%;color:white\'>'. $LNG['tech'][$Ship[0]] .'</td></tr>';
-
+						
 					}
 				}
 			}
@@ -155,7 +154,7 @@ class FlyingFleetsTable
 
 		return $FleetPopup;
 	}
-
+       
 	public function GetNames($FleetRow)
 	{
 		global $db;
@@ -166,7 +165,7 @@ class FlyingFleetsTable
 		LEFT JOIN ".PLANETS." tp ON tp.`id` = '".$FleetRow['fleet_end_id']."'
 		WHERE ou.id = '".$FleetRow['fleet_owner']."';");
 	}
-
+       
 	public function GetEventString($FleetRow, $Status, $Owner, $Label, $Record)
 	{
 		global $LNG;
@@ -194,7 +193,7 @@ class FlyingFleetsTable
 		$FleetStatus    = array(0 => 'flight', 1 => 'return' , 2 => 'holding');
 		$StartType		= $FleetRow['fleet_start_type'] == 1 ? $LNG['fcm_planet'] : $LNG['fcm_moon'];
 		$TargetType		= $FleetRow['fleet_end_type'] == 1 ? $LNG['fcm_planet'] : $LNG['fcm_moon'];
-
+		
 		if ($MissionType == 8) {
 			if ($Status == 0)
 				$EventString = sprintf($LNG['cff_mission_own_recy_0'], $FleetContent, $StartType, $Names['own_planetname'], GetStartAdressLink($FleetRow, $FleetType), GetTargetAdressLink($FleetRow, $FleetType), $FleetCapacity);
@@ -205,13 +204,13 @@ class FlyingFleetsTable
 				$EventString = sprintf($LNG['cff_mission_own_mip'], $FleetRow['fleet_amount'], $StartType, $Names['own_planetname'], GetStartAdressLink($FleetRow, $FleetType), $TargetType, $Names['target_planetname'], GetTargetAdressLink($FleetRow, $FleetType));
 			else
 				$EventString = sprintf($LNG['cff_mission_target_mip'], $FleetRow['fleet_amount'], $this->BuildHostileFleetPlayerLink($FleetRow, $Names), $StartType, $Names['own_planetname'], GetStartAdressLink($FleetRow, $FleetType), $TargetType, $Names['target_planetname'], GetTargetAdressLink($FleetRow, $FleetType));
-		} elseif ($MissionType == 11 || $MissionType == 15) {
+		} elseif ($MissionType == 11 || $MissionType == 15) {		
 			if ($Status == 0)
 				$EventString = sprintf($LNG['cff_mission_own_expo_0'], $FleetContent, $StartType, $Names['own_planetname'], GetStartAdressLink($FleetRow, $FleetType), GetTargetAdressLink($FleetRow, $FleetType), $FleetCapacity);
 			elseif ($Status == 2)
-				$EventString = sprintf($LNG['cff_mission_own_expo_2'], $FleetContent, $StartType, $Names['own_planetname'], GetStartAdressLink($FleetRow, $FleetType), GetTargetAdressLink($FleetRow, $FleetType), $FleetCapacity);
+				$EventString = sprintf($LNG['cff_mission_own_expo_2'], $FleetContent, $StartType, $Names['own_planetname'], GetStartAdressLink($FleetRow, $FleetType), GetTargetAdressLink($FleetRow, $FleetType), $FleetCapacity);	
 			else
-				$EventString = sprintf($LNG['cff_mission_own_expo_1'], $FleetContent, GetTargetAdressLink($FleetRow, $FleetType), $StartType, $Names['own_planetname'], GetStartAdressLink($FleetRow, $FleetType), $FleetCapacity);
+				$EventString = sprintf($LNG['cff_mission_own_expo_1'], $FleetContent, GetTargetAdressLink($FleetRow, $FleetType), $StartType, $Names['own_planetname'], GetStartAdressLink($FleetRow, $FleetType), $FleetCapacity);	
 		} else {
 			if ($Owner == true) {
 				if ($Status == 0) {
@@ -219,12 +218,12 @@ class FlyingFleetsTable
 						$Message  = $LNG['cff_mission_acs']	;
 					else
 						$Message  = $LNG['cff_mission_own_0'];
-
+						
 					$EventString  = sprintf($Message, $FleetContent, $StartType, $Names['own_planetname'], GetStartAdressLink($FleetRow, $FleetType), $TargetType, $Names['target_planetname'], GetTargetAdressLink($FleetRow, $FleetType), $FleetCapacity);
 				} elseif($Status == 1)
-					$EventString  = sprintf($LNG['cff_mission_own_1'], $FleetContent, $TargetType, $Names['target_planetname'], GetTargetAdressLink($FleetRow, $FleetType), $StartType, $Names['own_planetname'], GetStartAdressLink($FleetRow, $FleetType), $FleetCapacity);
+					$EventString  = sprintf($LNG['cff_mission_own_1'], $FleetContent, $TargetType, $Names['target_planetname'], GetTargetAdressLink($FleetRow, $FleetType), $StartType, $Names['own_planetname'], GetStartAdressLink($FleetRow, $FleetType), $FleetCapacity);		
 				else
-					$EventString  = sprintf($LNG['cff_mission_own_2'], $FleetContent, $StartType, $Names['own_planetname'], GetStartAdressLink($FleetRow, $FleetType), $TargetType, $Names['target_planetname'], GetTargetAdressLink($FleetRow, $FleetType), $FleetCapacity);
+					$EventString  = sprintf($LNG['cff_mission_own_2'], $FleetContent, $StartType, $Names['own_planetname'], GetStartAdressLink($FleetRow, $FleetType), $TargetType, $Names['target_planetname'], GetTargetAdressLink($FleetRow, $FleetType), $FleetCapacity);	
 			} else {
 				if ($Status == 2)
 					$Message	= $LNG['cff_mission_target_stay'];
@@ -234,7 +233,7 @@ class FlyingFleetsTable
 					$Message	= $LNG['cff_mission_target_bad'];
 
 				$EventString	= sprintf($Message, $FleetContent, $this->BuildHostileFleetPlayerLink($FleetRow, $Names), $StartType, $Names['own_planetname'], GetStartAdressLink($FleetRow, $FleetType), $TargetType, $Names['target_planetname'], GetTargetAdressLink($FleetRow, $FleetType), $FleetCapacity);
-			}
+			}		       
 		}
 		$EventString = '<span class="'.$FleetStatus[$Status].' '.$FleetType.'">'.$EventString.'</span>';
 		if ($Status == 0)
@@ -251,7 +250,7 @@ class FlyingFleetsTable
 	public function BuildFleetEventTable($FleetRow, $Status, $Owner, $Label, $Record, $isAKS = false)
 	{
 		global $LNG, $db;
-
+		
 		if(($FleetRow['fleet_mission'] == 8 && $_SESSION['id'] == $FleetRow['fleet_owner']) || $FleetRow['fleet_mission'] != 8)
 		{
 			if ($isAKS == true && $Status == 0 && ($FleetRow['fleet_mission'] == 1 || $FleetRow['fleet_mission'] == 2) && $FleetRow['fleet_group'] != 0)
@@ -261,7 +260,7 @@ class FlyingFleetsTable
 				while($AKSRow = $db->fetch_array($AKSFleets))
 				{
 					$Return			= $this->GetEventString($AKSRow, $Status, $Owner, $Label, $Record);
-
+						
 					$Rest			= $Return[0];
 					$EventString    .= $Return[1].'<br /><br />';
 					$Time			= $Return[2];
@@ -271,13 +270,13 @@ class FlyingFleetsTable
 			else
 			{
 				list($Rest, $EventString, $Time) = $this->GetEventString($FleetRow, $Status, $Owner, $Label, $Record);
-				$EventString    .= '<br /><br />';
+				$EventString    .= '<br /><br />';	
 			}
-
+			
 			$FleetInfo['fleet_order']	= $Label . $Record;
 			$FleetInfo['fleet_descr']	= substr($EventString, 0, -8);
 			$FleetInfo['fleet_return']	= $Time;
-
+	
 			return $FleetInfo;
 		}
 		return array('fleet_order' => 0, 'fleet_descr' => '', 'fleet_return'=> 0);

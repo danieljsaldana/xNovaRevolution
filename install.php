@@ -1,10 +1,10 @@
 <?php
 
 /**
- _  \_/ |\ | /Â¯Â¯\ \  / /\    |Â¯Â¯) |_Â¯ \  / /Â¯Â¯\ |  |   |Â´Â¯|Â¯` | /Â¯Â¯\ |\ |6
- Â¯  /Â¯\ | \| \__/  \/ /--\   |Â¯Â¯\ |__  \/  \__/ |__ \_/   |   | \__/ | \|Core Redesigned.
- * @author: Copyright (C) 2017 by xNova Revolution
- * @author web: https://danieljsaldaÃ±a.com
+ _  \_/ |\ | /¯¯\ \  / /\    |¯¯) |_¯ \  / /¯¯\ |  |   |´¯|¯` | /¯¯\ |\ |6
+ ¯  /¯\ | \| \__/  \/ /--\   |¯¯\ |__  \/  \__/ |__ \_/   |   | \__/ | \|Core.
+ * @author: Copyright (C) 2011  developer of xNova Revolution
+ * @link: http://xnovarevolution.wordpress.com
 
  * @package 2Moons
  * @author Slaver <slaver7@gmail.com>
@@ -12,7 +12,6 @@
  * @copyright 2011 Slaver <slaver7@gmail.com> (Fork/2Moons)
  * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
  * @version 1.3 (2011-01-21)
- * @link http://code.google.com/p/2moons/
 
  * Please do not remove the credits
 */
@@ -34,10 +33,10 @@ set_exception_handler('exception_handler');
 require_once(ROOT_PATH . 'includes/classes/class.Lang.php');
 require_once(ROOT_PATH . 'includes/classes/class.theme.php');
 require_once(ROOT_PATH . 'includes/classes/class.template.php');
-
-$THEME	= new Theme();
-$THEME->setUserTheme('gow');
-$LANG	= new Language();
+	
+$THEME	= new Theme();	
+$THEME->setUserTheme('gow');	
+$LANG	= new Language();	
 $LANG->GetLangFromBrowser();
 $LANG->includeLang(array('INGAME', 'INSTALL'));
 
@@ -79,26 +78,26 @@ switch ($Mode) {
 			$PHP = "<span class=\"no\">".$LNG['reg_no'].", v".PHP_VERSION."</span>";
 			$error = true;
 		}
-
+		
 		if(class_exists('mysqli')){
 			$mysqli = "<span class=\"yes\">".$LNG['reg_yes']."</span>";
 		} else {
 			$mysqli = "<span class=\"no\">".$LNG['reg_no']."</span>";
 			$error = true;
 		}
-
+				
 		if(function_exists('json_encode')){
 			$json = "<span class=\"yes\">".$LNG['reg_yes']."</span>";
 		} else {
 			$json = "<span class=\"no\">".$LNG['reg_no']."</span>";
 			$error = true;
 		}
-
+		
 		if(extension_loaded('bcmath'))
 			$bcmath = "<span class=\"yes\">".$LNG['reg_yes']."</span>";
 		else
 			$bcmath	= "<span class=\"ok\">".$LNG['reg_no']."</span>";
-
+	
 		if(function_exists('ini_set')){
 			$iniset = "<span class=\"yes\">".$LNG['reg_yes']."</span>";
 		} else {
@@ -149,7 +148,7 @@ switch ($Mode) {
 		if($error == false){
 			$done = "<tr><td colspan=\"2\" class=\"transparent\"><a href=\"?mode=ins&page=1&amp;lang=".$LANG->GetUser()."\">".$LNG['continue']."</a></td></tr>";
 		}
-
+		
 		$template->assign_vars(array(
 			'dir'					=> $dirs,
 			'json'					=> $json,
@@ -185,21 +184,21 @@ switch ($Mode) {
 				require_once(ROOT_PATH.'includes/libs/ftp/ftp.class.php');
 				require_once(ROOT_PATH.'includes/libs/ftp/ftpexception.class.php');
 				$LANG->includeLang(array('ADMIN'));
-				$CONFIG = array("host" => $_GET['host'], "username" => $_GET['user'], "password" => $_GET['pass'], "port" => 21);
+				$CONFIG = array("host" => $_GET['host'], "username" => $_GET['user'], "password" => $_GET['pass'], "port" => 21); 
 				try
 				{
-					$ftp = FTP::getInstance();
+					$ftp = FTP::getInstance(); 
 					$ftp->connect($CONFIG);
 				}
 				catch (FTPException $error)
 				{
 					exit($LNG['up_ftp_error']);
-				}
-
+				}	
+							
 				if(!$ftp->changeDir($_GET['path']))
 					exit($LNG['up_ftp_change_error']);
-
-				$CHMOD	= (php_sapi_name() == 'apache2handler') ? 0666 : 0755;
+				
+				$CHMOD	= (php_sapi_name() == 'apache2handler') ? 0666 : 0755;		
 				$ftp->chmod('cache', $CHMOD);
 				$ftp->chmod('cache/sessions', $CHMOD);
 				$ftp->chmod('raports', $CHMOD);
@@ -216,17 +215,17 @@ switch ($Mode) {
 				@touch(ROOT_PATH."includes/config.php");
 				if (!is_writable(ROOT_PATH."includes/config.php"))
 					exit(json_encode(array('msg' => $LNG['step2_conf_op_fail'], 'error' => true)));
-
+				
 				require_once(ROOT_PATH . 'includes/classes/class.MySQLi.php');
 				$db = new DB_MySQLi(false);
 				if (mysqli_connect_error())
 					exit(json_encode(array('msg' => sprintf($LNG['step2_db_con_fail'], mysqli_connect_error()), 'error' => true)));
-
+					
 				@touch(ROOT_PATH."includes/error.log");
 				ob_start();
 				$db->multi_query(str_replace("prefix_", $prefix, file_get_contents('install.sql')));
 				$MSG	= ob_get_clean();
-
+				
 				if (!empty($MSG))
 					exit(sprintf($LNG['step2_db_error'], $MSG));
 
@@ -269,12 +268,12 @@ switch ($Mode) {
 
 				if (empty($_POST['adm_user']) && empty($_POST['adm_pas']) && empty($_POST['adm_email']))
 					exit($template->message($LNG['step4_need_fields'],"?mode=ins&page=3&lang=".$LANG->GetUser(), 3, true));
-
+					
 				require_once(ROOT_PATH . 'includes/config.php');
-				require_once(ROOT_PATH . 'includes/constants.php');
+				require_once(ROOT_PATH . 'includes/constants.php');	
 				require_once(ROOT_PATH . 'includes/classes/class.MySQLi.php');
 				$db = new DB_MySQLi();
-
+								
 				$SQL  = "INSERT INTO ".USERS." SET ";
 				$SQL .= "`id`                = '1', ";
 				$SQL .= "`username`          = '". $adm_user ."', ";
@@ -328,7 +327,7 @@ switch ($Mode) {
 				session_name($dbsettings["secretword"]);
 				ini_set('session.use_trans_sid', 0);
 				ini_set('session.auto_start', '0');
-				ini_set('session.serialize_handler', 'php');
+				ini_set('session.serialize_handler', 'php');  
 				ini_set('session.gc_maxlifetime', SESSION_LIFETIME);
 				ini_set('session.gc_probability', '1');
 				ini_set('session.gc_divisor', '1000');

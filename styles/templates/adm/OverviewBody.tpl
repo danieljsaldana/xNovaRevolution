@@ -16,16 +16,13 @@
 	<th colspan="2"><h3>Xnova Revolution Team</h3></th>
 	</tr>
 <tr align="center">
-	  <td><a href="http://princk.deviantart.com/" target="_blank"><b>Brayan Narv&aacute;ez (Prinick)</b></a></td>
+	  <td><a href="http://xnovarevolution.wordpress.com" target="_blank"><b>TheJex13</b></a></td>
 	  <td>Leader<br />Programmer<br />Designer<td>
 	</tr>
 	<tr align="center">
-	  <td><b>Zorrogris</b></td>
-	  <td>Xnova Forum Hoster<td>
 	</tr>
 	<tr align="center">
-	  <td><b>D4rk0ur</b></td>
-	  <td>Xnova Forum Hoster<td>
+	 
 	</tr>
 	<tr>
 	<th colspan="2"><h3><a href="http://2moons.cc/" target="_blank">2Moons</a> Team</h3></th>
@@ -67,16 +64,6 @@
 	  <td>2moons Russian Translator<td>
 	</tr>
 	
-	<tr>
-	<th colspan="2"><h3>Special Thanks</h3></th>
-	</tr>
-	<tr align="center">
-	  <td><b>lucky<br />Giogio<br />killer99<br />kmti212<br />sharpshooter<br />Naruto<br />Metusalem<br />Meikel<br />Phil<br />Schnippi<br />Inforcer<br />Vobi<br />Onko<br />Sycrog<br />Raito<br />Chlorel<br />e-Zobar<br />Flousedid<br />Allen Spielern im <a href="http://www.titanspace.org" target="blank">Betauni</a></b></td>
-	  <td>Others contributors<td>
-	</tr>
-	<tr align="center">
-	<td colspan="2"><br/>And all Community of 2moons and xNova Revolution</td>
-	</tr>
 	<tr class="remarcado">
 	<td colspan="2"><center><img src="styles/theme/gultra/imagenes/otros/creditos.png" /></center></td>
 	</tr>

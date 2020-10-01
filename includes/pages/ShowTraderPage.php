@@ -1,22 +1,19 @@
 <?php
 
 /**
- _  \_/ |\ | /Â¯Â¯\ \  / /\    |Â¯Â¯) |_Â¯ \  / /Â¯Â¯\ |  |   |Â´Â¯|Â¯` | /Â¯Â¯\ |\ |6
- Â¯  /Â¯\ | \| \__/  \/ /--\   |Â¯Â¯\ |__  \/  \__/ |__ \_/   |   | \__/ | \|Core Redesigned.
- * @author: Copyright (C) 2017 by xNova Revolution
- * @author web: https://danieljsaldaÃ±a.com
+ _  \_/ |\ | /¯¯\ \  / /\    |¯¯) |_¯ \  / /¯¯\ |  |   |´¯|¯` | /¯¯\ |\ |6
+ ¯  /¯\ | \| \__/  \/ /--\   |¯¯\ |__  \/  \__/ |__ \_/   |   | \__/ | \|Core.
+ * @author: Copyright (C) 2011  developer of xNova Revolution
+ * @link: http://xnovarevolution.wordpress.com
 
-* @package 2Moons
-* @author Slaver <slaver7@gmail.com>
-* @copyright 2009 Lucky <douglas@crockford.com> (XGProyecto)
-* @copyright 2011 Slaver <slaver7@gmail.com> (Fork/2Moons)
-* @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
-* @version 1.3 (2011-01-21)
-* @link http://code.google.com/p/2moons/
+ * @package 2Moons
+ * @author Slaver <slaver7@gmail.com>
+ * @copyright 2009 Lucky <douglas@crockford.com> (XGProyecto)
+ * @copyright 2011 Slaver <slaver7@gmail.com> (Fork/2Moons)
+ * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
+ * @version 1.3 (2011-01-21)
 
-* Please do not remove the credits
-
-* Queda pendiente para un proxio update agregar Norio al mercader
+ * Please do not remove the credits
 */
 
 function ShowTraderPage()
@@ -30,7 +27,7 @@ function ShowTraderPage()
    $norio      = round(request_var('norio', 0.0), 0);
 
    $PlanetRess = new ResourceUpdate();
-
+   
    $template   = new template();
    $template->loadscript("trader.js");
 
@@ -59,7 +56,7 @@ function ShowTraderPage()
                   }
                   else
                      $template->message($LNG['tr_not_enought_metal'], "game.php?page=trader", 1);
-
+                     
                   $PlanetRess->SavePlanetToDB();
                }
             } else {
@@ -67,8 +64,8 @@ function ShowTraderPage()
                   'tr_resource'      => $LNG['tr_resource'],
                   'tr_sell_metal'      => $LNG['tr_sell_metal'],
                   'tr_amount'         => $LNG['tr_amount'],
-                  'tr_exchange'      => $LNG['tr_exchange'],
-				  'tr_almacenes'      => $LNG['tr_almacenes'],
+                  'tr_exchange'      => $LNG['tr_exchange'],  
+				  'tr_almacenes'      => $LNG['tr_almacenes'],   				  
                   'tr_quota_exchange'   => $LNG['tr_quota_exchange'],
 				  'tr_descr'   		=> $LNG['tr_descr'],
 				  'tr_cost_dm_trader'   	=> sprintf($LNG['tr_cost_dm_trader'], pretty_number(DARKMATTER_FOR_TRADER), $LNG['Darkmatter']),
@@ -82,7 +79,7 @@ function ShowTraderPage()
                   'ress'             => $ress,
                ));
 
-               $template->show("mercader/trader_metal.tpl");
+               $template->show("mercader/trader_metal.tpl");   
             }
          break;
          case 'crystal':
@@ -94,7 +91,7 @@ function ShowTraderPage()
                   $template->message($LNG['tr_only_positive_numbers'], "game.php?page=trader",1);
                else
                {
-                  $trade   = ($metal * 0.5 + $deut * 2 + $norio * 1.5);
+                  $trade   = ($metal * 0.5 + $deut * 2 + $norio * 1.5);                  
                   $PlanetRess->CalcResource();
                   if ($PLANET['crystal'] > $trade)
                   {
@@ -107,7 +104,7 @@ function ShowTraderPage()
                   }
                   else
                      $template->message($LNG['tr_not_enought_crystal'], "game.php?page=trader", 1);
-
+                  
                   $PlanetRess->SavePlanetToDB();
                }
             } else {
@@ -115,7 +112,7 @@ function ShowTraderPage()
                   'tr_resource'      => $LNG['tr_resource'],
                   'tr_sell_crystal'   => $LNG['tr_sell_crystal'],
                   'tr_amount'         => $LNG['tr_amount'],
-                  'tr_exchange'      => $LNG['tr_exchange'],
+                  'tr_exchange'      => $LNG['tr_exchange'],   
 				  'tr_almacenes'      => $LNG['tr_almacenes'],
                   'tr_quota_exchange'   => $LNG['tr_quota_exchange'],
 				  'tr_descr'   		=> $LNG['tr_descr'],
@@ -130,7 +127,7 @@ function ShowTraderPage()
                   'ress'             => $ress,
                ));
 
-               $template->show("mercader/trader_crystal.tpl");
+               $template->show("mercader/trader_crystal.tpl");   
             }
          break;
          case 'deuterium':
@@ -142,7 +139,7 @@ function ShowTraderPage()
                   message($LNG['tr_only_positive_numbers'], "game.php?page=trader",1);
                else
                {
-                  $trade   = ($metal * 0.25 + $crystal * 0.5 + $norio * 1.2);   #si norio se multplica por (1) da el mismo resultado
+                  $trade   = ($metal * 0.25 + $crystal * 0.5 + $norio * 1.2);   #si norio se multplica por (1) da el mismo resultado               
                   $PlanetRess->CalcResource();
                   if ($PLANET['deuterium'] > $trade)
                   {
@@ -155,7 +152,7 @@ function ShowTraderPage()
                   }
                   else
                      $template->message($LNG['tr_not_enought_deuterium'], "game.php?page=trader", 1);
-
+                     
                   $PlanetRess->SavePlanetToDB();
                }
             } else {
@@ -163,7 +160,7 @@ function ShowTraderPage()
                   'tr_resource'      => $LNG['tr_resource'],
                   'tr_sell_deuterium'   => $LNG['tr_sell_deuterium'],
                   'tr_amount'         => $LNG['tr_amount'],
-                  'tr_exchange'      => $LNG['tr_exchange'],
+                  'tr_exchange'      => $LNG['tr_exchange'],   
 				  'tr_almacenes'      => $LNG['tr_almacenes'],
                   'tr_quota_exchange'   => $LNG['tr_quota_exchange'],
 				  'tr_descr'   		=> $LNG['tr_descr'],
@@ -178,9 +175,9 @@ function ShowTraderPage()
                   'ress'             => $ress,
                ));
 
-               $template->show("mercader/trader_deuterium.tpl");
+               $template->show("mercader/trader_deuterium.tpl");   
             }
-         break;
+         break;   
          case 'norio':
             if($action == "trade")
             {
@@ -190,7 +187,7 @@ function ShowTraderPage()
                   message($LNG['tr_only_positive_numbers'], "game.php?page=trader",1);
                else
                {
-                  $trade = ($metal * 0.10 + $crystal * 2.25 + $deut * 2);
+                  $trade = ($metal * 0.10 + $crystal * 2.25 + $deut * 2);         
                   $PlanetRess->CalcResource();
                   if ($PLANET['norio'] > $trade)
                   {
@@ -203,7 +200,7 @@ function ShowTraderPage()
                   }
                   else
                      $template->message($LNG['tr_not_enought_norio'], "game.php?page=trader", 1);
-
+                     
                   $PlanetRess->SavePlanetToDB();
                }
             } else {
@@ -211,7 +208,7 @@ function ShowTraderPage()
                   'tr_resource'      => $LNG['tr_resource'],
                   'tr_sell_norio'     => $LNG['tr_sell_norio'],
                   'tr_amount'         => $LNG['tr_amount'],
-                  'tr_exchange'      => $LNG['tr_exchange'],
+                  'tr_exchange'      => $LNG['tr_exchange'],   
 				  'tr_almacenes'      => $LNG['tr_almacenes'],
                   'tr_quota_exchange'   => $LNG['tr_quota_exchange'],
 				  'tr_descr'   		=> $LNG['tr_descr'],
@@ -226,9 +223,9 @@ function ShowTraderPage()
                   'ress'             => $ress,
                ));
 
-               $template->show("mercader/trader_norio.tpl");
+               $template->show("mercader/trader_norio.tpl");   
             }
-         break;
+         break;   
       }
    }
    else

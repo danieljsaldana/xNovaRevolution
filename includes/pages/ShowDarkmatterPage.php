@@ -1,10 +1,10 @@
 <?php
 
 /**
- _  \_/ |\ | /Â¯Â¯\ \  / /\    |Â¯Â¯) |_Â¯ \  / /Â¯Â¯\ |  |   |Â´Â¯|Â¯` | /Â¯Â¯\ |\ |6
- Â¯  /Â¯\ | \| \__/  \/ /--\   |Â¯Â¯\ |__  \/  \__/ |__ \_/   |   | \__/ | \|Core Redesigned.
- * @author: Copyright (C) 2017 by xNova Revolution
- * @author web: https://danieljsaldaÃ±a.com
+ _  \_/ |\ | /¯¯\ \  / /\    |¯¯) |_¯ \  / /¯¯\ |  |   |´¯|¯` | /¯¯\ |\ |6
+ ¯  /¯\ | \| \__/  \/ /--\   |¯¯\ |__  \/  \__/ |__ \_/   |   | \__/ | \|Core.
+ * @author: Copyright (C) 2011  developer of xNova Revolution
+ * @link: http://xnovarevolution.wordpress.com
 
  * @package 2Moons
  * @author Slaver <slaver7@gmail.com>
@@ -12,7 +12,6 @@
  * @copyright 2011 Slaver <slaver7@gmail.com> (Fork/2Moons)
  * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
  * @version 1.3 (2011-01-21)
- * @link http://code.google.com/p/2moons/
 
  * Please do not remove the credits
 */
@@ -34,7 +33,7 @@ function ShowDarkmatterPage()
 	$norio1_darkmatter = 100000;
 	$norio2 = 1000000000;
 	$norio2_darkmatter = 1000000;
-
+	
 #PACK 1
 if( $Mode == 'norio1' && $norio >= $norio1){
 $aendern = $db->query("UPDATE ".USERS." SET darkmatter=darkmatter+" .$norio1_darkmatter ." WHERE id= '".$USER['id']."';");
@@ -45,10 +44,10 @@ $aendern = $db->query("UPDATE ".PLANETS." SET norio=norio-" .$norio1." WHERE `ga
                                ",'planets');
 
 $template->message($LNG['dm_pack_ok'],"?page=materiaoscura",4);
-                exit;
+                exit;    
 } elseif($norio < $norio1 && $Mode == 'norio1') {
-$template->message($LNG['dm_pack_no'],"?page=materiaoscura",4);
-exit;
+$template->message($LNG['dm_pack_no'],"?page=materiaoscura",4);                
+exit;    
 }
 
 #PACK 2
@@ -61,10 +60,10 @@ $aendern = $db->query("UPDATE ".PLANETS." SET norio=norio-" .$norio2." WHERE `ga
                                ",'planets');
 
 $template->message($LNG['dm_pack_ok'],"?page=materiaoscura",4);
-                exit;
+                exit;    
 } elseif($norio < $norio1 && $Mode == 'norio1') {
-$template->message($LNG['dm_pack_no'],"?page=materiaoscura",4);
-exit;
+$template->message($LNG['dm_pack_no'],"?page=materiaoscura",4);                
+exit;    
 }
 
 $template->assign_vars(array(

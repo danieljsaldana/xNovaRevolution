@@ -16,7 +16,7 @@
  * Please do not remove the credits
 */
 
-function ShowChangelogPage()
+function ShowRecordsPage()
 {
 	global $USER, $PLANET, $LNG, $LANG;
 
@@ -26,13 +26,15 @@ function ShowChangelogPage()
 
 	$template	= new template();
 
-	$LANG->includeLang(array('CHANGELOG'));	
 	$template->assign_vars(array(	
-		'ChangelogList'	=> array_map('makebr',$LNG['changelog']),
-		'Version'		=> $LNG['Version'],
-		'Description'	=> $LNG['Description'],
+		'mercado_negro'		=> $LNG['mercado_negro'],
+		'comerciante'	=> $LNG['comerciante'],
+		'bonus' => $LNG['bonus_n'],
+		'mercado_negro_desc'		=> $LNG['mercado_negro_desc'],
+		'comerciante_desc'	=> $LNG['comerciante_desc'],
+		'bonus_desc' => $LNG['bonus_n_desc'],
 	));
 	
-	$template->show("changelog_overview.tpl");
+	$template->show("records.tpl");
 }
 ?>

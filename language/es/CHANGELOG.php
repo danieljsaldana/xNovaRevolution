@@ -1,11 +1,10 @@
 <?php
 
 /**
- _  \_/ |\ | /¯¯\ \  / /\    |¯¯) |_¯ \  / /¯¯\ |  |   |´¯|¯` | /¯¯\ |\ |5
- ¯  /¯\ | \| \__/  \/ /--\   |¯¯\ |__  \/  \__/ |__ \_/   |   | \__/ | \|Core Redesigned.
- * @author: Copyright (C) 2011 by Brayan Narvaez (Prinick) developer of xNova Revolution
- * @author web: http://www.bnarvaez.com
- * @link: http://www.xnovarev.com
+ _  \_/ |\ | /¯¯\ \  / /\    |¯¯) |_¯ \  / /¯¯\ |  |   |´¯|¯` | /¯¯\ |\ |6
+ ¯  /¯\ | \| \__/  \/ /--\   |¯¯\ |__  \/  \__/ |__ \_/   |   | \__/ | \|Core.
+ * @author: Copyright (C) 2011  developer of xNova Revolution
+ * @link: http://xnovarevolution.wordpress.com
 
  * @package 2Moons
  * @author Slaver <slaver7@gmail.com>
@@ -13,7 +12,6 @@
  * @copyright 2011 Slaver <slaver7@gmail.com> (Fork/2Moons)
  * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
  * @version 1.3 (2011-01-21)
- * @link http://code.google.com/p/2moons/
 
  * Please do not remove the credits
 */
@@ -23,7 +21,18 @@ $LNG['Description'] = 'Descripci&oacute;n';
 
 $LNG['changelog']   = array(
 
-'<font color="lime" size="1" face="arial"><b>XNOVA 5.9</b></font>' => 'xNovaRevolution v5.9
+'<font color="lime" size="1" face="arial"><b>XNOVA 6.0</b></font>' => 'xNovaRevolution v6.0
+
+- MOD: Substitution Xnova Core Rev
+- MOD: Images in construction of buildings
+- MOD: Change in the credits to indicate the play equipment
+- FIX: Correction game language
+- FIX:  Change in Vars
+- FIX: Error messages report
+
+',
+
+'<font  size="1" face="arial"><b>XNOVA 5.9</b></font>' => 'xNovaRevolution v5.9
 
 - FIX: Bug norium production with commander
 - FIX: Fix of fix Research time

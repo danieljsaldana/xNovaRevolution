@@ -1,10 +1,10 @@
 <?php
 
 /**
- _  \_/ |\ | /Â¯Â¯\ \  / /\    |Â¯Â¯) |_Â¯ \  / /Â¯Â¯\ |  |   |Â´Â¯|Â¯` | /Â¯Â¯\ |\ |6
- Â¯  /Â¯\ | \| \__/  \/ /--\   |Â¯Â¯\ |__  \/  \__/ |__ \_/   |   | \__/ | \|Core Redesigned.
- * @author: Copyright (C) 2017 by xNova Revolution
- * @author web: https://danieljsaldaÃ±a.com
+ _  \_/ |\ | /¯¯\ \  / /\    |¯¯) |_¯ \  / /¯¯\ |  |   |´¯|¯` | /¯¯\ |\ |6
+ ¯  /¯\ | \| \__/  \/ /--\   |¯¯\ |__  \/  \__/ |__ \_/   |   | \__/ | \|Core.
+ * @author: Copyright (C) 2011  developer of xNova Revolution
+ * @link: http://xnovarevolution.wordpress.com
 
  * @package 2Moons
  * @author Slaver <slaver7@gmail.com>
@@ -12,12 +12,11 @@
  * @copyright 2011 Slaver <slaver7@gmail.com> (Fork/2Moons)
  * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
  * @version 1.3 (2011-01-21)
- * @link http://code.google.com/p/2moons/
 
  * Please do not remove the credits
 */
 
-abstract class FleetFunctions
+abstract class FleetFunctions 
 {
 	private static function GetShipConsumption($Ship, $Player)
 	{
@@ -31,7 +30,7 @@ abstract class FleetFunctions
 		foreach($Ships as $Ship => $Amount) {
 			if($ShipID != $Ship && $Amount != 0) return false;
 		}
-
+			
 		return true;
 	}
 
@@ -51,12 +50,12 @@ abstract class FleetFunctions
 		else
 			return 0;
 	}
-
+	
 	public static function GetAvailableSpeeds()
 	{
 		return array(10 => 100, 9 => 90, 8 => 80, 7 => 70, 6 => 60, 5 => 50, 4 => 40, 3 => 30, 2 => 20, 1 => 10);
 	}
-
+	
 	public static function CheckUserSpeed($GenFleetSpeed)
 	{
 		return (array_key_exists($GenFleetSpeed, self::GetAvailableSpeeds())) ? true : false;
@@ -87,7 +86,7 @@ abstract class FleetFunctions
 		global $CONF;
 		return $CONF['fleet_speed'] / 2500;
 	}
-
+	
 	public static function GetMaxFleetSlots($CurrentUser)
 	{
 		global $resource;
@@ -108,18 +107,18 @@ abstract class FleetFunctions
 		}
 		return $FleetRoom;
 	}
-
+	
 	public static function GetFleetMaxSpeed ($Fleets, $Player)
 	{
 		global $reslist, $pricelist;
 
 		$FleetArray = (!is_array($Fleets)) ? array($Fleets => 1) : $Fleets;
 		$speedalls 	= array();
-
+		
 		foreach ($FleetArray as $Ship => $Count) {
 			$speedalls[$Ship] = self::GetShipSpeed($Ship, $Player);
 		}
-
+		
 		return (is_array($Fleets)) ? min($speedalls) : $speedalls[$Ship];
 	}
 
@@ -144,14 +143,14 @@ abstract class FleetFunctions
 		$FleetArray	= unserialize(base64_decode(str_rot13($FleetArray)));
 		if(!is_array($FleetArray))
 			self::GotoFleetPage();
-
+		
 		return $FleetArray;
 	}
-
+	
 	public static function SetFleetArray($FleetArray)
 	{
 		return str_rot13(base64_encode(serialize($FleetArray)));
-	}
+	}	
 
 	public static function CleanFleetArray(&$FleetArray)
 	{
@@ -159,24 +158,24 @@ abstract class FleetFunctions
 			if ($Count <= 0) unset($FleetArray[$ShipID]);
 		}
 	}
-
+	
 	public static function GetFleetMissions($MisInfo)
 	{
 		global $LNG, $resource, $CONF;
 		$Missions 			= self::GetAvailableMissions($MisInfo);
 
 		if (!empty($Missions[15])) {
-			for($i = 1;$i <= $MisInfo['CurrentUser'][$resource[124]];$i++) {
+			for($i = 1;$i <= $MisInfo['CurrentUser'][$resource[124]];$i++) {	
 				$StayBlock[$i]	= $i / $CONF['halt_speed'];
 			}
 		}
 		elseif(!empty($Missions[5]))
 			$StayBlock = array(1 => 1, 2 => 2, 4 => 4, 8 => 8, 12 => 12, 16 => 16, 32 => 32);
-
-
+		
+		
 		return array('MissionSelector' => $Missions, 'StayBlock' => $StayBlock);
-	}
-
+	}	
+	
 	public static function GetUserShotcut($CurrentUser)
 	{
 		if (empty($CurrentUser['fleet_shortcut']))
@@ -188,9 +187,9 @@ abstract class FleetFunctions
 		foreach ($Shoutcut as $a => $b)
 		{
 			if (empty($b)) continue;
-
+			
 			$ShortCutRow = explode(',', $b);
-
+			
 			$ShortCutList[] = array(
 				'name'			=> $ShortCutRow[0],
 				'galaxy'		=> $ShortCutRow[1],
@@ -201,14 +200,14 @@ abstract class FleetFunctions
 		}
 		return $ShortCutList;
 	}
-
+	
 	public static function GetColonyList($Colony)
 	{
 		global $PLANET;
 		foreach($Colony as $CurPlanetID => $CurPlanet)
 		{
 			if ($PLANET['galaxy'] == $CurPlanet['galaxy'] && $PLANET['system'] == $CurPlanet['system'] && $PLANET['planet'] == $CurPlanet['planet'] && $PLANET['planet_type'] == $CurPlanet['planet_type']) continue;
-
+			
 			$ColonyList[] = array(
 				'image'			=> $CurPlanet['image'],
 				'name'			=> $CurPlanet['name'],
@@ -216,19 +215,19 @@ abstract class FleetFunctions
 				'system'		=> $CurPlanet['system'],
 				'planet'		=> $CurPlanet['planet'],
 				'planet_type'	=> $CurPlanet['planet_type'],
-			);
+			);	
 		}
-
+			
 		return $ColonyList;
 	}
-
+	
 	public static function IsAKS($CurrentUserID)
 	{
 		global $db, $CONF;
-
+		
 		$GetAKS 	= $db->query("SELECT a.`id`, a.`name`, a.`galaxy`, a.`system`, a.`planet`, a.`planet_type` FROM ".AKS." as a WHERE '".MAX_FLEETS_PER_ACS."' > (SELECT COUNT(*) FROM ".FLEETS." WHERE `fleet_group` = a.`id`) AND (a.`teilnehmer` = '".$CurrentUserID."' OR a.`eingeladen` LIKE '%,".$CurrentUserID.",%');");
 		$AKSList	= array();
-
+		
 		while($row = $db->fetch_array($GetAKS))
 		{
 			$AKSList[]	= array(
@@ -240,9 +239,9 @@ abstract class FleetFunctions
 				'planet_type'	=> $row['planet_type'],
 			);
 		}
-
+		
 		$db->free_result($GetAKS);
-
+		
 		return $AKSList;
 	}
 
@@ -252,16 +251,16 @@ abstract class FleetFunctions
 
 		$ActualFleets = $db->uniquequery("SELECT COUNT(*) as state FROM ".FLEETS." WHERE `fleet_owner` = '".$CurrentUserID."' AND ".(($Mission != 0)?"`fleet_mission` = '".$Mission."'":"`fleet_mission` != 10").";");
 		return $ActualFleets['state'];
-	}
-
+	}	
+	
 	public static function SendFleetBack($CurrentUser, $FleetID)
 	{
-		global $db;
+		global $db;	
 
 		$FleetRow = $db->uniquequery("SELECT `start_time`, `fleet_mission`, `fleet_group`, `fleet_owner`, `fleet_mess` FROM ".FLEETS." WHERE `fleet_id` = '". $FleetID ."';");
 		if ($FleetRow['fleet_owner'] != $CurrentUser['id'] || $FleetRow['fleet_mess'] == 1)
 			return;
-
+			
 		$where		= 'fleet_id';
 
 		if($FleetRow['fleet_mission'] == 1 && $FleetRow['fleet_group'] > 0)
@@ -270,7 +269,7 @@ abstract class FleetFunctions
 
 			if($Aks['teilnehmer'] == $FleetRow['fleet_owner']) OLD CODE */
 			$Aks = $db->countquery("SELECT FIND_IN_SET('".$FleetRow['fleet_owner']."', `eingeladen`) FROM ".AKS." WHERE id = '". $FleetRow['fleet_group'] ."';");
-
+			
 			if($Aks != 0)
 			{
 				$db->query("DELETE FROM ".AKS." WHERE id ='". $FleetRow['fleet_group'] ."';");
@@ -278,11 +277,11 @@ abstract class FleetFunctions
 				$where		= 'fleet_group';
 			}
 		}
-
+		
 		# Antes estaba solo una query.
 		$db->multi_query("UPDATE ".FLEETS." SET `fleet_group` = '0', `start_time` = '".TIMESTAMP."', `fleet_end_stay` = '".TIMESTAMP."', `fleet_end_time` = '".((TIMESTAMP - $FleetRow['start_time']) + TIMESTAMP)."', `fleet_mess` = '1' WHERE `".$where."` = '".$FleetID."';");
 	}
-
+	
 	public static function GetFleetShipInfo($FleetArray, $Player)
 	{
 		$FleetInfo	= array();
@@ -291,14 +290,14 @@ abstract class FleetFunctions
 		}
 		return $FleetInfo;
 	}
-
+	
 	public static function GotoFleetPage()
-	{
+	{	
 		$temp = debug_backtrace();
 		#redirectTo("game.php"."?page=fleet".($GLOBALS['CONF']['debug'] == 1 ? "&alert=".urlencode(str_replace($_SERVER["DOCUMENT_ROOT"],'.',$temp[0]['file'])." on ".$temp[0]['line']) : '')); Viejo
 		if($GLOBALS['CONF']['debug'] == 1)
 			FirePHP::getInstance(true)->log(str_replace($_SERVER["DOCUMENT_ROOT"],'.',$temp[0]['file'])." on ".$temp[0]['line']);
-		redirectTo("game.php?page=fleet");
+		redirectTo("game.php?page=fleet");	
 	}
 
 	public static function GetAKSPage($CurrentUser, $CurrentPlanet, $fleetid)
@@ -308,7 +307,7 @@ abstract class FleetFunctions
 		$addname		= request_var('addtogroup', '', UTF8_SUPPORT);
 		$aks_invited_mr	= request_var('aks_invited_mr', 0);
 		$name			= request_var('name', '', UTF8_SUPPORT);
-
+		
 
 		$query = $db->query("SELECT * FROM ".FLEETS." WHERE fleet_id = '" . $fleetid . "';");
 
@@ -319,7 +318,7 @@ abstract class FleetFunctions
 
 		if ($daten['fleet_start_time'] <= TIMESTAMP || $daten['fleet_end_time'] < TIMESTAMP || $daten['fleet_mess'] == 1)
 			self::GotoFleetPage();
-
+				
 		if (empty($daten['fleet_group']))
 		{
 			$rand 			= mt_rand(100000, 999999999);
@@ -342,7 +341,7 @@ abstract class FleetFunctions
 			`fleet_group` = (SELECT `id` FROM ".AKS." aks WHERE aks.name = '".$aks_code_mr."')
 			WHERE
 			`fleet_id` = '" . $fleetid . "';");
-
+			
 			$aks = array(
 				'name' 			=> $aks_code_mr,
 				'eingeladen' 	=> $CurrentUser['id'],
@@ -354,23 +353,23 @@ abstract class FleetFunctions
 
 			if ($db->num_rows($AKSRAW) != 1)
 				self::GotoFleetPage();
-
+			
 			$aks	= $db->fetch_array($AKSRAW);
 		}
-
+	
 		if(!empty($name)) {
 			if(UTF8_SUPPORT && !ctype_alnum($name)) {
 				exit($LNG['fl_acs_newname_alphanum']);
 			}
 			$db->query("UPDATE ".AKS." SET `name` = '".$db->sql_escape($name)."' WHERE `id` = '".$daten['fleet_group']."';");
 			exit;
-		}
+		}	
 
 		if(!empty($addname))
 		{
 			$member_qry_mr 		= $db->uniquequery("SELECT `id` FROM ".USERS." WHERE `username` = '".$db->sql_escape($addname)."' AND `universe` = ".$UNI.";");
 			$added_user_id_mr 	= $member_qry_mr['id'];
-
+			
 			foreach(explode(",", $aks['eingeladen']) as $a => $b)
 			{
 				if (!empty($b) && $added_user_id_mr == $b)
@@ -417,7 +416,7 @@ abstract class FleetFunctions
 		);
 		return $AKSArray;
 	}
-
+	
 	public static function GetAvailableMissions($MissionInfo)
 	{
 		global $LNG, $db, $UNI;
@@ -425,9 +424,9 @@ abstract class FleetFunctions
 		$YourPlanet				= (!empty($GetInfoPlanet['id_owner']) && $GetInfoPlanet['id_owner'] == $MissionInfo['CurrentUser']['id']) ? true : false;
 		$UsedPlanet				= (!empty($GetInfoPlanet['id_owner'])) ? true : false;
 		$missiontype			= array();
-
+		
 		if ($MissionInfo['planet'] == (MAX_PLANET_IN_SYSTEM + 1) && !CheckModule(30))
-			$missiontype[15] = $LNG['type_mission'][15];
+			$missiontype[15] = $LNG['type_mission'][15];	
 		elseif ($MissionInfo['planettype'] == 2) {
 			if ((isset($MissionInfo['Ship'][209]) || isset($MissionInfo['Ship'][219])) && !CheckModule(32) && !($GetInfoPlanet['der_metal'] == 0 && $GetInfoPlanet['der_crystal'] == 0 && $GetInfoPlanet['der_norio'] == 0))
 				$missiontype[8] = $LNG['type_mission'][8];
@@ -438,7 +437,7 @@ abstract class FleetFunctions
 			} else {
 				if(!CheckModule(34))
 					$missiontype[3] = $LNG['type_mission'][3];
-
+					
 				if (!$YourPlanet && self::OnlyShipByID($MissionInfo['Ship'], 210) && !CheckModule(24))
 					$missiontype[6] = $LNG['type_mission'][6];
 
@@ -448,13 +447,13 @@ abstract class FleetFunctions
 					if(!CheckModule(33))
 						$missiontype[5] = $LNG['type_mission'][5];
 					if(!CheckModule(36))
-						$missiontype[4] = $LNG['type_mission'][4];
+						$missiontype[4] = $LNG['type_mission'][4];			
 				}
-
+						
 				elseif(!CheckModule(36)) {
 					$missiontype[4] = $LNG['type_mission'][4];
 				}
-
+					
 				if (!empty($MissionInfo['IsAKS']) && !$YourPlanet && !CheckModule(1))
 					$missiontype[2] = $LNG['type_mission'][2];
 
@@ -465,7 +464,7 @@ abstract class FleetFunctions
 					$missiontype[11] = $LNG['type_mission'][11];
 			}
 		}
-
+		
 		return $missiontype;
 	}
 }

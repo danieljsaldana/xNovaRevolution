@@ -1,10 +1,10 @@
 <?php
 
 /**
- _  \_/ |\ | /Â¯Â¯\ \  / /\    |Â¯Â¯) |_Â¯ \  / /Â¯Â¯\ |  |   |Â´Â¯|Â¯` | /Â¯Â¯\ |\ |6
- Â¯  /Â¯\ | \| \__/  \/ /--\   |Â¯Â¯\ |__  \/  \__/ |__ \_/   |   | \__/ | \|Core Redesigned.
- * @author: Copyright (C) 2017 by xNova Revolution
- * @author web: https://danieljsaldaÃ±a.com
+ _  \_/ |\ | /¯¯\ \  / /\    |¯¯) |_¯ \  / /¯¯\ |  |   |´¯|¯` | /¯¯\ |\ |6
+ ¯  /¯\ | \| \__/  \/ /--\   |¯¯\ |__  \/  \__/ |__ \_/   |   | \__/ | \|Core.
+ * @author: Copyright (C) 2011  developer of xNova Revolution
+ * @link: http://xnovarevolution.wordpress.com
 
  * @package 2Moons
  * @author Slaver <slaver7@gmail.com>
@@ -12,10 +12,10 @@
  * @copyright 2011 Slaver <slaver7@gmail.com> (Fork/2Moons)
  * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
  * @version 1.3 (2011-01-21)
- * @link http://code.google.com/p/2moons/
 
  * Please do not remove the credits
 */
+
 function calcoff($var)
 {
     	global $LNG;
@@ -53,7 +53,7 @@ function getUniverse()
 			$UNI	= ROOT_UNI;
 		}
 	}
-
+	
 	return $UNI;
 }
 
@@ -61,7 +61,7 @@ function getFactors($USER, $PLANET, $Type = 'basic', $TIME = 0) {
 	global $CONF, $resource;
 	if(empty($TIME))
 		$TIME	= TIMESTAMP;
-
+		
 	if($Type == 'basic') {
 		return array(
 			array(
@@ -94,13 +94,13 @@ function update_config($Values, $Global = false, $SpecUni = 0)
 	global $CONF, $db;
 	$SQL	= "";
 	$UNI	= (empty($SpecUni)) ? $GLOBALS['UNI'] : $SpecUni;
-
+	
 	foreach($Values as $Name => $Value) {
 		if(!isset($CONF[$Name]))
 			continue;
-
-		$GLOBALS['CONFIG'][$UNI][$Name]	= $Value;
-
+			
+		$GLOBALS['CONFIG'][$UNI][$Name]	= $Value;	
+			
 		$CONF[$Name]	= $Value;
 		$SQL	.= "`".$Name."` = '".$db->sql_escape($Value)."', ";
 	}
@@ -108,9 +108,9 @@ function update_config($Values, $Global = false, $SpecUni = 0)
 }
 
 function ValidateAddress($address) {
-
+	
 	$ValideAdress = function_exists('filter_var') ? filter_var($address, FILTER_VALIDATE_EMAIL) !== FALSE : preg_match('/^(?:[\w\!\#\$\%\&\'\*\+\-\/\=\?\^\`\{\|\}\~]+\.)*[\w\!\#\$\%\&\'\*\+\-\/\=\?\^\`\{\|\}\~]+@(?:(?:(?:[a-zA-Z0-9_](?:[a-zA-Z0-9_\-](?!\.)){0,61}[a-zA-Z0-9_-]?\.)+[a-zA-Z0-9_](?:[a-zA-Z0-9_\-](?!$)){0,61}[a-zA-Z0-9_]?)|(?:\[(?:(?:[01]?\d{1,2}|2[0-4]\d|25[0-5])\.){3}(?:[01]?\d{1,2}|2[0-4]\d|25[0-5])\]))$/', $address);
-
+	
 	return $ValideAdress;
 }
 
@@ -126,11 +126,11 @@ function getConfig($UNI) {
 	global $db;
 	if(isset($GLOBALS['CONFIG'][$UNI]))
 		return $GLOBALS['CONFIG'][$UNI];
-
+		
 	$CONF = $db->uniquequery("SELECT HIGH_PRIORITY * FROM `".CONFIG."` WHERE `uni` = '".$UNI."';");
 	$CONF['moduls']			= explode(";", $CONF['moduls']);
 
-
+	
 	$GLOBALS['CONFIG'][$UNI]	= $CONF;
 	return $CONF;
 }
@@ -326,7 +326,7 @@ function request_outofint($var_name, $Negative = false)
 function GetUserByID($UserID, $GetInfo = "*")
 {
 	global $db;
-
+	
 	if(is_array($GetInfo)) {
 		$GetOnSelect = "";
 		foreach($GetInfo as $id => $col)
@@ -337,7 +337,7 @@ function GetUserByID($UserID, $GetInfo = "*")
 	}
 	else
 		$GetOnSelect = $GetInfo;
-
+	
 	$User = $db->uniquequery("SELECT ".$GetOnSelect." FROM ".USERS." WHERE `id` = '". $UserID ."';");
 	return $User;
 }
@@ -348,37 +348,37 @@ function MailSend($MailTarget, $MailTargetName, $MailSubject, $MailContent)
 	require_once('./includes/classes/class.phpmailer.php');
 	$mail             	= new PHPMailer(true);
 	if($CONF['mail_use'] == 2) {
-		$mail->IsSMTP();
-		$mail->SMTPAuth   	= true;
-		$mail->SMTPSecure 	= $CONF['smtp_ssl'];
+		$mail->IsSMTP();  
+		$mail->SMTPAuth   	= true; 
+		$mail->SMTPSecure 	= $CONF['smtp_ssl'];  						
 		$mail->Host      	= $CONF['smtp_host'];
 		$mail->Port      	= $CONF['smtp_port'];
 		$mail->Username  	= $CONF['smtp_user'];
 		$mail->Password  	= $CONF['smtp_pass'];
-		$mail->SMTPDebug  	= ($CONF['debug'] == 1) ? 2 : 0;
+		$mail->SMTPDebug  	= ($CONF['debug'] == 1) ? 2 : 0;   
 	} elseif($CONF['mail_use'] == 1) {
 		$mail->IsSendmail();
 		$mai->Sendmail		= $CONF['smail_path'];
 	} else {
 		$mail->IsMail();
 	}
-	$mail->CharSet		= 'UTF-8';
-	$mail->IsHTML(true);
+	$mail->CharSet		= 'UTF-8';		
+	$mail->IsHTML(true);		
 	$mail->Subject   	= $MailSubject;
 	$mail->AltBody   	= strip_tags($MailContent);
 	$mail->SetFrom($CONF['smtp_sendmail'], $CONF['game_name']);
 	$mail->AddAddress($MailTarget, $MailTargetName);
 	$mail->MsgHTML(makebr($MailContent));
-	$mail->Send();
+	$mail->Send();	
 }
 
 function makebr($text)
 {
     // XHTML FIX for PHP 5.3.0
 	// Danke an Meikel
-
+	
     $BR = "<br>\n";
-    return (version_compare(PHP_VERSION, "5.3.0", ">=")) ? nl2br($text, false) : strtr($text, array("\r\n" => $BR, "\r" => $BR, "\n" => $BR));
+    return (version_compare(PHP_VERSION, "5.3.0", ">=")) ? nl2br($text, false) : strtr($text, array("\r\n" => $BR, "\r" => $BR, "\n" => $BR)); 
 }
 
 function CheckPlanetIfExist($Galaxy, $System, $Planet, $Universe, $Planettype = 1)
@@ -391,11 +391,11 @@ function CheckPlanetIfExist($Galaxy, $System, $Planet, $Universe, $Planettype = 
 }
 
 function CheckNoobProtec($OwnerPlayer, $TargetPlayer, $Player)
-{
+{	
 	global $CONF;
 	if($CONF['noobprotection'] == 0 || $CONF['noobprotectionmulti'] == 0 || $OwnerPlayer['total_points'] <= $CONF['noobprotectiontime'] || $Player['banaday'] > TIMESTAMP || $Player['onlinetime'] < (TIMESTAMP - 60 * 60 * 24 * 7))
 		return array('NoobPlayer' => false, 'StrongPlayer' => false);
-
+		
 	return array(
 		#'NoobPlayer' => $OwnerPlayer['total_points'] * (1 / $CONF['noobprotectionmulti']) > $TargetPlayer['total_points'],
 		'NoobPlayer' => $OwnerPlayer['total_points'] > $TargetPlayer['total_points'] * $CONF['noobprotectionmulti'],
@@ -413,14 +413,14 @@ function AlianzaNombre($String)
 	return(!ctype_punct($String) || (UTF8_SUPPORT && !empty($String))) ? true : false;
 }
 
-function exception_handler($exception)
+function exception_handler($exception) 
 {
 	global $CONF;
-
+	
 	@session_write_close();
 	if($_SERVER['SERVER_PROTOCOL'] == 'HTTP/1.1' && !headers_sent())
 		header('HTTP/1.1 503 Service Unavailable');
-
+		
 	echo '<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">';
 	echo '<html>';
 	echo '<head>';
@@ -452,7 +452,7 @@ function exception_handler($exception)
 	echo '<b><font color="red">Debug Backtrace:</font> </b><br /><div style="border:2px red solid;padding:2px 2px 2px 2px;">'.makebr(str_replace($_SERVER['DOCUMENT_ROOT'], '.', htmlspecialchars($exception->getTraceAsString()))).'<blink>_</blink></div></th>';
 	echo '</tr>';
 	echo '</table>';
-	echo '</body>';
+	echo '</body>';			
 	echo '</html>';
 	exit;
 }
@@ -462,12 +462,12 @@ function SendSimpleMessage($Owner, $Sender, $Time, $Type, $From, $Subject, $Mess
 	global $db;
 	if(empty($Uni))
 		$Uni	= $GLOBALS['UNI'];
-
+		
 	$SQL	= "UPDATE ".USERS." SET `new_message` = `new_message` + '1' WHERE `id` = '".$Owner."';INSERT INTO ".MESSAGES." SET `message_owner` = '".$Owner."', `message_sender` = '".(int)$Sender."', `message_time` = '".((empty($Time)) ? TIMESTAMP : $Time)."', `message_type` = '".$Type."', `message_from` = '". $db->sql_escape($From) ."', `message_subject` = '". $db->sql_escape($Subject) ."', `message_text` = '".$db->sql_escape($Message)."', `message_unread` = '".$Unread."', `message_universe` = '".$Uni."';";
 
 	$db->multi_query($SQL);
 }
-
+	
 function shortly_number($number)
 {
 	$length = strlen(floattostring(abs($number)));
@@ -501,9 +501,9 @@ function floattostring($Numeric, $Pro = 0, $Output = false){
 
 function CheckModule($ID)
 {
-	if(!isset($GLOBALS['CONF']['moduls'][$ID]))
+	if(!isset($GLOBALS['CONF']['moduls'][$ID])) 
 		$GLOBALS['CONF']['moduls'][$ID] = 1;
-
+	
 	return ((!isset($_SESSION) || $_SESSION['authlevel'] == AUTH_USR) && $GLOBALS['CONF']['moduls'][$ID] == 0) ? true : false;
 }
 
@@ -512,7 +512,7 @@ function redirectTo($URL)
 	@session_write_close();
 	if($_SERVER['SERVER_PROTOCOL'] == 'HTTP/1.1')
 		header('HTTP/1.1 302 Found');
-
+	
 	header('Location: '.PROTOCOL.$_SERVER['HTTP_HOST'].HTTP_ROOT.$URL);
 	exit;
 }
@@ -525,7 +525,7 @@ function ClearCache()
 		foreach($FILES as $FILE) {
 			if(is_dir(ROOT_PATH.$DIR.$FILE))
 				continue;
-
+				
 			unlink(ROOT_PATH.$DIR.$FILE);
 		}
 	}
@@ -542,11 +542,11 @@ function GetCrons()
 	global $CONF;
 	$Crons	= '';
 	$Crons .= TIMESTAMP >= ($CONF['stat_last_update'] + (60 * $CONF['stat_update_time'])) ? '<img src="./cronjobs.php?cron=stats" alt="" height="1" width="1">' : '';
-
+	
 	$Crons .= $CONF['ts_modon'] == 1 && TIMESTAMP >= ($CONF['ts_cron_last'] + 60 * $CONF['ts_cron_interval']) ? '<img src="./cronjobs.php?cron=teamspeak" alt="" height="1" width="1">' : '';
-
+	
 	$Crons .= TIMESTAMP >= ($CONF['stat_last_db_update'] + 86400) ? '<img src="./cronjobs.php?cron=daily" alt="" height="1" width="1">' : ''; //Daily Cronjob
-
+	
 	return $Crons;
 }
 
@@ -558,7 +558,7 @@ function r_implode($glue, $pieces)
 		$retVal[] = is_array($r_pieces) ? r_implode($glue, $r_pieces) : $r_pieces;
 	}
 	return implode($glue, $retVal);
-}
+} 
 
 function allowedTo($side)
 {

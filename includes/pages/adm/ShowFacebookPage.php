@@ -1,10 +1,11 @@
 <?php
 
 /**
- _  \_/ |\ | /Â¯Â¯\ \  / /\    |Â¯Â¯) |_Â¯ \  / /Â¯Â¯\ |  |   |Â´Â¯|Â¯` | /Â¯Â¯\ |\ |6
- Â¯  /Â¯\ | \| \__/  \/ /--\   |Â¯Â¯\ |__  \/  \__/ |__ \_/   |   | \__/ | \|Core Redesigned.
- * @author: Copyright (C) 2017 by xNova Revolution
- * @author web: https://danieljsaldaÃ±a.com
+ _  \_/ |\ | /¯¯\ \  / /\    |¯¯) |_¯ \  / /¯¯\ |  |   |´¯|¯` | /¯¯\ |\ |5
+ ¯  /¯\ | \| \__/  \/ /--\   |¯¯\ |__  \/  \__/ |__ \_/   |   | \__/ | \|Core.
+ * @author: Copyright (C) 2011 by Brayan Narvaez (Prinick) developer of xNova Revolution
+ * @author web: http://www.bnarvaez.com
+ * @link: http://www.xnovarev.com
 
  * @package 2Moons
  * @author Slaver <slaver7@gmail.com>
@@ -26,16 +27,16 @@ function ShowFacebookPage() {
 		$CONF['fb_on']		= isset($_POST['fb_on']) && $_POST['fb_on'] == 'on' && !empty($_POST['fb_skey']) && !empty($_POST['fb_apikey']) ? 1 : 0;
 		$CONF['fb_apikey']	= request_var('fb_apikey', '');
 		$CONF['fb_skey'] 	= request_var('fb_skey', '');
-
+	
 		update_config(array(
 			'fb_on'		=> $CONF['fb_on'],
 			'fb_apikey'	=> $CONF['fb_apikey'],
 			'fb_skey'	=> $CONF['fb_skey']
 		), true);
 	}
-
+	
 	$template	= new template();
-
+	
 
 	$template->assign_vars(array(
 		'se_save_parameters'	=> $LNG['se_save_parameters'],

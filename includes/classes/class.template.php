@@ -1,10 +1,10 @@
 <?php
 
 /**
- _  \_/ |\ | /Â¯Â¯\ \  / /\    |Â¯Â¯) |_Â¯ \  / /Â¯Â¯\ |  |   |Â´Â¯|Â¯` | /Â¯Â¯\ |\ |6
- Â¯  /Â¯\ | \| \__/  \/ /--\   |Â¯Â¯\ |__  \/  \__/ |__ \_/   |   | \__/ | \|Core Redesigned.
- * @author: Copyright (C) 2017 by xNova Revolution
- * @author web: https://danieljsaldaÃ±a.com
+ _  \_/ |\ | /¯¯\ \  / /\    |¯¯) |_¯ \  / /¯¯\ |  |   |´¯|¯` | /¯¯\ |\ |6
+ ¯  /¯\ | \| \__/  \/ /--\   |¯¯\ |__  \/  \__/ |__ \_/   |   | \__/ | \|Core.
+ * @author: Copyright (C) 2011  developer of xNova Revolution
+ * @link: http://xnovarevolution.wordpress.com
 
  * @package 2Moons
  * @author Slaver <slaver7@gmail.com>
@@ -12,15 +12,14 @@
  * @copyright 2011 Slaver <slaver7@gmail.com> (Fork/2Moons)
  * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
  * @version 1.3 (2011-01-21)
- * @link http://code.google.com/p/2moons/
 
  * Please do not remove the credits
 */
-
+ 
 class template
 {
 	function __construct()
-	{
+	{	
 		$this->jsscript				= array();
 		$this->script				= array();
 		$this->vars					= array();
@@ -32,7 +31,7 @@ class template
 		$this->Popup				= false;
 		$this->Dialog				= false;
 	}
-
+	
 	public function render()
 	{
 		global $CONF;
@@ -51,40 +50,40 @@ class template
 		}
 		return $PAGE;
 	}
-
+	
 	public function isDialog() {
 		$this->Dialog		= true;
 	}
-
+	
 	public function getplanets()
 	{
 		global $USER;
 		$this->UserPlanets			= SortUserPlanets($USER);
 	}
-
+	
 	public function loadscript($script)
 	{
 		$this->jsscript[]			= substr($script, 0, -3);
 	}
-
+	
 	public function execscript($script)
 	{
 		$this->script[]				= $script;
 	}
-
-	public function assign_vars($var = array())
-	{
+		
+	public function assign_vars($var = array()) 
+	{		
 		$this->vars	= array_merge($this->vars, $var);
 	}
-
+	
 	private function Menus()
 	{
 		global $PLANET, $LNG, $USER, $CONF;
-
+		
 		//PlanetMenu
 		if(empty($this->UserPlanets))
 			$this->getplanets();
-
+		
 		$this->loadscript("planetmenu.js");
 		$this->loadscript("topnav.js");
 		$this->execscript("PlanetMenu();");
@@ -100,12 +99,12 @@ class template
 				for ($ID = 0; $ID < $ActualCount; $ID++)
 				{
 					$ListIDArray						= explode(",", $QueueArray[$ID]);
-
+					
 					if($ListIDArray[3] > TIMESTAMP)
 						$Scripttime[$PlanetQuery['id']][]	= $ListIDArray[3];
 				}
 			}
-
+			
 			$Planetlist[$PlanetQuery['id']]	= array(
 				'url'		=> $this->phpself."&amp;cp=".$PlanetQuery['id'],
 				'name'		=> $PlanetQuery['name'].(($PlanetQuery['planet_type'] == 3) ? " (".$LNG['fcm_moon'].")":""),
@@ -115,18 +114,18 @@ class template
 				'planet'	=> $PlanetQuery['planet'],
 				'ptype'		=> $PlanetQuery['planet_type'],
 			);
-
+			
 			$PlanetSelect[$this->phpself."&amp;cp=".$PlanetQuery['id']]	= $PlanetQuery['name'].(($PlanetQuery['planet_type'] == 3) ? " (" . $LNG['fcm_moon'] . ")":"")."&nbsp;[".$PlanetQuery['galaxy'].":".$PlanetQuery['system'].":".$PlanetQuery['planet']."]&nbsp;&nbsp;";
 		}
-
-
+		
+			
 		if($USER['urlaubs_modus'] == 1) {
 			$CONF['metal_basic_income']     = 0;
 			$CONF['crystal_basic_income']   = 0;
 			$CONF['deuterium_basic_income'] = 0;
 			$CONF['norio_basic_income'] = 0;
-		}
-
+		}		
+		
 		if($PLANET['metal'] >= $PLANET["metal_max"]) {
 			$cantidad_metal = colorRed(pretty_number($PLANET['metal']));
 		} else {
@@ -147,8 +146,8 @@ class template
 		} else {
 			$cantidad_norio = pretty_number($PLANET['norio']);
 		}
-
-		$this->assign_vars(array(
+		
+		$this->assign_vars(array(	
 			'PlanetMenu' 		=> $Planetlist,
 			'metales'				=> $cantidad_metal,
 			'cristales'			=> $cantidad_cristal,
@@ -157,7 +156,7 @@ class template
 			'almacenes' => $LNG['rs_storage_capacity'],
 			'show_planetmenu' 	=> $LNG['show_planetmenu'],
 			'current_pid'		=> $PLANET['id'],
-			'Scripttime'		=> json_encode($Scripttime),
+			'Scripttime'		=> json_encode($Scripttime),	
 			'lm_overview'		=> $LNG['lm_overview'],
 			'lm_buildings'		=> $LNG['lm_buildings'],
 			'lm_bonus' 			=> $LNG['lm_bonus'],
@@ -188,7 +187,7 @@ class template
 			'lm_banned'			=> $LNG['lm_banned'],
 			'lm_rules'			=> $LNG['lm_rules'],
 			'lm_logout'			=> $LNG['lm_logout'],
-			'lm_credits'		=> $LNG['lm_credits'],
+			'lm_credits'		=> $LNG['lm_credits'],			
 			'new_message' 		=> $USER['new_message'],
 			'forum_url'			=> $CONF['forum_url'],
 			'lm_administration'	=> $LNG['lm_administration'],
@@ -233,26 +232,26 @@ class template
 			'Energy'			=> $LNG['Energy'],
 		));
 	}
-
+	
     private function main()
     {
 		global $USER, $CONF, $LANG, $LNG, $THEME;
-
+      
       $navegador = $_SERVER['HTTP_USER_AGENT'];
       $usa_navegador = strrpos($navegador, "MSIE");
-
+      
       if ($usa_navegador === false) {
          $IE = false;
       } else {
          $IE = true;
       }
-
+      
       if($IE) {
          $css_style = "formato_IE";
       } else {
          $css_style = "formato";
       }
-
+	  
 	  if($USER['raza'] == 0) {
                         $raza_tipo = $LNG['Raza_0'];
 						$skin_raza = "gultra";
@@ -260,8 +259,8 @@ class template
                         $raza_tipo = $LNG['Raza_1'];
 						$skin_raza = "voltra";
                 }
-
-
+				
+				
 		if($USER['commander'] >= 1) {
 			$imperio = "<li>
 		<span class=\"menu_icon\">
@@ -285,7 +284,7 @@ class template
 		$almirante_icon = "602_off.png";
 		}
 		if($USER['geologe'] >= 1) {
-		$geologo_icon = "601.png";
+		$geologo_icon = "601.png";	
 		} else {
 		$geologo_icon = "601_off.png";
 		}
@@ -294,7 +293,7 @@ class template
 		} else {
 		$tecnocrata_icon = "604_off.png";
 		}
-
+      
         $this->assign_vars(array(
 			'Comandante' => $comandante_icon,
 			'Tecnocrata' => $tecnocrata_icon,
@@ -330,7 +329,7 @@ class template
 			'imperio' => $imperio,
 		));
 	}
-
+	
 	private function adm_main()
 	{
 		global $LNG, $CONF;
@@ -342,7 +341,7 @@ class template
 			'goto'		=> false,
 		));
 	}
-
+	
 	public function login_main()
 	{
 		global $USER, $CONF, $LNG, $LANG, $UNI;
@@ -377,21 +376,21 @@ class template
 			'langs'				=> Language::getAllowedLangs(),
 		));
 	}
-
+		
 	public function isPopup()
 	{
 		$this->Popup		= true;
 	}
-
+		
 	public function show($file)
-	{
+	{		
 		global $USER, $PLANET, $CONF, $LNG, $db;
-
+		
 		if(!defined('INSTALL')) {
 			if(defined('IN_ADMIN')) {
-				$this->adm_main();
+				$this->adm_main();			
 			} elseif(defined('LOGIN')) {
-				$this->login_main();
+				$this->login_main();	
 			} elseif(!$this->Dialog) {
 				if(!defined('AJAX')) {
 					$_SESSION['USER']	= $USER;
@@ -406,10 +405,10 @@ class template
 			'scripts'			=> $this->jsscript,
 			'execscript'		=> implode("\n", $this->script),
 		));
-
+		
 		$this->display($file);
 	}
-
+	
 	public function gotoside($dest, $time = 3)
 	{
 		$this->assign_vars(array(
@@ -417,7 +416,7 @@ class template
 			'goto'		=> $dest,
 		));
 	}
-
+	
 	public function display($file)
 	{
 		global $THEME;
@@ -434,20 +433,20 @@ class template
 			echo $this->render();
 		}
 	}
-
+	
 	public function message($mes, $dest = false, $time = 3, $Fatal = false)
 	{
 		global $LNG, $THEME;
 		if($Fatal)
 			$this->isPopup(true);
-
+	
 		$this->assign_vars(array(
 			'mes'		=> $mes,
 			'fcm_info'	=> $LNG['fcm_info'],
 			'Fatal'		=> $Fatal,
             'dpath'		=> $THEME->getTheme(),
 		));
-
+		
 		$this->gotoside($dest, $time);
 		if (defined('IN_ADMIN')) {
 			$this->show('adm/error_message_body.tpl');

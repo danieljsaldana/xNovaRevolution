@@ -1,10 +1,10 @@
 <?php
 
 /**
- _  \_/ |\ | /Â¯Â¯\ \  / /\    |Â¯Â¯) |_Â¯ \  / /Â¯Â¯\ |  |   |Â´Â¯|Â¯` | /Â¯Â¯\ |\ |6
- Â¯  /Â¯\ | \| \__/  \/ /--\   |Â¯Â¯\ |__  \/  \__/ |__ \_/   |   | \__/ | \|Core Redesigned.
- * @author: Copyright (C) 2017 by xNova Revolution
- * @author web: https://danieljsaldaÃ±a.com
+ _  \_/ |\ | /¯¯\ \  / /\    |¯¯) |_¯ \  / /¯¯\ |  |   |´¯|¯` | /¯¯\ |\ |6
+ ¯  /¯\ | \| \__/  \/ /--\   |¯¯\ |__  \/  \__/ |__ \_/   |   | \__/ | \|Core.
+ * @author: Copyright (C) 2011  developer of xNova Revolution
+ * @link: http://xnovarevolution.wordpress.com
 
  * @package 2Moons
  * @author Slaver <slaver7@gmail.com>
@@ -12,7 +12,6 @@
  * @copyright 2011 Slaver <slaver7@gmail.com> (Fork/2Moons)
  * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
  * @version 1.3 (2011-01-21)
- * @link http://code.google.com/p/2moons/
 
  * Please do not remove the credits
 */
@@ -20,7 +19,7 @@
 function ShowBannedPage()
 {
 	global $USER, $PLANET, $LNG, $db;
-
+	
 	$PlanetRess = new ResourceUpdate();
 	$PlanetRess->CalcResource();
 	$PlanetRess->SavePlanetToDB();
@@ -28,7 +27,7 @@ function ShowBannedPage()
 	$template	= new template();
 	$query			= $db->query("SELECT * FROM ".BANNED." ORDER BY `id`;");
 	$PrangerList	= array();
-
+	
 	while($u = $db->fetch_array($query))
 	{
 		$PrangerList[]	= array(
@@ -41,10 +40,10 @@ function ShowBannedPage()
 			'info'		=> sprintf($LNG['bn_writemail'], $u['author']),
 		);
 	}
-
+	
 	$db->free_result($query);
-
-	$template->assign_vars(array(
+	
+	$template->assign_vars(array(	
 		'PrangerList'				=> $PrangerList,
 		'bn_no_players_banned'		=> $LNG['bn_no_players_banned'],
 		'bn_exists'					=> $LNG['bn_exists'],
@@ -56,7 +55,7 @@ function ShowBannedPage()
 		'bn_until'					=> $LNG['bn_until'],
 		'bn_by'						=> $LNG['bn_by'],
 	));
-
+	
 	$template->show("banned_overview.tpl");
 }
 ?>

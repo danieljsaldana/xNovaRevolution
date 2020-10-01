@@ -1,10 +1,10 @@
 <?php
 
 /**
- _  \_/ |\ | /Â¯Â¯\ \  / /\    |Â¯Â¯) |_Â¯ \  / /Â¯Â¯\ |  |   |Â´Â¯|Â¯` | /Â¯Â¯\ |\ |6
- Â¯  /Â¯\ | \| \__/  \/ /--\   |Â¯Â¯\ |__  \/  \__/ |__ \_/   |   | \__/ | \|Core Redesigned.
- * @author: Copyright (C) 2017 by xNova Revolution
- * @author web: https://danieljsaldaÃ±a.com
+ _  \_/ |\ | /¯¯\ \  / /\    |¯¯) |_¯ \  / /¯¯\ |  |   |´¯|¯` | /¯¯\ |\ |6
+ ¯  /¯\ | \| \__/  \/ /--\   |¯¯\ |__  \/  \__/ |__ \_/   |   | \__/ | \|Core.
+ * @author: Copyright (C) 2011  developer of xNova Revolution
+ * @link: http://xnovarevolution.wordpress.com
 
  * @package 2Moons
  * @author Slaver <slaver7@gmail.com>
@@ -12,7 +12,6 @@
  * @copyright 2011 Slaver <slaver7@gmail.com> (Fork/2Moons)
  * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
  * @version 1.3 (2011-01-21)
- * @link http://code.google.com/p/2moons/
 
  * Please do not remove the credits
 */
@@ -21,16 +20,16 @@ class records
 {
 	public static $File	= "cache/CacheRecords_Uni%d.php";
 	public $maxinfos	= array();
-
+	
 	function SetIfRecord($ID, $Count, $Data)
 	{
 		global $CONF;
 		if(($CONF['stat'] == 1 && $Data['authlevel'] >= $CONF['stat_level']) || !empty($Data['bana']))
 			return;
-
+		
 		if(!isset($this->maxinfos[$Data['universe']]))
 			$this->maxinfos[$Data['universe']] = array();
-
+			
 		if(!isset($this->maxinfos[$Data['universe']][$ID]))
 			$this->maxinfos[$Data['universe']][$ID] = array('maxlvl' => 0, 'username' => '');
 
@@ -38,7 +37,7 @@ class records
 			$this->maxinfos[$Data['universe']][$ID] = array('maxlvl' => $Count, 'username' => $Data['username']);
 	}
 
-	function BuildRecordCache()
+	function BuildRecordCache() 
 	{
 		$Elements	= array_merge($GLOBALS['reslist']['build'], $GLOBALS['reslist']['tech'], $GLOBALS['reslist']['fleet'], $GLOBALS['reslist']['defense']);
 		foreach($this->maxinfos as $Uni	=> $Records) {
@@ -50,19 +49,19 @@ class records
 			file_put_contents(sprintf(ROOT_PATH.self::$File, $Uni), $file);
 		}
 	}
-
+	
 	function RenameRecordOwner($OldName, $NewName, $Uni)
 	{
-		$Content	= file_get_contents(sprintf(ROOT_PATH.self::$File, $Uni));
-		$Content	= str_replace("array('username' => '".$OldName."'", "array('username' => '".$NewName."'", $Content);
-		file_put_contents(sprintf(ROOT_PATH.self::$File, $Uni), $Content);
+		$Content	= file_get_contents(sprintf(ROOT_PATH.self::$File, $Uni));	
+		$Content	= str_replace("array('username' => '".$OldName."'", "array('username' => '".$NewName."'", $Content);	
+		file_put_contents(sprintf(ROOT_PATH.self::$File, $Uni), $Content);	
 	}
-
+	
 	function GetRecords($Uni)
 	{
 		if(!file_exists(sprintf(ROOT_PATH.self::$File, $Uni)))
 			return array();
-
+		
 		require(sprintf(ROOT_PATH.self::$File, $Uni));
 		return $RecordsArray;
 	}

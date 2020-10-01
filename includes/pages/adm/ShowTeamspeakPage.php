@@ -1,10 +1,11 @@
 <?php
 
 /**
- _  \_/ |\ | /Â¯Â¯\ \  / /\    |Â¯Â¯) |_Â¯ \  / /Â¯Â¯\ |  |   |Â´Â¯|Â¯` | /Â¯Â¯\ |\ |6
- Â¯  /Â¯\ | \| \__/  \/ /--\   |Â¯Â¯\ |__  \/  \__/ |__ \_/   |   | \__/ | \|Core Redesigned.
- * @author: Copyright (C) 2017 by xNova Revolution
- * @author web: https://danieljsaldaÃ±a.com
+ _  \_/ |\ | /¯¯\ \  / /\    |¯¯) |_¯ \  / /¯¯\ |  |   |´¯|¯` | /¯¯\ |\ |5
+ ¯  /¯\ | \| \__/  \/ /--\   |¯¯\ |__  \/  \__/ |__ \_/   |   | \__/ | \|Core.
+ * @author: Copyright (C) 2011 by Brayan Narvaez (Prinick) developer of xNova Revolution
+ * @author web: http://www.bnarvaez.com
+ * @link: http://www.xnovarev.com
 
  * @package 2Moons
  * @author Slaver <slaver7@gmail.com>
@@ -24,7 +25,7 @@ function ShowTeamspeakPage() {
 
 	if ($_POST)
 	{
-		$CONF['ts_modon'] 			= isset($_POST['ts_on']) && $_POST['ts_on'] == 'on' ? 1 : 0;
+		$CONF['ts_modon'] 			= isset($_POST['ts_on']) && $_POST['ts_on'] == 'on' ? 1 : 0;		
 		$CONF['ts_server']			= request_var('ts_ip', '');
 		$CONF['ts_tcpport']			= request_var('ts_tcp', 0);
 		$CONF['ts_udpport']			= request_var('ts_udp', 0);
@@ -33,7 +34,7 @@ function ShowTeamspeakPage() {
 		$CONF['ts_login']			= request_var('ts_login', '');
 		$CONF['ts_password']		= request_var('ts_password', '', true);
 		$CONF['ts_cron_interval']	= request_var('ts_cron', 0);
-
+		
 		update_config(array(
 			'ts_timeout'		=> $CONF['ts_timeout'],
 			'ts_modon'			=> $CONF['ts_modon'],
@@ -47,7 +48,7 @@ function ShowTeamspeakPage() {
 		), true);
 	}
 	$template	= new template();
-
+	
 
 	$template->assign_vars(array(
 		'se_save_parameters'	=> $LNG['se_save_parameters'],

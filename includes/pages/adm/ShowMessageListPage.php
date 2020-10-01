@@ -1,10 +1,11 @@
 <?php
 
 /**
- _  \_/ |\ | /Â¯Â¯\ \  / /\    |Â¯Â¯) |_Â¯ \  / /Â¯Â¯\ |  |   |Â´Â¯|Â¯` | /Â¯Â¯\ |\ |6
- Â¯  /Â¯\ | \| \__/  \/ /--\   |Â¯Â¯\ |__  \/  \__/ |__ \_/   |   | \__/ | \|Core Redesigned.
- * @author: Copyright (C) 2017 by xNova Revolution
- * @author web: https://danieljsaldaÃ±a.com
+ _  \_/ |\ | /¯¯\ \  / /\    |¯¯) |_¯ \  / /¯¯\ |  |   |´¯|¯` | /¯¯\ |\ |5
+ ¯  /¯\ | \| \__/  \/ /--\   |¯¯\ |__  \/  \__/ |__ \_/   |   | \__/ | \|Core.
+ * @author: Copyright (C) 2011 by Brayan Narvaez (Prinick) developer of xNova Revolution
+ * @author web: http://www.bnarvaez.com
+ * @link: http://www.xnovarev.com
 
  * @package 2Moons
  * @author Slaver <slaver7@gmail.com>
@@ -22,7 +23,7 @@ if (!allowedTo(str_replace(array(dirname(__FILE__), '\\', '/', '.php'), '', __FI
 function ShowMessageListPage()
 {
 	global $db, $LNG;
-
+	
 	$Prev       = !empty($_POST['prev']) ? true : false;
 	$Next       = !empty($_POST['next']) ? true : false;
 	$DelSel     = !empty($_POST['delsel']) ? true : false;
@@ -47,8 +48,8 @@ function ShowMessageListPage()
 		$Mess      = $db->countquery("SELECT COUNT(*) FROM ".MESSAGES." WHERE `message_type` = '".$Selected."' AND `message_universe` = '".$_SESSION['adminuni']."';;");
 	elseif ($Selected == 100)
 		$Mess      = $db->countquery("SELECT COUNT(*) FROM ".MESSAGES." WHERE `message_universe` = '".$_SESSION['adminuni']."';;");
-
-
+	
+	
 	$MaxPage   = ceil($Mess / 25);
 
 	if($Prev   == true)
@@ -61,7 +62,7 @@ function ShowMessageListPage()
 		$CurrPage += 1;
 		$ViewPage = $CurrPage <= $MaxPage ? $CurrPage : $MaxPage;
 	}
-
+	
 	if ($_POST['delsel'] && is_array($_POST['sele']))
 	{
 		if ($DelSel == true)
@@ -73,7 +74,7 @@ function ShowMessageListPage()
 			}
 		}
 	}
-
+	
 	if ($DelDat == true && $_POST['deldat'] && $_POST['sele'] >= 1 && is_numeric($_POST['selday']) && is_numeric($_POST['selmonth']) && is_numeric($_POST['selyear']))
 	{
 		$SelDay    = $_POST['selday'];
@@ -93,7 +94,7 @@ function ShowMessageListPage()
 	for($cPage = 1; $cPage <= $MaxPage; $cPage++) {
 		$Selector['pages'][$cPage]	= $cPage.'/'.$MaxPage;
 	}
-
+	
 	$StartRec            = (($ViewPage - 1) * 25);
 	if ($Selected == 50)
 		$Messages            = $db->query("SELECT * FROM ".MESSAGES." WHERE `message_type` = '". $Selected ."' AND `message_universe` = '".$_SESSION['adminuni']."' ORDER BY `message_time` DESC LIMIT ". $StartRec .",25;");
@@ -101,7 +102,7 @@ function ShowMessageListPage()
 		$Messages            = $db->query("SELECT u.username, m.* FROM ".MESSAGES." as m, ".USERS." as u WHERE m.`message_owner` = u.`id` AND m.`message_universe` = '".$_SESSION['adminuni']."' ORDER BY `message_time` DESC LIMIT ". $StartRec .",25;");
 	else
 		$Messages            = $db->query("SELECT u.username, m.* FROM ".MESSAGES." as m, ".USERS." as u WHERE m.`message_type` = '". $Selected ."' AND m.`message_owner` = u.`id` AND `message_universe` = '".$_SESSION['adminuni']."' ORDER BY `message_time` DESC LIMIT ". $StartRec .",25;");
-
+	
 	while($row = $db->fetch_array($Messages))
 	{
 		$MessagesList[]	= array(
@@ -112,13 +113,13 @@ function ShowMessageListPage()
 			'text'		=> $row['message_text'],
 			'time'		=> str_replace(' ', '&nbsp;', date(TDFORMAT, $row['message_time'])),
 		);
-	}
+	}	
 
 	$template 	= new template();
 
 	$template->loadscript('global.js');
 
-	$template->assign_vars(array(
+	$template->assign_vars(array(	
 		'Selector'					=> $Selector,
 		'ViewPage'					=> $ViewPage,
 		'Selected'					=> $Selected,
@@ -138,7 +139,7 @@ function ShowMessageListPage()
 		'ml_subject'				=> $LNG['ml_subject'],
 		'ml_content'				=> $LNG['ml_content'],
 	));
-
+				
 	$template->show('adm/MessageList.tpl');
 }
 ?>

@@ -1,10 +1,11 @@
 <?php
 
 /**
- _  \_/ |\ | /Â¯Â¯\ \  / /\    |Â¯Â¯) |_Â¯ \  / /Â¯Â¯\ |  |   |Â´Â¯|Â¯` | /Â¯Â¯\ |\ |6
- Â¯  /Â¯\ | \| \__/  \/ /--\   |Â¯Â¯\ |__  \/  \__/ |__ \_/   |   | \__/ | \|Core Redesigned.
- * @author: Copyright (C) 2017 by xNova Revolution
- * @author web: https://danieljsaldaÃ±a.com
+ _  \_/ |\ | /¯¯\ \  / /\    |¯¯) |_¯ \  / /¯¯\ |  |   |´¯|¯` | /¯¯\ |\ |5
+ ¯  /¯\ | \| \__/  \/ /--\   |¯¯\ |__  \/  \__/ |__ \_/   |   | \__/ | \|Core.
+ * @author: Copyright (C) 2011 by Brayan Narvaez (Prinick) developer of xNova Revolution
+ * @author web: http://www.bnarvaez.com
+ * @link: http://www.xnovarev.com
 
  * @package 2Moons
  * @author Slaver <slaver7@gmail.com>
@@ -25,7 +26,7 @@ require_once(ROOT_PATH . 'includes/functions/DeleteSelectedUser.php');
 function ShowSearchPage()
 {
 	global $LNG, $db;
-
+	
 	if ($_GET['delete'] == 'user') {
         DeleteSelectedUser((int) $_GET['user']);
         message($LNG['se_delete_succes_p'], '?page=search&search=users&minimize=on', 2);
@@ -33,7 +34,7 @@ function ShowSearchPage()
         DeleteSelectedPlanet((int) $_GET['planet']);
         message($LNG['se_delete_succes_p'], '?page=search&search=planet&minimize=on', 2);
     }
-
+	
 	$SearchFile		= request_var('search', '');
 	$SearchFor		= request_var('search_in', '');
 	$SearchMethod	= request_var('fuki', '');
@@ -45,7 +46,7 @@ function ShowSearchPage()
 
 	$Selector	= array(
 		'list'	=> array(
-			'users'		=> $LNG['se_users'],
+			'users'		=> $LNG['se_users'],	
 			'planet'	=> $LNG['se_planets'],
 			'moon'		=> $LNG['se_moons'],
 			'alliance'	=> $LNG['se_allys'],
@@ -80,23 +81,23 @@ function ShowSearchPage()
 			'50'	=> '50',
 			'100'	=> '100',
 			'200'	=> '200',
-			'500'	=> '500',
+			'500'	=> '500',	
 		)
 	);
 	$template	= new template();
 
-
-
-
+	
+	
+	
 	if (request_var('minimize', '') == 'on')
 	{
 		$Minimize			= "&amp;minimize=on";
-		$template->assign_vars(array(
+		$template->assign_vars(array(	
 			'minimize'	=> 'checked = "checked"',
 			'diisplaay'	=> 'style="display:none;"',
 		));
 	}
-
+	
 	switch($SearchMethod)
 	{
 		case 'exacto':
@@ -130,22 +131,22 @@ function ShowSearchPage()
 			if ($SearchFile == "vacation"){
 				$SpecialSpecify	=	"AND urlaubs_modus = '1'";
 				$SName			=	$LNG['se_input_vacatii'];}
-
+				
 			if ($SearchFile == "online"){
 				$SpecialSpecify	=	"AND onlinetime >= '".(TIMESTAMP - 15 * 60)."'";
 				$SName			=	$LNG['se_input_connect'];}
-
+				
 			if ($SearchFile == "inactives"){
 				$SpecialSpecify	=	"AND onlinetime < '".(TIMESTAMP - 60 * 60 * 24 * 7)."'";
 				$SName			=	$LNG['se_input_inact'];}
-
+				
 			if ($SearchFile == "admin"){
 				$SpecialSpecify	=	"AND authlevel <= '".$USER['authlevel']."' AND authlevel > '0'";
 				$SName			=	$LNG['se_input_admm'];}
-
-
+				
+				
 			$SpecialSpecify	.=	" AND `universe` = '".$_SESSION['adminuni']."'";
-
+			
 			(($SearchFor == "name") ? $WhereItem = "WHERE username" : $WhereItem = "WHERE id");
 			$ArrayOSec		=	array("id", "username", "email_2", "onlinetime", "register_time", "user_lastip", "authlevel", "bana", "urlaubs_modus");
 			$Array0SecCount	=	count($ArrayOSec);
@@ -153,15 +154,15 @@ function ShowSearchPage()
 			for ($OrderNum = 0; $OrderNum < $Array0SecCount; $OrderNum++)
 				$OrderBYParse[$ArrayOSec[$OrderNum]]	= $LNG['se_search_users'][$OrderNum];
 		}
-
-
+		
+		
 		elseif (in_array($SearchFile, $ArrayPlanets))
 		{
 			$Table			=	"planets";
 			$TableUsers		=	"2";
 			$NameLang		=	$LNG['se_search_planets'];
 			$SpecifyItems	=	"id,name,id_owner,last_update,galaxy,system,planet,id_luna";
-
+			
 			if ($SearchFile == "planet"){
 				$SpecialSpecify	=	"AND planet_type = '1'";
 				$SName			=	$LNG['se_input_planett'];}
@@ -171,20 +172,20 @@ function ShowSearchPage()
 			elseif ($SearchFile == "p_connect"){
 				$SpecialSpecify	=	"AND last_update >= '".(TIMESTAMP - 60 * 60)."'";
 				$SName			=	$LNG['se_input_act_pla'];}
-
-
+			
+			
 			$SpecialSpecify	.=	" AND `universe` = '".$_SESSION['adminuni']."'";
-
+			
 			(($SearchFor == "name") ? $WhereItem = "WHERE name" : $WhereItem = "WHERE id");
-
+			
 			$ArrayOSec		=	array("id", "name", "id_owner", "id_luna", "last_update", "galaxy", "system", "planet");
 			$Array0SecCount	=	count($ArrayOSec);
-
+			
 			for ($OrderNum = 0; $OrderNum < $Array0SecCount; $OrderNum++)
 				$OrderBYParse[$ArrayOSec[$OrderNum]]	= $LNG['se_search_planets'][$OrderNum];
 		}
-
-
+		
+		
 		elseif (in_array($SearchFile, $ArrayBanned))
 		{
 			$Table			=	"banned";
@@ -192,18 +193,18 @@ function ShowSearchPage()
 			$SpecifyItems	=	"id,who,time,longer,theme,author";
 			$SName			=	$LNG['se_input_susss'];
 			$SpecialSpecify	=	" AND `universe` = '".$_SESSION['adminuni']."'";
-
+			
 			(($SearchFor == "name") ? $WhereItem = "WHERE who" : $WhereItem = "WHERE id");
-
-
+			
+			
 			$ArrayOSec		=	array("id", "who", "time", "longer", "theme", "author");
 			$Array0SecCount	=	count($ArrayOSec);
-
+			
 			for ($OrderNum = 0; $OrderNum < $Array0SecCount; $OrderNum++)
 				$OrderBYParse[$ArrayOSec[$OrderNum]]	= $LNG['se_search_banned'][$OrderNum];
 		}
-
-
+		
+		
 		elseif (in_array($SearchFile, $ArrayAlliance))
 		{
 			$Table			=	"alliance";
@@ -211,21 +212,21 @@ function ShowSearchPage()
 			$SpecifyItems	=	"id,ally_name,ally_tag,ally_owner,ally_register_time,ally_members";
 			$SName			=	$LNG['se_input_allyy'];
 			$SpecialSpecify	=	" AND `ally_universe` = '".$_SESSION['adminuni']."'";
-
+			
 			(($SearchFor == "name") ? $WhereItem = "WHERE ally_name" : $WhereItem = "WHERE id");
-
-
+			
+			
 			$ArrayOSec		=	array("id", "ally_name", "ally_tag", "ally_owner", "ally_register_time", "ally_members");
 			$Array0SecCount	=	count($ArrayOSec);
-
+			
 			for ($OrderNum = 0; $OrderNum < $Array0SecCount; $OrderNum++)
 				$OrderBYParse[$ArrayOSec[$OrderNum]]	= $LNG['se_search_alliance'][$OrderNum];
 		}
-
+				
 		$RESULT	= MyCrazyLittleSearch($SpecifyItems, $WhereItem, $SpecifyWhere, $SpecialSpecify, $Order, $OrderBY, $limit, $Table, $Page, $NameLang, $ArrayOSec, $Minimize, $SName, $SearchFile);
 	}
-
-	$template->assign_vars(array(
+	
+	$template->assign_vars(array(	
 		'Selector'				=> $Selector,
 		'limit'					=> $limit,
 		'search'				=> $SearchKey,
@@ -249,48 +250,48 @@ function ShowSearchPage()
 		'LIST'					=> $RESULT['LIST'],
 		'PAGES'					=> $RESULT['PAGES'],
 	));
-
+	
 	$template->show('adm/SearchPage.tpl');
 }
 
 function MyCrazyLittleSearch($SpecifyItems, $WhereItem, $SpecifyWhere, $SpecialSpecify, $Order, $OrderBY, $Limit, $Table, $Page, $NameLang, $ArrayOSec, $Minimize, $SName, $SearchFile)
 {
 	global $USER, $LNG, $db;
-
+	
 	$parse	=	$LNG;
-
-	if (!$Page)
-	{
-		$INI = 0;
-    	$Page = 1;
+	
+	if (!$Page) 
+	{ 
+		$INI = 0; 
+    	$Page = 1; 
 	}
 	else
 		$INI = ($Page - 1) * $Limit;
-
+		
 	$ArrayEx	=	explode(",", $SpecifyItems);
 
 	if (!$Order || !in_array($Order, $ArrayOSec))
 		$Order	=	$ArrayEx[0];
-
+		
 	$CountArray	=	count($ArrayEx);
-
-
+	
+	
 	$QuerySearch	 =	"SELECT ".$SpecifyItems." FROM ".DB_PREFIX.$Table." ";
 	$QuerySearch	.=	$WhereItem." ";
 	$QuerySearch	.=	$SpecifyWhere." ".$SpecialSpecify." ";
 	$QuerySearch	.=	"ORDER BY ".$Order." ".$OrderBY." ";
 	$QuerySearch	.=	"LIMIT ".$INI.",".$Limit;
 	$FinalQuery		=	$db->query($QuerySearch);
-
+	
 	$QueryCSearch	 =	"SELECT COUNT(".$ArrayEx[0].") AS `total` FROM ".DB_PREFIX.$Table." ";
 	$QueryCSearch	.=	$WhereItem." ";
 	$QueryCSearch	.=	$SpecifyWhere." ".$SpecialSpecify." ";
 	$CountQuery		=	$db->uniquequery($QueryCSearch);
-
+	
 	if ($CountQuery['total'] > 0)
 	{
 		$NumberOfPages = ceil($CountQuery['total'] / $Limit);
-
+	
 		$UrlForPage	=	"?page=search
 						&search=".$SearchFile."
 						&search_in=".$_GET['search_in']."
@@ -299,35 +300,35 @@ function MyCrazyLittleSearch($SpecifyItems, $WhereItem, $SpecifyWhere, $SpecialS
 						&key_order=".$_GET['key_order']."
 						&key_acc=".$_GET['key_acc']."
 						&limit=".$Limit;
-
+						 
 		if($NumberOfPages > 1)
 		{
 			$BeforePage	=	($Page - 1);
 			$NextPage	=	($Page + 1);
-
+			
 			for ($i = 1; $i <= $NumberOfPages; $i++)
-			{
+			{ 
 				$PAGEE .= $Page == $i ? "&nbsp;".$Page."&nbsp;" : " <a href='".$UrlForPage."&amp;side=".$i.$Minimize."'>".$i."</a> ";
 			}
 
-			if(($Page - 1) > 0)
+			if(($Page - 1) > 0) 
 				$BEFORE	= "<a href='".$UrlForPage."&amp;side=".$BeforePage.$Minimize."'><img src=\"./styles/images/Adm/arrowleft.png\" title=".$LNG['se__before']." height=10 width=14></a> ";
-
-			if(($Page + 1) <= $NumberOfPages)
+		
+			if(($Page + 1) <= $NumberOfPages) 
 				$NEXT	= "<a href='".$UrlForPage."&amp;side=".$NextPage.$Minimize."'><img src=\"./styles/images/Adm/arrowright.png\" title=".$LNG['se__next']." height=10 width=14></a>";
-
+		
 
 			$Search['PAGES']	= '<tr><td colspan="3" style="color:#00CC33;border: 1px lime solid;text-align:center;">'.$BEFORE.'&nbsp;'.$PAGEE.'&nbsp;'.$NEXT.'</td></tr>';
 		}
-
+	
 
 		$Search['LIST']	 =	"<table width=\"90%\">";
 		$Search['LIST']	.=	"<tr>";
-
+	
 		for ($i = 0; $i < $CountArray; $i++)
 			$Search['LIST']	.=	"<th>".$NameLang[$i]."</th>";
-
-		if ($Table == "users")
+	
+		if ($Table == "users") 
 		{
 			if (allowedTo('ShowAccountDataPage'))
 				$Search['LIST']	.=	"<th>".$LNG['se_search_info']."</th>";
@@ -335,80 +336,80 @@ function MyCrazyLittleSearch($SpecifyItems, $WhereItem, $SpecifyWhere, $SpecialS
 			if ($USER['authlevel'] == AUTH_ADM)
 				$Search['LIST']	.=	"<th>".$LNG['button_delete']."</th>";
 		}
-
+		
 		if ($Table == "planets")
-		{
+		{				
 			if (allowedTo('ShowQuickEditorPage'))
 				$Search['LIST']	.=	"<th>".$LNG['se_search_edit']."</th>";
-
+				
 			if ($USER['authlevel'] == AUTH_ADM)
 				$Search['LIST']	.=	"<th>".$LNG['button_delete']."</th>";
 		}
 
-
+		
 		$Search['LIST']	.=	"</tr>";
-
-
+	
+	
 		while ($WhileResult	=	$db->fetch_num($FinalQuery))
 		{
 			$Search['LIST']	 .=	"<tr>";
-			if ($Table == "users"){
+			if ($Table == "users"){				
 				$WhileResult[3] = $_GET['search'] == "online" ? pretty_time( TIMESTAMP - $WhileResult[3] ) : date(TDFORMAT, $WhileResult[3] );
 				$WhileResult[4]	=	date(TDFORMAT, $WhileResult[4]);
-
+				
 				$WhileResult[6]	=	$LNG['rank'][$WhileResult[6]];
 				(($WhileResult[7] == '1')	? $WhileResult[7] = "<font color=lime>".$LNG['one_is_yes'][1]."</font>" : $WhileResult[7] = $LNG['one_is_yes'][0]);
 				(($WhileResult[8] == '1')	? $WhileResult[8] = "<font color=lime>".$LNG['one_is_yes'][1]."</font>" : $WhileResult[8] = $LNG['one_is_yes'][0]);
 			}
-
+			
 			if ($Table == "banned"){
 				$WhileResult[2]	=	date(TDFORMAT, $WhileResult[2]);
 				$WhileResult[3]	=	date(TDFORMAT, $WhileResult[3]);
 			}
-
+			
 			if ($Table == "alliance")
 				$WhileResult[4]	=	date(TDFORMAT, $WhileResult[4]);
-
+				
 			if ($Table == "planets") {
 				$WhileResult[3]	=	pretty_time(TIMESTAMP - $WhileResult[3]);
 				$WhileResult[7]	= 	$WhileResult[7] > 0 ? "<font color=lime>".$LNG['one_is_yes'][1]."</font>" : $LNG['one_is_yes'][0];
 			}
 			for ($i = 0; $i < $CountArray; $i++)
 				$Search['LIST']	.=	"<td>".$WhileResult[$i]."</td>";
-
-
+		
+		
 			if ($Table == "users")
 			{
 				if (allowedTo('ShowQuickEditorPage'))
 					$Search['LIST']	.=	"<td><a href=\"javascript:openEdit('".$WhileResult[0]."', 'player');\" border=\"0\"><img title=\"".$WhileResult[1]."\" src=\"./styles/images/Adm/GO.png\"></a></d>";
-
+			
 				if ($USER['authlevel'] == AUTH_ADM)
 				{
 					#$DELETEBUTTON = $WhileResult[0] != $USER['id'] || $WhileResult[0] != 1 ? "<a href=\"?page=search&amp;delete=user&amp;user=".$WhileResult[0]."\" border=\"0\" onclick=\"return confirm('".$LNG['ul_sure_you_want_dlte']." ".$WhileResult[1]."?');\"><img src=\"./styles/images/r1.png\" title=".$WhileResult[1]."></a>" : "-";
 					$DELETEBUTTON = $WhileResult[0] != $USER['id'] || $WhileResult[0] != ROOT_USER ? "<a href=\"?page=search&amp;delete=user&amp;user=".$WhileResult[0]."\" border=\"0\" onclick=\"return confirm('".$LNG['ul_sure_you_want_dlte']." ".$WhileResult[1]."?');\"><img src=\"./styles/images/r1.png\" title=".$WhileResult[1]."></a>" : "-";
-
+					
 					$Search['LIST']	.=	"<td>".$DELETEBUTTON."</td>";
 				}
 			}
-
+		
 			if ($Table == "planets"){
-
+			
 				if (allowedTo('ShowQuickEditorPage'))
 					$Search['LIST']	.=	"<td><a href=\"javascript:openEdit('".$WhileResult[0]."', 'planet');\" border=\"0\"><img src=\"./styles/images/Adm/GO.png\" title=".$LNG['se_search_edit']."></a></td>";
-
+					
 				if ($USER['authlevel'] == AUTH_ADM)
 					$Search['LIST']	.=	"<td><a href=\"?page=search&amp;delete=planet&planet=".$WhileResult[0]."\" border=\"0\" onclick=\"return confirm('".$LNG['se_confirm_planet']." ".$WhileResult[1]."');\"><img src=\"./styles/images/r1.png\" title=".$LNG['button_delete']."></a></td>";
 			}
-
+			
 			$Search['LIST']	.=	"</tr>";
 		}
-
+		
 		$Search['LIST']	.=	"<tr><td colspan=20>".$LNG['se_input_hay']."<font color=lime>".$CountQuery['total']."</font>".$SName."</td></tr>";
 		$Search['LIST']	.=	"</table>";
-
-
+	
+	
 		$db->free_result($FinalQuery);
-
+		
 		return $Search;
 	}
 	else

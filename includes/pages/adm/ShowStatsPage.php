@@ -1,10 +1,11 @@
 <?php
 
 /**
- _  \_/ |\ | /Â¯Â¯\ \  / /\    |Â¯Â¯) |_Â¯ \  / /Â¯Â¯\ |  |   |Â´Â¯|Â¯` | /Â¯Â¯\ |\ |6
- Â¯  /Â¯\ | \| \__/  \/ /--\   |Â¯Â¯\ |__  \/  \__/ |__ \_/   |   | \__/ | \|Core Redesigned.
- * @author: Copyright (C) 2017 by xNova Revolution
- * @author web: https://danieljsaldaÃ±a.com
+ _  \_/ |\ | /¯¯\ \  / /\    |¯¯) |_¯ \  / /¯¯\ |  |   |´¯|¯` | /¯¯\ |\ |5
+ ¯  /¯\ | \| \__/  \/ /--\   |¯¯\ |__  \/  \__/ |__ \_/   |   | \__/ | \|Core.
+ * @author: Copyright (C) 2011 by Brayan Narvaez (Prinick) developer of xNova Revolution
+ * @author web: http://www.bnarvaez.com
+ * @link: http://www.xnovarev.com
 
  * @package 2Moons
  * @author Slaver <slaver7@gmail.com>
@@ -18,7 +19,7 @@
 */
 if (!allowedTo(str_replace(array(dirname(__FILE__), '\\', '/', '.php'), '', __FILE__))) exit;
 
-function ShowStatsPage()
+function ShowStatsPage() 
 {
 	global $LNG, $CONF;
 	if ($_POST)
@@ -27,18 +28,18 @@ function ShowStatsPage()
 		$CONF['stat'] 						= request_var('stat', 0);
 		$CONF['stat_update_time']			= request_var('stat_update_time', 0);
 		$CONF['stat_level']					= request_var('stat_level', 0);
-
+		
 		update_config(array(
-			'stat_settings' =>  $CONF['stat_settings'],
+			'stat_settings' =>  $CONF['stat_settings'], 
 			'stat' => $CONF['stat'],
 			'stat_update_time' => $CONF['stat_update_time'],
 			'stat_level' => $CONF['stat_level']), true);
-
+		
 	}
-
+	
 	$template	= new template();
 
-	$template->assign_vars(array(
+	$template->assign_vars(array(	
 		'stat_level'						=> $CONF['stat_level'],
 		'stat_update_time'					=> $CONF['stat_update_time'],
 		'stat'								=> $CONF['stat'],
@@ -57,7 +58,7 @@ function ShowStatsPage()
 		'cs_save_changes'					=> $LNG['cs_save_changes'],
 		'Selector'							=> array(1 => $LNG['cs_yes'], 2 => $LNG['cs_no_view'], 0 => $LNG['cs_no']),
 	));
-
+		
 	$template->show('adm/StatsPage.tpl');
 }
 ?>

@@ -1,8 +1,8 @@
 /**
- _  \_/ |\ | /Â¯Â¯\ \  / /\    |Â¯Â¯) |_Â¯ \  / /Â¯Â¯\ |  |   |Â´Â¯|Â¯` | /Â¯Â¯\ |\ |6
- Â¯  /Â¯\ | \| \__/  \/ /--\   |Â¯Â¯\ |__  \/  \__/ |__ \_/   |   | \__/ | \|Core Redesigned.
- * @author: Copyright (C) 2017 by xNova Revolution
- * @author web: https://danieljsaldaÃ±a.com
+ _  \_/ |\ | /¯¯\ \  / /\    |¯¯) |_¯ \  / /¯¯\ |  |   |´¯|¯` | /¯¯\ |\ |6
+ ¯  /¯\ | \| \__/  \/ /--\   |¯¯\ |__  \/  \__/ |__ \_/   |   | \__/ | \|Core.
+ * @author: Copyright (C) 2011  developer of xNova Revolution
+ * @link: http://xnovarevolution.wordpress.com
 
  * @package 2Moons
  * @author Slaver <slaver7@gmail.com>
@@ -10,7 +10,6 @@
  * @copyright 2011 Slaver <slaver7@gmail.com> (Fork/2Moons)
  * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
  * @version 1.3 (2011-01-21)
- * @link http://code.google.com/p/2moons/
 
  * Please do not remove the credits
 */
@@ -99,7 +98,7 @@ CREATE TABLE `prefix_chat` (
   KEY `universe` (`universe`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
-CREATE TABLE `prefix_config`(
+CREATE TABLE `prefix_config`( 
   `uni` int(11) NOT NULL AUTO_INCREMENT,
   `VERSION` varchar(8) NOT NULL,
   `users_amount` int(11) NOT NULL,
@@ -193,7 +192,7 @@ CREATE TABLE `prefix_config`(
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 INSERT INTO `prefix_config` (`uni`, `VERSION`, `users_amount`, `game_speed`, `fleet_speed`, `resource_multiplier`, `halt_speed`, `Fleet_Cdr`, `Defs_Cdr`, `initial_fields`, `bgm_active`, `bgm_file`, `uni_name`, `game_name`, `game_disable`, `close_reason`, `metal_basic_income`, `crystal_basic_income`, `deuterium_basic_income`,  `norio_basic_income`,  `energy_basic_income`, `LastSettedGalaxyPos`, `LastSettedSystemPos`, `LastSettedPlanetPos`, `noobprotection`, `noobprotectiontime`, `noobprotectionmulti`, `forum_url`, `adm_attack`, `debug`, `lang`, `stat`, `stat_level`, `stat_last_update`, `stat_settings`, `stat_update_time`, `stat_last_db_update`, `stats_fly_lock`, `stat_last_banner_update`, `stat_banner_update_time`, `cron_lock`, `ts_modon`, `ts_server`, `ts_tcpport`, `ts_udpport`, `ts_timeout`, `ts_version`, `reg_closed`, `OverviewNewsFrame`, `OverviewNewsText`, `capaktiv`, `cappublic`, `capprivate`, `min_build_time`, `smtp_host`, `smtp_port`, `smtp_user`, `smtp_pass`, `smtp_ssl`, `smtp_sendmail`, `user_valid`, `ftp_server`, `ftp_user_name`, `ftp_user_pass`, `ftp_root_path`, `fb_on`, `fb_apikey`, `fb_skey`, `ga_active`, `ga_key`, `moduls`, `trade_allowed_ships`, `trade_charge`, `mail_active`, `mail_use`, `smail_path`) VALUES
-(1, '5.9', 1, 2500, 2500, 1, 1, 30, 30, 250, 0, '', 'Universo 1', 'xNova Revolution', 1, 'El juego se encuentra actualmente cerrado.', 20, 10, 0, 0, 0, 1, 1, 1, 0, 5000, 5, 'http://xnovarev.com/', 1, 0, 'es', 0, 2, 1288527583, 1000, 25, 1288860107, 0, 1288860107, 1440, 0, 0, '127.0.0.1', 8767, 51234, 1, 2, 0, 1, 'Bienvenido a xNova Revolution 5 Redesign, por favor pasate por el foro oficial para que te familiarices con el nuevo entorno y aprendas a desarrollar.', 0, '', '', 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, '', '', '0', '', '1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1', '202,208,206,207', '0.3', 0, 0, '/usr/sbin/sendmail');
+(1, '6.0', 1, 2500, 2500, 1, 1, 30, 30, 250, 0, '', 'Universo 1', 'xNova Revolution', 1, 'El juego se encuentra actualmente cerrado.', 20, 10, 0, 0, 0, 1, 1, 1, 0, 5000, 5, 'http://xnovarev.com/', 1, 0, 'es', 0, 2, 1288527583, 1000, 25, 1288860107, 0, 1288860107, 1440, 0, 0, '127.0.0.1', 8767, 51234, 1, 2, 0, 1, 'Bienvenido a xNova Revolution 5 Redesign, por favor pasate por el foro oficial para que te familiarices con el nuevo entorno y aprendas a desarrollar.', 0, '', '', 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, '', '', '0', '', '1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1', '202,208,206,207', '0.3', 0, 0, '/usr/sbin/sendmail');
 
 CREATE TABLE `prefix_diplo` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
@@ -233,7 +232,7 @@ CREATE TABLE `prefix_fleets` (
   `fleet_resource_crystal` double(50,0) unsigned NOT NULL DEFAULT '0',
   `fleet_resource_deuterium` double(50,0) unsigned NOT NULL DEFAULT '0',
   `fleet_resource_darkmatter` double(50,0) unsigned NOT NULL DEFAULT '0',
-  `fleet_resource_norio` double(50,0) unsigned NOT NULL DEFAULT '0',
+  `fleet_resource_norio` double(50,0) unsigned NOT NULL DEFAULT '0',  
   `fleet_target_owner` int(11) unsigned NOT NULL DEFAULT '0',
   `fleet_group` varchar(15) NOT NULL DEFAULT '0',
   `fleet_mess` enum('0','1','2') NOT NULL DEFAULT '0',
@@ -354,11 +353,11 @@ CREATE TABLE `prefix_planets` (
   `metal_store` tinyint(3) unsigned NOT NULL DEFAULT '0',
   `crystal_store` tinyint(3) unsigned NOT NULL DEFAULT '0',
   `deuterium_store` tinyint(3) unsigned NOT NULL DEFAULT '0',
-  `norio_store` tinyint(3) unsigned NOT NULL DEFAULT '0',
+  `norio_store` tinyint(3) unsigned NOT NULL DEFAULT '0',  
   `laboratory` tinyint(3) unsigned NOT NULL DEFAULT '0',
   `terraformer` tinyint(3) unsigned NOT NULL DEFAULT '0',
   `university` tinyint(3) unsigned NOT NULL DEFAULT '0',
-  `norio_mine` tinyint(3) unsigned NOT NULL DEFAULT '0',
+  `norio_mine` tinyint(3) unsigned NOT NULL DEFAULT '0',  
   `ally_deposit` tinyint(3) unsigned NOT NULL DEFAULT '0',
   `silo` tinyint(3) unsigned NOT NULL DEFAULT '0',
   `mondbasis` tinyint(3) unsigned NOT NULL DEFAULT '0',
@@ -399,14 +398,14 @@ CREATE TABLE `prefix_planets` (
   `metal_mine_porcent` enum('0','1','2','3','4','5','6','7','8','9','10') NOT NULL DEFAULT '10',
   `crystal_mine_porcent` enum('0','1','2','3','4','5','6','7','8','9','10') NOT NULL DEFAULT '10',
   `deuterium_sintetizer_porcent` enum('0','1','2','3','4','5','6','7','8','9','10') NOT NULL DEFAULT '10',
-  `norio_mine_porcent` enum('0','1','2','3','4','5','6','7','8','9','10') NOT NULL DEFAULT '10',
+  `norio_mine_porcent` enum('0','1','2','3','4','5','6','7','8','9','10') NOT NULL DEFAULT '10',  
   `solar_plant_porcent` enum('0','1','2','3','4','5','6','7','8','9','10') NOT NULL DEFAULT '10',
   `fusion_plant_porcent` enum('0','1','2','3','4','5','6','7','8','9','10') NOT NULL DEFAULT '10',
   `solar_satelit_porcent` enum('0','1','2','3','4','5','6','7','8','9','10') NOT NULL DEFAULT '10',
   `last_jump_time` int(11) NOT NULL DEFAULT '0',
   `der_metal` double(50,0) unsigned NOT NULL DEFAULT '0',
   `der_crystal` double(50,0) unsigned NOT NULL DEFAULT '0',
-  `der_norio` double(50,0) unsigned NOT NULL DEFAULT '0',
+  `der_norio` double(50,0) unsigned NOT NULL DEFAULT '0',  
   `id_luna` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `id_luna` (`id_luna`),
@@ -543,7 +542,7 @@ CREATE TABLE `prefix_users` (
   `metal_proc_tech` tinyint(3) unsigned NOT NULL DEFAULT '0',
   `crystal_proc_tech` tinyint(3) unsigned NOT NULL DEFAULT '0',
   `deuterium_proc_tech` tinyint(3) unsigned NOT NULL DEFAULT '0',
-  `norio_proc_tech` tinyint(3) unsigned NOT NULL DEFAULT '0',
+  `norio_proc_tech` tinyint(3) unsigned NOT NULL DEFAULT '0',  
   `darkmatter_moon` tinyint(3) unsigned NOT NULL DEFAULT '0',
   `graviton_tech` tinyint(3) unsigned NOT NULL DEFAULT '0',
   `ally_id` int(11) unsigned NOT NULL DEFAULT '0',
@@ -571,7 +570,7 @@ CREATE TABLE `prefix_users` (
   `draws` int(11) unsigned NOT NULL DEFAULT '0',
   `kbmetal` bigint(20) unsigned NOT NULL DEFAULT '0',
   `kbcrystal` bigint(20) unsigned NOT NULL DEFAULT '0',
-  `kbnorio` bigint(20) unsigned NOT NULL DEFAULT '0',
+  `kbnorio` bigint(20) unsigned NOT NULL DEFAULT '0',  
   `lostunits` bigint(20) unsigned NOT NULL DEFAULT '0',
   `desunits` bigint(20) unsigned NOT NULL DEFAULT '0',
   `uctime` int(11) NOT NULL DEFAULT '0',

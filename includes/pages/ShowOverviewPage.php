@@ -1,10 +1,10 @@
 <?php
 
 /**
- _  \_/ |\ | /Â¯Â¯\ \  / /\    |Â¯Â¯) |_Â¯ \  / /Â¯Â¯\ |  |   |Â´Â¯|Â¯` | /Â¯Â¯\ |\ |6
- Â¯  /Â¯\ | \| \__/  \/ /--\   |Â¯Â¯\ |__  \/  \__/ |__ \_/   |   | \__/ | \|Core Redesigned.
- * @author: Copyright (C) 2017 by xNova Revolution
- * @author web: https://danieljsaldaÃ±a.com
+ _  \_/ |\ | /¯¯\ \  / /\    |¯¯) |_¯ \  / /¯¯\ |  |   |´¯|¯` | /¯¯\ |\ |6
+ ¯  /¯\ | \| \__/  \/ /--\   |¯¯\ |__  \/  \__/ |__ \_/   |   | \__/ | \|Core.
+ * @author: Copyright (C) 2011  developer of xNova Revolution
+ * @link: http://xnovarevolution.wordpress.com
 
  * @package 2Moons
  * @author Slaver <slaver7@gmail.com>
@@ -12,7 +12,6 @@
  * @copyright 2011 Slaver <slaver7@gmail.com> (Fork/2Moons)
  * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
  * @version 1.3 (2011-01-21)
- * @link http://code.google.com/p/2moons/
 
  * Please do not remove the credits
 */
@@ -24,12 +23,12 @@ function GetTeamspeakData()
 		return false;
 	elseif(!file_exists(ROOT_PATH.'cache/teamspeak_cache.php'))
 		return $LNG['ov_teamspeak_not_online'];
-
+	
 	$Data		= unserialize(file_get_contents(ROOT_PATH.'cache/teamspeak_cache.php'));
 	if(!is_array($Data))
 		return $LNG['ov_teamspeak_not_online'];
-
-	$Teamspeak 	= '';
+		
+	$Teamspeak 	= '';			
 
 	if($CONF['ts_version'] == 2) {
 		$trafges 	= pretty_number($Data[1]['total_bytessend'] / 1048576 + $Data[1]['total_bytesreceived'] / 1048576);
@@ -47,22 +46,22 @@ function ShowOverviewPage()
 	$PlanetRess = new ResourceUpdate();
 	$PlanetRess->CalcResource();
 	$PlanetRess->SavePlanetToDB();
-
-	$template	= new template();
+	
+	$template	= new template();	
 	$template->getplanets();
 	$AdminsOnline = $AllPlanets = $Moon = array();
 	$Buildtime	= 0;
-
+	
 		if($USER['raza'] == 0) {
 		$skin_raza = "gultra";
 		$img_raza = "styles/theme/gultra/imagenes/gultra.png";
 		} elseif ($USER['raza'] == 1) {
 		$skin_raza = "voltra";
 		$img_raza = "styles/theme/voltra/imagenes/voltra.png";
-		}
-
+		} 
+	
 	foreach($template->UserPlanets as $ID => $CPLANET)
-	{
+	{		
 		if ($ID == $_SESSION['planet'] || $CPLANET['planet_type'] == 3)
 			continue;
 
@@ -72,7 +71,7 @@ function ShowOverviewPage()
 		} else {
 			$BuildPlanet     = $LNG['ov_free'];
 		}
-
+		
 		$AllPlanets[] = array(
 			'id'	=> $CPLANET['id'],
 			'name'	=> $CPLANET['name'],
@@ -80,7 +79,7 @@ function ShowOverviewPage()
 			'build'	=> $BuildPlanet,
 		);
 	}
-
+		
 	if ($PLANET['id_luna'] != 0)
 	{
 		$Moon = $db->uniquequery("SELECT `id`, `name` FROM ".PLANETS." WHERE `id` = '".$PLANET['id_luna']."';");
@@ -95,7 +94,7 @@ function ShowOverviewPage()
 	{
 		$Build 		= "<center>" .$LNG['ov_free_estructuras'] ."</center>";
 	}
-
+	
 	if (!empty($PLANET['b_hangar'])) {
 		$Queue2		= unserialize($PLANET['b_hangar_id']);
 		$Build_h	= "<a href=\"?page=buildings&mode=fleet\" class=\"tooltip\" name=\"" .$LNG['tech'][$Queue2[0][0]] ."\"><img src=\"styles/theme/" .$skin_raza ."/gebaeude/" .$Queue2[0][0] .".png\"  width=\"140\" height=\"140\"  /></a><br /><b>" .sprintf($LNG['ov_cantidad'], $Queue2[0][1])."</b>" ;
@@ -105,7 +104,7 @@ function ShowOverviewPage()
 		$Build_h	= "<center>" .$LNG['ov_free_hangar'] ."</center>";
 	}
 	$OnlineAdmins 	= $db->query("SELECT `id`,`username` FROM ".USERS." WHERE `universe` = '".$UNI."' AND `onlinetime` >= '".(TIMESTAMP-10*60)."' AND `authlevel` > '".AUTH_USR."';");
-
+	
 	while ($AdminRow = $db->fetch_array($OnlineAdmins)) {
 		$AdminsOnline[$AdminRow['id']]	= $AdminRow['username'];
 	}
@@ -115,7 +114,7 @@ function ShowOverviewPage()
 	} else {
 		$escombros = "<img src=\"styles/theme/" .$skin_raza ."/imagenes/escombro_o.png\" />";
 	}
-
+		
 	if ($USER['total_points'] >= 0 and $USER['total_points'] < 1000) {
 		$nivel = $LNG['rang_1'] ;
 		$rango = 1;
@@ -143,8 +142,8 @@ function ShowOverviewPage()
 	}  elseif ($USER['total_points'] > 10000000000) {
 		$nivel = $LNG['rang_9'] ;
 		$rango = 9;
-	}
-
+	} 
+	
 
 	$frgg =  pretty_number($PLANET['small_ship_cargo'] + $PLANET['big_ship_cargo'] + $PLANET['recycler'] + $PLANET['ev_transporter'] + $PLANET['giga_recykler']);
 	$czz = pretty_number($PLANET['light_hunter'] + $PLANET['heavy_hunter']);
@@ -158,12 +157,12 @@ function ShowOverviewPage()
 	$crucero = "<font color=\"#FFFFFF\">" .$LNG['ov_cruceros'] ."</font>" . $crcc;
 	$insignia = "<font color=\"#FFFFFF\">" .$LNG['ov_insignia']."</font>"  . $ibsg;
 	$capital = "<font color=\"#FFFFFF\">" .$LNG['ov_capital']."</font>"  . $asd;
-
+	
 	$db->free_result($OnlineAdmins);
-
+	
 	$template->loadscript('overview.js');
 	$template->execscript('GetFleets(true);');
-
+		
 	$template->assign_vars(array(
 		'civil' => $civil,
 		'fragata' => $fragata,
@@ -209,7 +208,7 @@ function ShowOverviewPage()
 		'ov_max_developed_fields'	=> $LNG['ov_max_developed_fields'],
 		'ov_fields'					=> $LNG['ov_fields'],
 		'ov_temperature'			=> $LNG['ov_temperature'],
-		'ov_aprox'					=> $LNG['ov_aprox'	],
+		'ov_aprox'					=> $LNG['ov_aprox'	], 
 		'ov_temp_unit'				=> $LNG['ov_temp_unit'],
 		'ov_to'						=> $LNG['ov_to'],
 		'ov_position'				=> $LNG['ov_position'],
@@ -235,8 +234,8 @@ function ShowOverviewPage()
 		'ov_planet_abandoned'		=> $LNG['ov_planet_abandoned'],
 		'path'						=> PROTOCOL.$_SERVER['HTTP_HOST'].HTTP_ROOT,
 	));
-
+			
 	$template->show("vision_general/overview_body.tpl");
-
+	
 }
 ?>

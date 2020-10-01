@@ -1,10 +1,10 @@
 <?php
 
 /**
- _  \_/ |\ | /Â¯Â¯\ \  / /\    |Â¯Â¯) |_Â¯ \  / /Â¯Â¯\ |  |   |Â´Â¯|Â¯` | /Â¯Â¯\ |\ |6
- Â¯  /Â¯\ | \| \__/  \/ /--\   |Â¯Â¯\ |__  \/  \__/ |__ \_/   |   | \__/ | \|Core Redesigned.
- * @author: Copyright (C) 2017 by xNova Revolution
- * @author web: https://danieljsaldaÃ±a.com
+ _  \_/ |\ | /¯¯\ \  / /\    |¯¯) |_¯ \  / /¯¯\ |  |   |´¯|¯` | /¯¯\ |\ |6
+ ¯  /¯\ | \| \__/  \/ /--\   |¯¯\ |__  \/  \__/ |__ \_/   |   | \__/ | \|Core.
+ * @author: Copyright (C) 2011  developer of xNova Revolution
+ * @link: http://xnovarevolution.wordpress.com
 
  * @package 2Moons
  * @author Slaver <slaver7@gmail.com>
@@ -12,16 +12,14 @@
  * @copyright 2011 Slaver <slaver7@gmail.com> (Fork/2Moons)
  * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
  * @version 1.3 (2011-01-21)
- * @link http://code.google.com/p/2moons/
 
  * Please do not remove the credits
 */
-
 define('INSIDE', true );
 define('AJAX', true );
 
 define('ROOT_PATH', str_replace('\\', '/',dirname(__FILE__)).'/');
-
+	
 require(ROOT_PATH . 'includes/common.php');
 $SESSION       	= new Session();
 
@@ -38,33 +36,33 @@ switch($action)
 		$Record = 0;
 		if($db->num_rows($OwnFleets) == 0)
 			exit(json_encode(array()));
-
+		
 		require_once(ROOT_PATH . 'includes/classes/class.FlyingFleetsTable.php');
 		$FlyingFleetsTable = new FlyingFleetsTable();
-
+		
 		$ACSDone	= array();
 		$FleetData 	= array();
 		while ($FleetRow = $db->fetch_array($OwnFleets))
 		{
 			$Record++;
 			$IsOwner	= ($FleetRow['fleet_owner'] == $_SESSION['id']) ? true : false;
-
+			
 			if ($FleetRow['fleet_mess'] == 0 && $FleetRow['fleet_start_time'] > TIMESTAMP && ($FleetRow['fleet_group'] == 0 || !in_array($FleetRow['fleet_group'], $ACSDone)))
 			{
 				$ACSDone[]		= $FleetRow['fleet_group'];
-
+				
 				$FleetData[$FleetRow['fleet_start_time'].$FleetRow['fleet_id']] = $FlyingFleetsTable->BuildFleetEventTable($FleetRow, 0, $IsOwner, 'fs', $Record, true);
 			}
-
+				
 			if ($FleetRow['fleet_mission'] == 10 || ($FleetRow['fleet_mission'] == 4 && $FleetRow['fleet_mess'] == 0))
 				continue;
 
 			if ($FleetRow['fleet_mess'] != 1 && $FleetRow['fleet_end_stay'] > TIMESTAMP)
 				$FleetData[$FleetRow['fleet_end_stay'].$FleetRow['fleet_id']] = $FlyingFleetsTable->BuildFleetEventTable($FleetRow, 2, $IsOwner, 'ft', $Record);
-
+		
 			if ($IsOwner == false)
 				continue;
-
+		
 			if ($FleetRow['fleet_end_time'] > TIMESTAMP)
 				$FleetData[$FleetRow['fleet_end_time'].$FleetRow['fleet_id']] = $FlyingFleetsTable->BuildFleetEventTable($FleetRow, 1, $IsOwner, 'fe', $Record);
 		}
@@ -83,10 +81,10 @@ switch($action)
 		$TargetSystem 					= request_var('system', 0);
 		$TargetPlanet					= request_var('planet', 0);
 		$TargetPlanettype 				= request_var('planet_type', 1);
-
+	
 		if($TargetGalaxy == $_SESSION['PLANET']['galaxy'] && $TargetSystem == $_SESSION['PLANET']['system'] && $TargetPlanet == $_SESSION['PLANET']['planet'] && $TargetPlanettype == $_SESSION['PLANET']['planet_type'])
 			exit($LNG['fl_error_same_planet']);
-
+		
 		if ($TargetPlanet != MAX_PLANET_IN_SYSTEM+1) {
 			$Data	= $db->uniquequery("SELECT u.`urlaubs_modus`, u.`authattack`, p.`destruyed`, p.`der_metal`, p.`der_crystal`, p.`der_norio`, p.`destruyed` FROM ".USERS." as u, ".PLANETS." as p WHERE p.universe = '".$UNI."' AND p.`galaxy` = '".$TargetGalaxy."' AND p.`system` = '".$TargetSystem."' AND p.`planet` = '".$TargetPlanet."'  AND p.`planet_type` = '".(($TargetPlanettype == 2) ? 1 : $TargetPlanettype)."' AND `u`.`id` = p.`id_owner`;");
 			if ($TargetPlanettype == 3 && !isset($Data))
@@ -104,7 +102,7 @@ switch($action)
 		} else {
 			if ($_SESSION['USER'][$resource[124]] == 0)
 				exit($LNG['fl_expedition_tech_required']);
-
+			
 			$ActualFleets = $db->countquery("SELECT COUNT(*) FROM ".FLEETS." WHERE `fleet_owner` = '".$_SESSION['id']."' AND `fleet_mission` = '15';");
 
 			if ($ActualFleets['state'] >= floor(sqrt($_SESSION['USER'][$resource[124]])))
@@ -128,7 +126,7 @@ switch($action)
 		{
 			#$IfFleets	= $db->countquery("SELECT COUNT(*) FROM ".FLEETS." WHERE (`fleet_owner` = '".$_SESSION['id']."' AND `fleet_start_id` = '".$_SESSION['planet']."') OR (`fleet_target_owner` = '".$_SESSION['id']."' AND `fleet_end_id` = '".$_SESSION['planet']."');");
 			$IfFleets	= $db->countquery("SELECT COUNT(*) FROM ".FLEETS." WHERE (`fleet_owner` = '".$_SESSION['id']."' AND (`fleet_start_id` = ".$_SESSION['PLANET']['id']." OR `fleet_start_id` = ".$_SESSION['PLANET']['id_luna'].")) OR (`fleet_target_owner` = '".$_SESSION['id']."' AND (`fleet_end_id` = '".$_SESSION['PLANET']['id']."' OR `fleet_end_id` = ".$_SESSION['PLANET']['id_luna']."));");
-
+			
 			if ($IfFleets > 0)
 				exit(json_encode(array('mess' => $LNG['ov_abandon_planet_not_possible'])));
 			elseif ($_SESSION['USER']['id_planet'] == $_SESSION['planet'])
@@ -153,11 +151,11 @@ switch($action)
 		if($MessCategory == 999)
 		{
 			$UsrMess = $db->query("SELECT * FROM ".MESSAGES." WHERE `message_sender` = '".$_SESSION['id']."' ORDER BY `message_time` DESC;");
-
+				
 			while ($CurMess = $db->fetch_array($UsrMess))
 			{
 				$CurrUsername	= $db->uniquequery("SELECT `username`, `galaxy`, `system`, `planet` FROM ".USERS." WHERE id = '".$CurMess['message_owner']."';");
-
+				
 				$MessageList[$CurMess['message_id']]	= array(
 					'time'		=> date(TDFORMAT, $CurMess['message_time']),
 					'from'		=> $CurrUsername['username']." [".$CurrUsername['galaxy'].":".$CurrUsername['system'].":".$CurrUsername['planet']."]",
@@ -165,16 +163,16 @@ switch($action)
 					'type'		=> $CurMess['message_type'],
 					'text'		=> $CurMess['message_text'],
 				);
-			}
-			$db->free_result($UsrMess);
-
+			}		
+			$db->free_result($UsrMess);	
+			
 			echo json_encode($MessageList);
-
+			
 			exit;
 		}
-
+			
 		$UsrMess = $db->query("SELECT * FROM ".MESSAGES." WHERE `message_owner` = '".$_SESSION['id']."' OR (`message_owner` = '0' AND `message_type` = '50') ORDER BY `message_time` DESC;");
-
+			
 		while ($CurMess = $db->fetch_array($UsrMess))
 		{
 			$MessageList[$CurMess['message_time']]	= array(
@@ -187,8 +185,8 @@ switch($action)
 				'text'		=> stripslashes($CurMess['message_text']),
 			);
 		}
-
-		$db->free_result($UsrMess);
+		
+		$db->free_result($UsrMess);	
 		echo json_encode(array(
 			'MessageList'						=> $MessageList,
 			'LNG'								=> array(
@@ -214,9 +212,9 @@ switch($action)
 		$UnRead			= request_var('count', 0);
 		$MessCategory  	= request_var('messcat', 0);
 		if($MessCategory == 50)
-			$db->multi_query("UPDATE ".USERS." SET `new_message` = GREATEST(`new_message` - `new_gmessage`, 0), `new_gmessage` = '0' WHERE `id` = '".$_SESSION['id']."';");
+			$db->multi_query("UPDATE ".USERS." SET `new_message` = GREATEST(`new_message` - `new_gmessage`, 0), `new_gmessage` = '0' WHERE `id` = '".$_SESSION['id']."';");			
 		elseif($MessCategory == 100)
-			$db->multi_query("UPDATE ".USERS." SET `new_message` = '0' WHERE `id` = '".$_SESSION['id']."';UPDATE ".MESSAGES." SET `message_unread` = '0' WHERE `message_owner` = '".$_SESSION['id']."';");
+			$db->multi_query("UPDATE ".USERS." SET `new_message` = '0' WHERE `id` = '".$_SESSION['id']."';UPDATE ".MESSAGES." SET `message_unread` = '0' WHERE `message_owner` = '".$_SESSION['id']."';");			
 		else
 			$db->multi_query("UPDATE ".USERS." SET `new_message` = GREATEST(`new_message` - '".$UnRead."', 0) WHERE `id` = '".$_SESSION['id']."';UPDATE ".MESSAGES." SET `message_unread` = '0' WHERE `message_owner` = '".$_SESSION['id']."' AND `message_type` = '".$MessCategory."';");
 		header('HTTP/1.1 204 No Content');
@@ -224,13 +222,13 @@ switch($action)
 	case 'deletemessages':
 		$DeleteWhat = request_var('deletemessages','');
 		$MessType	= request_var('mess_type', 0);
-
+		
 		if($DeleteWhat == 'deleteunmarked' && (empty($_REQUEST['delmes']) || !is_array($_REQUEST['delmes'])))
 		$DeleteWhat	= 'deletetypeall';
-
+		
 		if($DeleteWhat == 'deletetypeall' && $MessType == 100)
 			$DeleteWhat	= 'deleteall';
-
+		
 		switch($DeleteWhat)
 		{
 			case 'deleteall':
@@ -246,7 +244,7 @@ switch($action)
 				{
                     $SQLWhere[] = "`message_id` = '".(int) $MessID."'";
                 }
-
+				
             $db->query("DELETE FROM ".MESSAGES." WHERE (".implode(" OR ",$SQLWhere).") AND `message_owner` = '".$_SESSION['id']."'".(($MessType != 100)? " AND `message_type` = '".$MessType."' ":"").";");
 			break;
 			case 'deleteunmarked':
@@ -257,7 +255,7 @@ switch($action)
 					{
 						$SQLWhere[] = "`message_id` != '".(int) $MessID."'";
 					}
-
+					
 					$db->query("DELETE FROM ".MESSAGES." WHERE (".implode(" AND ",$SQLWhere).") AND `message_owner` = '".$_SESSION['id']."'".(($MessType != 100)? " AND `message_type` = '".$MessType."' ":"").";");
 				}
 			break;

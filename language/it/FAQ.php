@@ -1,5 +1,21 @@
 <?php
 
+/**
+ _  \_/ |\ | /¯¯\ \  / /\    |¯¯) |_¯ \  / /¯¯\ |  |   |´¯|¯` | /¯¯\ |\ |6
+ ¯  /¯\ | \| \__/  \/ /--\   |¯¯\ |__  \/  \__/ |__ \_/   |   | \__/ | \|Core.
+ * @author: Copyright (C) 2011  developer of xNova Revolution
+ * @link: http://xnovarevolution.wordpress.com
+
+ * @package 2Moons
+ * @author Slaver <slaver7@gmail.com>
+ * @copyright 2009 Lucky <douglas@crockford.com> (XGProyecto)
+ * @copyright 2011 Slaver <slaver7@gmail.com> (Fork/2Moons)
+ * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
+ * @version 1.3 (2011-01-21)
+
+ * Please do not remove the credits
+*/
+
 $LNG['faq']                        = array(
 "<font size=3>Quali materiali ci sono nel gioco?</font>" => "Nel gioco ci sono quattro materiali: metallo, cristallo e deuterio. Queste risorse sono fondamentali per costruire edifici, per le ricerche, armare flotte e difese. Oltre a questi materiali &eacute; aggiunto una quinta risorsa: l'energia. L'energia &eacute un materiale che permette il funzionamento di tutte le macchine del tuo pianeta senza di essa saresti perduto. Ogni risorsa ha un edificio che la produce e i suoi relativi costi.<br>",
 "<font size=3>Cos'&eacute; il numero verde sotto ogni materiale?  </font>" => "Questo numero indica la quantit&aacute; massima che riesci a immagazzinare sul tuo pianeta. Se il magazzino &eacute; pieno, i tuoi edifici non produranno nessuna risorsa fino a che non aumenti lo spazio.<br>",

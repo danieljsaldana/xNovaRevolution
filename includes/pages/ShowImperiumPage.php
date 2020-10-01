@@ -1,10 +1,10 @@
 <?php
 
 /**
- _  \_/ |\ | /Â¯Â¯\ \  / /\    |Â¯Â¯) |_Â¯ \  / /Â¯Â¯\ |  |   |Â´Â¯|Â¯` | /Â¯Â¯\ |\ |6
- Â¯  /Â¯\ | \| \__/  \/ /--\   |Â¯Â¯\ |__  \/  \__/ |__ \_/   |   | \__/ | \|Core Redesigned.
- * @author: Copyright (C) 2017 by xNova Revolution
- * @author web: https://danieljsaldaÃ±a.com
+ _  \_/ |\ | /¯¯\ \  / /\    |¯¯) |_¯ \  / /¯¯\ |  |   |´¯|¯` | /¯¯\ |\ |6
+ ¯  /¯\ | \| \__/  \/ /--\   |¯¯\ |__  \/  \__/ |__ \_/   |   | \__/ | \|Core.
+ * @author: Copyright (C) 2011  developer of xNova Revolution
+ * @link: http://xnovarevolution.wordpress.com
 
  * @package 2Moons
  * @author Slaver <slaver7@gmail.com>
@@ -12,7 +12,6 @@
  * @copyright 2011 Slaver <slaver7@gmail.com> (Fork/2Moons)
  * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
  * @version 1.3 (2011-01-21)
- * @link http://code.google.com/p/2moons/
 
  * Please do not remove the credits
 */
@@ -20,32 +19,32 @@
 function ShowImperiumPage()
 {
 	global $LNG, $USER, $PLANET, $resource, $reslist, $db;
-
-	if($USER['commander'] <= 0 )
-      die(message("No tienes permisos","game.php?page=oficiales"));
+	
+	if($USER['commander'] <= 0 ) 
+      die(message("No tienes permisos","game.php?page=oficiales"));  
 
 	$PlanetRess = new ResourceUpdate();
 	list($USER['factor'], $CPLANET['factor'])    = getFactors($USER, $CPLANET);
 	$PlanetRess->CalcResource();
 	$PlanetRess->SavePlanetToDB();
-
+	
 	$template	= new template();
 	$template->loadscript("trader.js");
-
+	
 	$SQLArray 	= array_merge($reslist['build'], $reslist['fleet'], $reslist['defense']);
 	$Query		= "";
-
+	
 	foreach($SQLArray as $id => $gid){
 		$Query .= ",`".$resource[$gid]."`";
 	}
-
+		
 	if($USER['planet_sort'] == 0)
 		$Order	= "`id` ";
 	elseif($USER['planet_sort'] == 1)
 		$Order	= "`galaxy`, `system`, `planet`, `planet_type` ";
 	elseif ($USER['planet_sort'] == 2)
-		$Order	= "`name` ";
-
+		$Order	= "`name` ";	
+	
 	$Order .= ($USER['planet_sort_order'] == 1) ? "DESC" : "ASC" ;
 
 	$PlanetsRAW = $db->query("
@@ -70,15 +69,15 @@ function ShowImperiumPage()
 			'energy_max'	=> pretty_number($Planet['energy_max']),
 
 		);
-
+						
 		foreach($reslist['build'] as $gid){
 			$BuildsList[$gid] = pretty_number($Planet[$resource[$gid]]);
 		}
-
+		
 		foreach($reslist['fleet'] as $gid){
 			$FleetsList[$gid] = pretty_number($Planet[$resource[$gid]]);
 		}
-
+		
 		foreach($reslist['defense'] as $gid){
 			$DefensesList[$gid] = pretty_number($Planet[$resource[$gid]]);
 		}
@@ -107,19 +106,19 @@ function ShowImperiumPage()
 		'Metal'				=> $LNG['Metal'],
 		'Crystal'			=> $LNG['Crystal'],
 		'Deuterium'			=> $LNG['Deuterium'],
-		'Norio'			    => $LNG['Norio'],
+		'Norio'			    => $LNG['Norio'],		
 		'Energy'			=> $LNG['Energy'],
 		'iv_buildings'		=> $LNG['iv_buildings'],
 		'iv_technology'		=> $LNG['iv_technology'],
 		'iv_ships'			=> $LNG['iv_ships'],
 		'iv_defenses'		=> $LNG['iv_defenses'],
 		'tech'				=> $LNG['tech'],
-		'build'				=> $reslist['build'],
-		'fleet'				=> $reslist['fleet'],
+		'build'				=> $reslist['build'], 
+		'fleet'				=> $reslist['fleet'], 
 		'defense'			=> $reslist['defense'],
 		'research'			=> $reslist['tech'],
 	));
-
+	
 	$template->show("imperio/empire_overview.tpl");
 }
 ?>

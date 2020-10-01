@@ -1,22 +1,20 @@
 <?php
 
 /**
- _  \_/ |\ | /Â¯Â¯\ \  / /\    |Â¯Â¯) |_Â¯ \  / /Â¯Â¯\ |  |   |Â´Â¯|Â¯` | /Â¯Â¯\ |\ |6
- Â¯  /Â¯\ | \| \__/  \/ /--\   |Â¯Â¯\ |__  \/  \__/ |__ \_/   |   | \__/ | \|Core Redesigned.
- * @author: Copyright (C) 2017 by xNova Revolution
- * @author web: https://danieljsaldaÃ±a.com
+ _  \_/ |\ | /¯¯\ \  / /\    |¯¯) |_¯ \  / /¯¯\ |  |   |´¯|¯` | /¯¯\ |\ |6
+ ¯  /¯\ | \| \__/  \/ /--\   |¯¯\ |__  \/  \__/ |__ \_/   |   | \__/ | \|Core.
+ * @author: Copyright (C) 2011  developer of xNova Revolution
+ * @link: http://xnovarevolution.wordpress.com
 
-* @package 2Moons
-* @author Slaver <slaver7@gmail.com>
-* @copyright 2009 Lucky <douglas@crockford.com> (XGProyecto)
-* @copyright 2011 Slaver <slaver7@gmail.com> (Fork/2Moons)
-* @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
-* @version 1.3 (2011-01-21)
-* @link http://code.google.com/p/2moons/
+ * @package 2Moons
+ * @author Slaver <slaver7@gmail.com>
+ * @copyright 2009 Lucky <douglas@crockford.com> (XGProyecto)
+ * @copyright 2011 Slaver <slaver7@gmail.com> (Fork/2Moons)
+ * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
+ * @version 1.3 (2011-01-21)
 
-* Please do not remove the credits
+ * Please do not remove the credits
 */
-
 class DB_mysqli extends mysqli
 {
    protected $con;
@@ -50,18 +48,18 @@ class DB_mysqli extends mysqli
             throw new Exception("Connection to database failed: ".mysqli_connect_error());
          elseif(defined('INSTALL'))
             return false;
-      }
+      }      
       parent::set_charset("utf8");
       parent::query("SET SESSION sql_mode = '';");
    }
-
+   
    /**
     * Close current database connection.
     *
     * @return void
     */
    public function __destruct()
-   {
+   {   
       if(!mysqli_connect_error())
          parent::close();
    }
@@ -99,12 +97,12 @@ class DB_mysqli extends mysqli
     */
 
    public function uniquequery($resource)
-   {
+   {      
       $result = $this->query($resource);
       $Return = $result->fetch_array(MYSQLI_ASSOC);
       $result->close();
       return $Return;
-
+      
    }
    /**
     * Purpose a query on selected database.
@@ -115,12 +113,12 @@ class DB_mysqli extends mysqli
     */
 
    public function countquery($resource)
-   {
+   {      
       $result = $this->query($resource);
       list($Return) = $result->fetch_array(MYSQLI_NUM);
       $result->close();
       return $Return;
-   }
+   }   
    /**
     * Purpose a query on selected database.
     *
@@ -130,7 +128,7 @@ class DB_mysqli extends mysqli
     */
 
    public function fetchquery($resource, $encode = array())
-   {
+   {      
       $result = $this->query($resource);
       $Return   = array();
       $Col   = 0;
@@ -200,12 +198,12 @@ class DB_mysqli extends mysqli
     *
     * @return string Returns the escaped string, or false on error.
     */
-
+   
     public function sql_escape($string, $flag = false)
     {
       return ($flag === false) ? parent::escape_string($string): addcslashes(parent::escape_string($string), '%_');
     }
-
+   
    public function str_correction($str)
    {
       return stripcslashes($str);
@@ -220,7 +218,7 @@ class DB_mysqli extends mysqli
    {
       return parent::get_client_info();
    }
-
+   
    /**
     * Returns used mysqli-Verions.
     *
@@ -242,25 +240,25 @@ class DB_mysqli extends mysqli
    {
       return $resource->close();
    }
-
+   
    public function multi_query($resource)
-   {
+   {   
       $Timer   = microtime(true);
       if(parent::multi_query($resource))
       {
          do {
              if ($result = parent::store_result())
                $result->free();
-
+            
             $this->queryCount++;
-
+               
             if(!parent::more_results()){break;}
-
-         } while (parent::next_result());
+               
+         } while (parent::next_result());      
       }
-
+      
       $this->SQL[]   = $resource;
-
+   
       if ($this->errno)
       {
          if($this->exception == true) {
@@ -270,7 +268,7 @@ class DB_mysqli extends mysqli
          }
       }
    }
-
+   
    public function get_sql()
    {
       return $this->queryCount;

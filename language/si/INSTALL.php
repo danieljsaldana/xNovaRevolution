@@ -1,10 +1,10 @@
 <?php
 
 /**
- _  \_/ |\ | /ŻŻ\ \  / /\    |ŻŻ) |_Ż \  / /ŻŻ\ |  |   |´Ż|Ż` | /ŻŻ\ |\ |5
- Ż  /Ż\ | \| \__/  \/ /--\   |ŻŻ\ |__  \/  \__/ |__ \_/   |   | \__/ | \|Core.
- * @author: Copyright (C) 2011 by Brayan Narvaez (Prinick) developer of xNova Revolution
- * @link: http://www.xnovarevolution.con.ar
+ _  \_/ |\ | /¯¯\ \  / /\    |¯¯) |_¯ \  / /¯¯\ |  |   |´¯|¯` | /¯¯\ |\ |6
+ ¯  /¯\ | \| \__/  \/ /--\   |¯¯\ |__  \/  \__/ |__ \_/   |   | \__/ | \|Core.
+ * @author: Copyright (C) 2011  developer of xNova Revolution
+ * @link: http://xnovarevolution.wordpress.com
 
  * @package 2Moons
  * @author Slaver <slaver7@gmail.com>
@@ -12,7 +12,6 @@
  * @copyright 2011 Slaver <slaver7@gmail.com> (Fork/2Moons)
  * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
  * @version 1.3 (2011-01-21)
- * @link http://code.google.com/p/2moons/
 
  * Please do not remove the credits
 */
@@ -81,6 +80,5 @@ $LNG['convert_version']		= "Izberite vašo trenutno verzijo:";
 $LNG['convert_info']		= "Vnesite vašo staro bazo podatkov tukaj!";
 $LNG['convert_submit']		= "Pretvori v 2Moons";
 $LNG['convert_done']		= "Ukaz uspešno izvršen!";
-		
-// Originally Translated into Slovenian by _pandorax_ . All rights reversed (C) 2011
+
 ?>

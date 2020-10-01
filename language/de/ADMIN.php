@@ -2,9 +2,9 @@
 
 /**
  _  \_/ |\ | /¯¯\ \  / /\    |¯¯) |_¯ \  / /¯¯\ |  |   |´¯|¯` | /¯¯\ |\ |6
- ¯  /¯\ | \| \__/  \/ /--\   |¯¯\ |__  \/  \__/ |__ \_/   |   | \__/ | \|Core Redesigned.
- * @author: Copyright (C) 2017 by xNova Revolution
- * @author web: https://danieljsaldaña.com
+ ¯  /¯\ | \| \__/  \/ /--\   |¯¯\ |__  \/  \__/ |__ \_/   |   | \__/ | \|Core.
+ * @author: Copyright (C) 2011  developer of xNova Revolution
+ * @link: http://xnovarevolution.wordpress.com
 
  * @package 2Moons
  * @author Slaver <slaver7@gmail.com>
@@ -12,12 +12,11 @@
  * @copyright 2011 Slaver <slaver7@gmail.com> (Fork/2Moons)
  * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
  * @version 1.3 (2011-01-21)
- * @link http://code.google.com/p/2moons/
 
  * Please do not remove the credits
 */
 
-//---------------	GENERAL	------------------------//
+//---------------	GENERAL	------------------------// 
 $LNG['adm_login']			= 'Login';
 $LNG['adm_password']		= 'Passwort';
 $LNG['adm_absenden']		= 'Absenden';
@@ -52,7 +51,7 @@ $LNG['time_seconds']	= 'Sekunden';
 
 $LNG['info_information']	= 'www.xnovarevolution.com.ar';
 
-//---------------	¿SI O NO? - YES OR NO? - JA ODER NEIN?	------------------------//
+//---------------	¿SI O NO? - YES OR NO? - JA ODER NEIN?	------------------------// 
 $LNG['one_is_yes'][1]	= 'Ja';
 $LNG['one_is_yes'][0]	= 'Nein';
 
@@ -61,7 +60,7 @@ $LNG['one_is_no'][0]	= 'Ja';
 //###########################################################//
 
 
-//---------------	BOTONES - BUTTONS - BUTTONS	------------------------//
+//---------------	BOTONES - BUTTONS - BUTTONS	------------------------// 
 $LNG['button_submit']		= 'Senden';
 $LNG['button_add']			= 'Hinzufügen';
 $LNG['button_delete']		= 'Löschen';
@@ -82,13 +81,13 @@ $LNG['input_id_ally']		= 'Allianz ID';
 //###########################################################//
 
 
-//---------------	RECURSOS - RESOURCES - ROHSTOFFE	------------------------//
+//---------------	RECURSOS - RESOURCES - ROHSTOFFE	------------------------// 
 $LNG['resources_title']	        = 'Rohstoffe';
 $LNG['count_res']			= 'Anzahl Rohstoffe';
 //###########################################################//
 
 
-//---------------	OFICIALES - OFFICIERS - OFFIZIERE	------------------------//
+//---------------	OFICIALES - OFFICIERS - OFFIZIERE	------------------------// 
 $LNG['buildings_title']	= 'Gebäude';
 $LNG['ships_title']		= 'Schiffe';
 $LNG['defenses_title']		= 'Verteidigung';
@@ -522,14 +521,14 @@ $LNG['mu_mod_update']              	= 'Mod Versions Control';
 $LNG['mu_fb_options'] 				= 'Facebook Connect';
 $LNG['mu_ts_options'] 				= 'Teamspeak Optionen';
 $LNG['mu_game_info'] 				= 'Informationen';
-$LNG['mu_vaild_users']				= 'Aktivire User';
-$LNG['mu_news']						= 'News';
-$LNG['mu_multiip']					= 'MultiIP';
-$LNG['mu_clear_cache']				= 'Lösche Cache';
+$LNG['mu_vaild_users']				= 'Aktivire User'; 
+$LNG['mu_news']						= 'News'; 
+$LNG['mu_multiip']					= 'MultiIP'; 
+$LNG['mu_clear_cache']				= 'Lösche Cache'; 
 
 //###########################################################//
 
-$LNG['cc_cache_clear']				= 'Cache gelöscht';
+$LNG['cc_cache_clear']				= 'Cache gelöscht'; 
 
 //---------------	REINICIO DE UNIVERSO - RESET UNIVERSE	------------------------//
 $LNG['re_reset_universe']				= 'Reset Universum';
@@ -890,11 +889,11 @@ $LNG['ts_version']						= 'Server-Version:';
 $LNG['ts_udpport']						= 'TCP Port';
 $LNG['ts_tcpport']						= 'UDP Port';
 $LNG['ts_serverip']						= 'Server-IP';
-$LNG['ts_timeout']						= 'Timeout';
-$LNG['ts_server_query']					= 'ServerQuery Port';
-$LNG['ts_login']						= 'ServerQuery Login';
-$LNG['ts_pass']							= 'ServerQuery Password';
-$LNG['ts_cron']							= 'Update Rate';
+$LNG['ts_timeout']						= 'Timeout'; 
+$LNG['ts_server_query']					= 'ServerQuery Port'; 
+$LNG['ts_login']						= 'ServerQuery Login'; 
+$LNG['ts_pass']							= 'ServerQuery Password'; 
+$LNG['ts_cron']							= 'Update Rate'; 
 
 //----------------------------------------------------------------------------//
 //FacebookSettingPage.php

@@ -1,10 +1,10 @@
 <?php
 
 /**
- _  \_/ |\ | /Â¯Â¯\ \  / /\    |Â¯Â¯) |_Â¯ \  / /Â¯Â¯\ |  |   |Â´Â¯|Â¯` | /Â¯Â¯\ |\ |6
- Â¯  /Â¯\ | \| \__/  \/ /--\   |Â¯Â¯\ |__  \/  \__/ |__ \_/   |   | \__/ | \|Core Redesigned.
- * @author: Copyright (C) 2017 by xNova Revolution
- * @author web: https://danieljsaldaÃ±a.com
+ _  \_/ |\ | /¯¯\ \  / /\    |¯¯) |_¯ \  / /¯¯\ |  |   |´¯|¯` | /¯¯\ |\ |6
+ ¯  /¯\ | \| \__/  \/ /--\   |¯¯\ |__  \/  \__/ |__ \_/   |   | \__/ | \|Core.
+ * @author: Copyright (C) 2011  developer of xNova Revolution
+ * @link: http://xnovarevolution.wordpress.com
 
  * @package 2Moons
  * @author Slaver <slaver7@gmail.com>
@@ -12,7 +12,6 @@
  * @copyright 2011 Slaver <slaver7@gmail.com> (Fork/2Moons)
  * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
  * @version 1.3 (2011-01-21)
- * @link http://code.google.com/p/2moons/
 
  * Please do not remove the credits
 */
@@ -23,7 +22,7 @@ function ShowFleetShortcuts()
 
 	$a = request_var('a','');
 	$mode = request_var('mode', '');
-
+	
 	$template	= new template();
 	$template->isPopup(true);
 	if ($mode == "add")
@@ -39,23 +38,23 @@ function ShowFleetShortcuts()
 			$db->query("UPDATE ".USERS." SET `fleet_shortcut` = '".$db->sql_escape($USER['fleet_shortcut'])."' WHERE `id` = '".$USER['id']."';");
 			redirectTo("game.php"."?page=shortcuts");
 		}
-
-		$template->assign_vars(array(
+	
+		$template->assign_vars(array(	
 			'fl_shortcut_add_title'	=> $LNG['fl_shortcut_add_title'],
 			'fl_clean'				=> $LNG['fl_clean'],
 			'fl_register_shorcut'	=> $LNG['fl_register_shorcut'],
 			'fl_back'				=> $LNG['fl_back'],
 			'typeselector'			=> array(1 => $LNG['fl_planet'], 2 => $LNG['fl_debris'], 3 =>$LNG['fl_moon']),
 		));
-
+		
 		$template->show("flotas/fleet_shortcuts_add.tpl");
 	}
 	elseif (is_numeric($a))
 	{
-
+	
 		$scarray = explode("\r\n", $USER['fleet_shortcut']);
 		$r = explode(",", $scarray[$a]);
-
+		
 		if ($_POST)
 		{
 			if ($_POST['delete'])
@@ -78,8 +77,8 @@ function ShowFleetShortcuts()
 
 		if (empty($USER['fleet_shortcut']))
 			redirectTo("game.php"."?page=shortcuts");
-
-		$template->assign_vars(array(
+		
+		$template->assign_vars(array(	
 			'fl_back'				=> $LNG['fl_back'],
 			'fl_shortcut_edition'	=> $LNG['fl_shortcut_edition'],
 			'fl_reset_shortcut'		=> $LNG['fl_reset_shortcut'],
@@ -93,7 +92,7 @@ function ShowFleetShortcuts()
 			'type'					=> $r[4],
 			'id'					=> $a,
 		));
-
+		
 		$template->show("flotas/fleet_shortcuts_edit.tpl");
 	}
 	else
@@ -103,7 +102,7 @@ function ShowFleetShortcuts()
 		{
 			if(empty($b))
 				continue;
-
+				
 			$c = explode(',', $b);
 			$ShortCuts[]	= array(
 				'name'		=> $c[0],
@@ -113,8 +112,8 @@ function ShowFleetShortcuts()
 				'type'		=> $c[4],
 			);
 		}
-
-	$template->assign_vars(array(
+	
+	$template->assign_vars(array(	
 		'ShortCuts'				=> $ShortCuts,
 		'fl_back'				=> $LNG['fl_back'],
 		'fl_planet_shortcut'	=> $LNG['fl_planet_shortcut'],
@@ -124,7 +123,7 @@ function ShowFleetShortcuts()
 		'fl_shortcuts'			=> $LNG['fl_shortcuts'],
 		'fl_shortcut_add'		=> $LNG['fl_shortcut_add'],
 	));
-
+	
 	$template->show("flotas/fleet_shortcuts.tpl");
 	}
 }

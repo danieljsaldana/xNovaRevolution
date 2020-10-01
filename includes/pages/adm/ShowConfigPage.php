@@ -1,10 +1,11 @@
 <?php
 
 /**
- _  \_/ |\ | /Â¯Â¯\ \  / /\    |Â¯Â¯) |_Â¯ \  / /Â¯Â¯\ |  |   |Â´Â¯|Â¯` | /Â¯Â¯\ |\ |6
- Â¯  /Â¯\ | \| \__/  \/ /--\   |Â¯Â¯\ |__  \/  \__/ |__ \_/   |   | \__/ | \|Core Redesigned.
- * @author: Copyright (C) 2017 by xNova Revolution
- * @author web: https://danieljsaldaÃ±a.com
+ _  \_/ |\ | /¯¯\ \  / /\    |¯¯) |_¯ \  / /¯¯\ |  |   |´¯|¯` | /¯¯\ |\ |5
+ ¯  /¯\ | \| \__/  \/ /--\   |¯¯\ |__  \/  \__/ |__ \_/   |   | \__/ | \|Core.
+ * @author: Copyright (C) 2011 by Brayan Narvaez (Prinick) developer of xNova Revolution
+ * @author web: http://www.bnarvaez.com
+ * @link: http://www.xnovarev.com
 
  * @package 2Moons
  * @author Slaver <slaver7@gmail.com>
@@ -27,7 +28,7 @@ function ShowConfigPage()
 		$CONF['game_disable']			= isset($_POST['closed']) && $_POST['closed'] == 'on' ? 1 : 0;
 		$CONF['noobprotection'] 		= isset($_POST['noobprotection']) && $_POST['noobprotection'] == 'on' ? 1 : 0;
 		$CONF['debug'] 					= isset($_POST['debug']) && $_POST['debug'] == 'on' ? 1 : 0;
-		$CONF['adm_attack'] 			= isset($_POST['adm_attack']) && $_POST['adm_attack'] == 'on' ? 1 : 0;
+		$CONF['adm_attack'] 			= isset($_POST['adm_attack']) && $_POST['adm_attack'] == 'on' ? 1 : 0;		
 		$CONF['OverviewNewsFrame']  	= isset($_POST['newsframe']) && $_POST['newsframe'] == 'on' ? 1 : 0;
 		$CONF['capaktiv'] 				= isset($_POST['capaktiv']) && $_POST['capaktiv'] == 'on' ? 1 : 0;
 		$CONF['reg_closed'] 			= isset($_POST['reg_closed']) && $_POST['reg_closed'] == 'on' ? 1 : 0;
@@ -35,7 +36,7 @@ function ShowConfigPage()
 		$CONF['ga_active'] 				= isset($_POST['ga_active']) && $_POST['ga_active'] == 'on' ? 1 : 0;
 		$CONF['bgm_active'] 			= isset($_POST['bgm_active']) && $_POST['bgm_active'] == 'on' ? 1 : 0;
 		$CONF['mail_active'] 			= isset($_POST['mail_active']) && $_POST['mail_active'] == 'on' ? 1 : 0;
-
+		
 		$CONF['OverviewNewsText']		= $_POST['NewsText'];
 		$CONF['close_reason']			= request_var('close_reason', '', true);
 		$CONF['game_name']				= request_var('game_name', '', true);
@@ -49,7 +50,7 @@ function ShowConfigPage()
 		$CONF['metal_basic_income']		= request_var('metal_basic_income', 0);
 		$CONF['crystal_basic_income']	= request_var('crystal_basic_income', 0);
 		$CONF['deuterium_basic_income']	= request_var('deuterium_basic_income', 0);
-		$CONF['norio_basic_income']	    = request_var('norio_basic_income', 0);
+		$CONF['norio_basic_income']	    = request_var('norio_basic_income', 0);		
 		$CONF['lang']					= request_var('lang', '');
 		$CONF['Defs_Cdr']				= request_var('Defs_Cdr', 0);
 		$CONF['Fleet_Cdr']				= request_var('Fleet_Cdr', 0);
@@ -68,7 +69,7 @@ function ShowConfigPage()
 		$CONF['smtp_ssl']				= request_var('smtp_ssl', '');
 		$CONF['trade_allowed_ships']	= request_var('trade_allowed_ships', '');
 		$CONF['trade_charge']			= request_var('trade_charge', 0.0);
-
+		
 		update_config(array(
 			'noobprotectiontime'	=> $CONF['noobprotectiontime'],
 			'noobprotectionmulti'	=> $CONF['noobprotectionmulti'],
@@ -91,7 +92,7 @@ function ShowConfigPage()
 			'metal_basic_income'	=> $CONF['metal_basic_income'],
 			'crystal_basic_income'	=> $CONF['crystal_basic_income'],
 			'deuterium_basic_income'=> $CONF['deuterium_basic_income'],
-			'norio_basic_income'    => $CONF['norio_basic_income'],
+			'norio_basic_income'    => $CONF['norio_basic_income'],			
 			'debug'					=> $CONF['debug'],
 			'adm_attack'			=> $CONF['adm_attack'],
 			'lang'					=> $CONF['lang'],
@@ -100,7 +101,7 @@ function ShowConfigPage()
 			'trade_charge'			=> $CONF['trade_charge'],
 			'trade_allowed_ships'	=> $CONF['trade_allowed_ships']
 		), false, $_SESSION['adminuni']);
-		update_config(array(
+		update_config(array(	
 			'mail_active'			=> $CONF['mail_active'],
 			'mail_use'				=> $CONF['mail_use'],
 			'smail_path'			=> $CONF['smail_path'],
@@ -119,12 +120,12 @@ function ShowConfigPage()
 			'cappublic'				=> $CONF['cappublic'],
 			'min_js'				=> $CONF['min_js']
 		), true);
-
+		
 		if($CONF['adm_attack'] === 0) {
 		@mysql_query("UPDATE ".USERS." SET `authattack` = '0' WHERE `uni` = '".$_SESSION['adminuni']."");
 		}
 	}
-
+	
 	$template	= new template();
 	$template->assign_vars(array(
 		'se_server_parameters'			=> $LNG['se_server_parameters'],
@@ -150,7 +151,7 @@ function ShowConfigPage()
 		'se_admin_protection'			=> $LNG['se_admin_protection'],
 		'se_crystal_production'			=> $LNG['se_crystal_production'],
 		'se_deuterium_production'		=> $LNG['se_deuterium_production'],
-		'se_norio_production'		    => $LNG['se_norio_production'],
+		'se_norio_production'		    => $LNG['se_norio_production'],		
 		'se_several_parameters'			=> $LNG['se_several_parameters'],
 		'se_min_build_time'				=> $LNG['se_min_build_time'],
 		'se_reg_closed'					=> $LNG['se_reg_closed'],
@@ -217,7 +218,7 @@ function ShowConfigPage()
 		'metal_basic_income'			=> $CONF['metal_basic_income'],
 		'crystal_basic_income'			=> $CONF['crystal_basic_income'],
 		'deuterium_basic_income'		=> $CONF['deuterium_basic_income'],
-		'norio_basic_income'		    => $CONF['norio_basic_income'],
+		'norio_basic_income'		    => $CONF['norio_basic_income'],		
 		'game_disable'					=> $CONF['game_disable'],
 		'close_reason'					=> $CONF['close_reason'],
 		'debug'							=> $CONF['debug'],
@@ -239,7 +240,7 @@ function ShowConfigPage()
 		'user_valid'           	 		=> $CONF['user_valid'],
 	    'newsframe'                 	=> $CONF['OverviewNewsFrame'],
         'reg_closed'                	=> $CONF['reg_closed'],
-        'NewsTextVal'               	=> $CONF['OverviewNewsText'],
+        'NewsTextVal'               	=> $CONF['OverviewNewsText'],  
 		'capprivate' 					=> $CONF['capprivate'],
 		'cappublic' 	   				=> $CONF['cappublic'],
 		'capaktiv'      	           	=> $CONF['capaktiv'],
@@ -253,7 +254,7 @@ function ShowConfigPage()
 		'Selector'						=> array('langs' => $LANG->getAllowedLangs(false), 'mail' => $LNG['se_mail_sel'], 'encry' => array('' => $LNG['se_smtp_ssl_1'], 'ssl' => $LNG['se_smtp_ssl_2'], 'tls' => $LNG['se_smtp_ssl_3'])),
 		'lang'							=> $CONF['lang'],
 	));
-
+	
 	$template->show('adm/ConfigBody.tpl');
 }
 

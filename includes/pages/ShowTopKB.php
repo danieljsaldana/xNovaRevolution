@@ -1,10 +1,10 @@
 <?php
 
 /**
- _  \_/ |\ | /Â¯Â¯\ \  / /\    |Â¯Â¯) |_Â¯ \  / /Â¯Â¯\ |  |   |Â´Â¯|Â¯` | /Â¯Â¯\ |\ |6
- Â¯  /Â¯\ | \| \__/  \/ /--\   |Â¯Â¯\ |__  \/  \__/ |__ \_/   |   | \__/ | \|Core Redesigned.
- * @author: Copyright (C) 2017 by xNova Revolution
- * @author web: https://danieljsaldaÃ±a.com
+ _  \_/ |\ | /¯¯\ \  / /\    |¯¯) |_¯ \  / /¯¯\ |  |   |´¯|¯` | /¯¯\ |\ |6
+ ¯  /¯\ | \| \__/  \/ /--\   |¯¯\ |__  \/  \__/ |__ \_/   |   | \__/ | \|Core.
+ * @author: Copyright (C) 2011  developer of xNova Revolution
+ * @link: http://xnovarevolution.wordpress.com
 
  * @package 2Moons
  * @author Slaver <slaver7@gmail.com>
@@ -12,7 +12,6 @@
  * @copyright 2011 Slaver <slaver7@gmail.com> (Fork/2Moons)
  * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
  * @version 1.3 (2011-01-21)
- * @link http://code.google.com/p/2moons/
 
  * Please do not remove the credits
 */
@@ -23,12 +22,12 @@ function ShowTopKB()
 	$mode = request_var('mode','');
 
 	$template	= new template();
-
+	
 	switch($mode){
 		case "showkb":
-
+			
 			$LANG->includeLang(array('FLEET'));
-
+			
 			$ReportID 	= request_var('rid','');
 			if(file_exists(ROOT_PATH.'raports/topkb_'.$ReportID.'.php')) {
 				require_once(ROOT_PATH.'raports/topkb_'.$ReportID.'.php');
@@ -37,7 +36,7 @@ function ShowTopKB()
 					$template->message($LNG['sys_raport_not_found'], 0, false, true);
 					exit;
 			}
-
+			
 			foreach ($LNG['tech_rc'] as $id => $s_name)
 			{
 				$ship[]  		= "[ship[".$id."]]";
@@ -45,22 +44,22 @@ function ShowTopKB()
 			}
 
 			$raport			= preg_replace("/\[\d+\:\d+\:\d+\]/i", "[X:X:X]", $raport);
-
+			
 			$template->isPopup(true);
 			$template->assign_vars(array(
 				'attacker'	=> $RaportRAW['angreifer'],
 				'defender'	=> $RaportRAW['defender'],
 				'report'	=> $raport,
 			));
-
+			
 			$template->show("topkb/topkb_report.tpl");
 		break;
 		default:
 			$PlanetRess = new ResourceUpdate();
 			$PlanetRess->CalcResource();
 			$PlanetRess->SavePlanetToDB();
-
-			$top = $db->query("SELECT * FROM ".TOPKB." WHERE `universe` = '".$UNI."' ORDER BY gesamtunits DESC LIMIT 100;");
+			
+			$top = $db->query("SELECT * FROM ".TOPKB." WHERE `universe` = '".$UNI."' ORDER BY gesamtunits DESC LIMIT 10;");
 			while($data = $db->fetch_array($top)) {
 				$TopKBList[]	= array(
 					'result'	=> $data['fleetresult'],
@@ -72,10 +71,10 @@ function ShowTopKB()
 					'result'	=> $data['fleetresult'],
 				);
 			}
-
+			
 			$db->free_result($top);
-
-			$template->assign_vars(array(
+			
+			$template->assign_vars(array(	
 				'tkb_units'		=> $LNG['tkb_units'],
 				'tkb_datum'		=> $LNG['tkb_datum'],
 				'tkb_owners'	=> $LNG['tkb_owners'],
@@ -87,7 +86,7 @@ function ShowTopKB()
 				'tkb_verlierer'	=> $LNG['tkb_verlierer'],
 				'TopKBList'		=> $TopKBList,
 			));
-
+			
 			$template->show("topkb/topkb_overview.tpl");
 		break;
 	}

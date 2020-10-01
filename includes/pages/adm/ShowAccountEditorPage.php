@@ -1,10 +1,11 @@
 <?php
 
 /**
- _  \_/ |\ | /Â¯Â¯\ \  / /\    |Â¯Â¯) |_Â¯ \  / /Â¯Â¯\ |  |   |Â´Â¯|Â¯` | /Â¯Â¯\ |\ |6
- Â¯  /Â¯\ | \| \__/  \/ /--\   |Â¯Â¯\ |__  \/  \__/ |__ \_/   |   | \__/ | \|Core Redesigned.
- * @author: Copyright (C) 2017 by xNova Revolution
- * @author web: https://danieljsaldaÃ±a.com
+ _  \_/ |\ | /¯¯\ \  / /\    |¯¯) |_¯ \  / /¯¯\ |  |   |´¯|¯` | /¯¯\ |\ |5
+ ¯  /¯\ | \| \__/  \/ /--\   |¯¯\ |__  \/  \__/ |__ \_/   |   | \__/ | \|Core.
+ * @author: Copyright (C) 2011 by Brayan Narvaez (Prinick) developer of xNova Revolution
+ * @author web: http://www.bnarvaez.com
+ * @link: http://www.xnovarev.com
 
  * @package 2Moons
  * @author Slaver <slaver7@gmail.com>
@@ -19,7 +20,7 @@
 
 if (!allowedTo(str_replace(array(dirname(__FILE__), '\\', '/', '.php'), '', __FILE__))) exit;
 
-function ShowAccountEditorPage()
+function ShowAccountEditorPage() 
 {
 	global $USER, $db, $LNG, $reslist, $resource, $UNI;
 	$template 	= new template();
@@ -41,9 +42,9 @@ function ShowAccountEditorPage()
 					$before = $db->uniquequery("SELECT `metal`,`crystal`,`deuterium`,`norio`,`universe`  FROM ".PLANETS." WHERE `id` = '". $id ."';");
 				if (!empty($id_dark))
 					$before_dm = $db->uniquequery("SELECT `darkmatter` FROM ".USERS." WHERE `id` = '". $id_dark ."';");
-
+				
 				if ($_POST['add'])
-				{
+				{			
 					if (!empty($id)) {
 						$SQL  = "UPDATE ".PLANETS." SET ";
 						$SQL .= "`metal` = `metal` + '".$metal."', ";
@@ -65,7 +66,7 @@ function ShowAccountEditorPage()
 					}
 				}
 				elseif ($_POST['delete'])
-				{
+				{				
 					if (!empty($id)) {
 						$SQL  = "UPDATE ".PLANETS." SET ";
 						$SQL .= "`metal` = `metal` - '". $metal ."', ";
@@ -87,7 +88,7 @@ function ShowAccountEditorPage()
 						$after_dm 	= array('darkmatter' => ($before_dm['darkmatter'] - $dark));
 					}
 				}
-
+				
 				if ($_POST['add']) {
 					$template->message($LNG['ad_add_sucess'], '?page=accounteditor&edit=resources');
 				} else if ($_POST['delete']) {
@@ -95,7 +96,7 @@ function ShowAccountEditorPage()
 				}
 				exit;
 			}
-
+						
 			$template->assign_vars(array(
 				'button_reset'		=> $LNG['button_reset'],
 				'button_delete'		=> $LNG['button_delete'],
@@ -110,7 +111,7 @@ function ShowAccountEditorPage()
 				'resources_title'	=> $LNG['resources_title'],
 				'input_id_p_m'		=> $LNG['input_id_p_m'],
 			));
-
+						
 			$template->show('adm/AccountEditorPageResources.tpl');
 		break;
 		case 'ships':
@@ -122,7 +123,7 @@ function ShowAccountEditorPage()
 				foreach($reslist['fleet'] as $ID)
 				{
 					$before[$ID] = $before1[$resource[$ID]];
-				}
+				}			
 				if ($_POST['add'])
 				{
 					$SQL  = "UPDATE ".PLANETS." SET ";
@@ -157,7 +158,7 @@ function ShowAccountEditorPage()
 				}
 				exit;
 			}
-
+			
 			$parse['ships']	= "";
 			foreach($reslist['fleet'] as $ID)
 			{
@@ -178,7 +179,7 @@ function ShowAccountEditorPage()
 				'ad_number'			=> $LNG['ad_number'],
 				'ships_count'		=> $LNG['ad_count'],
 			));
-
+						
 			$template->show('adm/AccountEditorPageShips.tpl');
 		break;
 
@@ -218,7 +219,7 @@ case 'defenses':
 					$SQL .= "`id` = '".request_var('id', 0)."' AND `universe` = '".$_SESSION['adminuni']."';";
 					$db->query( $SQL);
 				}
-
+				
 				if ($_POST['add']) {
 					$template->message($LNG['ad_add_sucess'], '?page=accounteditor&edit=resources');
 				} else if ($_POST['delete']) {
@@ -226,7 +227,7 @@ case 'defenses':
 				}
 				exit;
 			}
-
+			
 			foreach($reslist['defense'] as $ID)
 			{
 				$INPUT[$ID]	= array(
@@ -246,7 +247,7 @@ case 'defenses':
 				'ad_number'			=> $LNG['ad_number'],
 				'defenses_count'	=> $LNG['ad_count'],
 			));
-
+						
 			$template->show('adm/AccountEditorPageDefenses.tpl');
 		break;
 		break;
@@ -307,7 +308,7 @@ case 'defenses':
 				}
 				exit;
 			}
-
+			
 			foreach($reslist['build'] as $ID)
 			{
 				$INPUT[$ID]	= array(
@@ -327,7 +328,7 @@ case 'defenses':
 				'ad_number'			=> $LNG['ad_number'],
 				'ad_levels'			=> $LNG['ad_levels'],
 			));
-
+						
 			$template->show('adm/AccountEditorPageBuilds.tpl');
 		break;
 
@@ -375,7 +376,7 @@ case 'defenses':
 				}
 				exit;
 			}
-
+			
 			foreach($reslist['tech'] as $ID)
 			{
 				$INPUT[$ID]	= array(
@@ -395,51 +396,51 @@ case 'defenses':
 				'ad_number'			=> $LNG['ad_number'],
 				'research_count'	=> $LNG['ad_count'],
 			));
-
+						
 			$template->show('adm/AccountEditorPageResearch.tpl');
 		break;
 		case 'personal':
 			if ($_POST)
 			{
-				$id			= request_var('id', 0);
-				$username	= request_var('username', '', UTF8_SUPPORT);
-				$password	= request_var('password', '', true);
-				$email		= request_var('email', '');
-				$email_2	= request_var('email_2', '');
-				$vacation	= request_var('vacation', '');
-
+				$id			= request_var('id', 0);				
+				$username	= request_var('username', '', UTF8_SUPPORT);				
+				$password	= request_var('password', '', true);				
+				$email		= request_var('email', '');				
+				$email_2	= request_var('email_2', '');				
+				$vacation	= request_var('vacation', '');				
+				
 				$PersonalQuery    =    "UPDATE ".USERS." SET ";
 
 				if(!empty($username) && $id != ROOT_USER) {
 					$PersonalQuery    .= "`username` = '".$db->sql_escape($username)."', ";
-				}
+				} 
 				if(!empty($email) && $id != ROOT_USER) {
 					$PersonalQuery    .= "`email` = '".$db->sql_escape($email)."', ";
-				}
+				} 
 				if(!empty($email_2) && $id != ROOT_USER) {
 					$PersonalQuery    .= "`email_2` = '".$db->sql_escape($email_2)."', ";
-				}
+				} 	
 				if(!empty($password) && $id != ROOT_USER) {
 					$PersonalQuery    .= "`password` = '".$db->sql_escape(md5($password))."', ";
-				}
-
+				} 
+					
 				$Answer		= 0;
 				$TimeAns	= 0;
-
+				
 				if ($vacation == 'yes') {
 					$Answer		= 1;
 					$TimeAns    = TIMESTAMP + $_POST['d'] * 86400 + $_POST['h'] * 3600 + $_POST['m'] * 60 + $_POST['s'];
 				}
-
-				$PersonalQuery    .=  "`urlaubs_modus` = '".$Answer."', `urlaubs_until` = '".$TimeAns."' ";
+				
+				$PersonalQuery    .=  "`urlaubs_modus` = '".$Answer."', `urlaubs_until` = '".$TimeAns."' ";			
 				$PersonalQuery    .= "WHERE `id` = '".$id."' AND `universe` = '".$_SESSION['adminuni']."'";
 				$db->query($PersonalQuery);
-
+				
 				$template->message($LNG['ad_personal_succes'], '?page=accounteditor&edit=personal');
 
 				exit;
 			}
-
+			
 			$template->assign_vars(array(
 				'button_submit'			=> $LNG['button_submit'],
 				'ad_back_to_menu'		=> $LNG['ad_back_to_menu'],
@@ -456,7 +457,7 @@ case 'defenses':
 				'time_days'				=> $LNG['time_days'],
 				'Selector'				=> array(''	=> $LNG['select_option'], 'yes' => $LNG['one_is_yes'][1], 'no' => $LNG['one_is_yes'][0]),
 			));
-
+						
 			$template->show('adm/AccountEditorPagePersonal.tpl');
 		break;
 		case 'planets':
@@ -478,31 +479,31 @@ case 'defenses':
 
 				if (!empty($name))
 					$db->query("UPDATE ".PLANETS." SET `name` = '".$db->sql_escape($name)."' WHERE `id` = '".$id."' AND `universe` = '".$_SESSION['adminuni']."';");
-
+						
 				if ($buildings == 'on')
 				{
 					foreach($reslist['build'] as $ID) {
 						$BUILD[]	= "`".$resource[$ID]."` = '0'";
 					}
-
+						
 					$db->query("UPDATE ".PLANETS." SET ".implode(', ',$BUILD)." WHERE `id` = '".$id."' AND `universe` = '".$_SESSION['adminuni']."';");
 				}
-
+					
 				if ($ships == 'on')
 				{
 					foreach($reslist['fleet'] as $ID) {
 						$SHIPS[]	= "`".$resource[$ID]."` = '0'";
 					}
-
+					
 					$db->query("UPDATE ".PLANETS." SET ".implode(', ',$SHIPS)." WHERE `id` = '".$id."' AND `universe` = '".$_SESSION['adminuni']."';");
 				}
-
+						
 				if ($defenses == 'on')
 				{
 					foreach($reslist['defense'] as $ID) {
 						$DEFS[]	= "`".$resource[$ID]."` = '0'";
 					}
-
+				
 					$db->query("UPDATE ".PLANETS." SET ".implode(', ',$DEFS)." WHERE `id` = '".$id."' AND `universe` = '".$_SESSION['adminuni']."';");
 				}
 
@@ -517,7 +518,7 @@ case 'defenses':
 
 				if (!empty($fields))
 					$db->query("UPDATE ".PLANETS." SET `field_max` = '".$fields."' WHERE `id` = '".$id."' AND `universe` = '".$_SESSION['adminuni']."';");
-
+						
 				if ($change_pos == 'on' && $galaxy > 0 && $system > 0 && $planet > 0 && $galaxy <= MAX_GALAXY_IN_WORLD && $system <= MAX_SYSTEM_IN_GALAXY && $planet <= MAX_PLANET_IN_SYSTEM)
 				{
 					$P	=	$db->uniquequery("SELECT galaxy,system,planet,planet_type FROM ".PLANETS." WHERE `id` = '".$id."' AND `universe` = '".$_SESSION['adminuni']."';");
@@ -537,17 +538,17 @@ case 'defenses':
 							$template->message($LNG['ad_pla_error_planets5'], '?page=accounteditor&edit=planets');
 							exit;
 						}
-
+						
 						$Target	= $db->uniquequery("SELECT id_luna FROM ".PLANETS." WHERE `galaxy` = '".$galaxy."' AND `system` = '".$system."' AND `planet` = '".$planet."' AND `planet_type` = '1';");
-
+								
 						if ($Target['id_luna'] != '0')
 						{
 							$template->message($LNG['ad_pla_error_planets4'], '?page=accounteditor&edit=planets');
 							exit;
 						}
-
+							
 						$db->multi_query("UPDATE ".PLANETS." SET `id_luna` = '0' WHERE `galaxy` = '".$P['galaxy']."' AND `system` = '".$P['system']."' AND `planet` = '".$P['planet']."' AND `planet_type` = '1';UPDATE ".PLANETS." SET `id_luna` = '".$id."'  WHERE `galaxy` = '".$galaxy."' AND `system` = '".$system."' AND `planet` = '".$planet."' AND planet_type = '1';UPDATE ".PLANETS." SET `galaxy` = '".$galaxy."', `system` = '".$system."', `planet` = '".$planet."' WHERE `id` = '".$id."' AND `universe` = '".$_SESSION['adminuni']."';");
-
+						
 					$QMOON2	=	$db->uniquequery("SELECT id_owner FROM ".PLANETS." WHERE `galaxy` = '".$galaxy."' AND `system` = '".$system."' AND `planet` = '".$planet."';");
 					$db->query("UPDATE ".PLANETS." SET `galaxy` = '".$galaxy."', `system` = '".$system."', `planet` = '".$planet."', `id_owner` = '".$QMOON2['id_owner']."' WHERE `id` = '".$id."' AND `universe` = '".$_SESSION['adminuni']."' AND `planet_type` = '3';");
 					}
@@ -556,7 +557,7 @@ case 'defenses':
 				$template->message($LNG['ad_pla_succes'], '?page=accounteditor&edit=planets');
 				exit;
 			}
-
+			
 			$template->assign_vars(array(
 				'button_submit'			=> $LNG['button_submit'],
 				'button_reset'			=> $LNG['button_reset'],
@@ -575,7 +576,7 @@ case 'defenses':
 				'ad_pla_change_p'		=> $LNG['ad_pla_change_p'],
 				'ad_pla_change_pp'		=> $LNG['ad_pla_change_pp'],
 			));
-
+						
 			$template->show('adm/AccountEditorPagePlanets.tpl');
 		break;
 
@@ -606,19 +607,19 @@ case 'defenses':
 				$QueryF2	=	$db->uniquequery("SELECT ally_id FROM ".USERS." WHERE `id` = '".$changeleader."';");
 				 #$db->multi_query("UPDATE ".ALLIANCE." SET `ally_owner` = '".$changeleader."' WHERE `id` = '".$id."' AND `universe` = '".$_SESSION['adminuni']."';UPDATE ".USERS." SET `ally_rank_id` = '0' WHERE `id` = '".$changeleader."';");
 				$db->multi_query("UPDATE ".ALLIANCE." SET `ally_owner` = '".$changeleader."' WHERE `id` = '".$id."' AND `ally_universe` = '".$_SESSION['adminuni']."';UPDATE ".USERS." SET `ally_rank_id` = '0' WHERE `id` = '".$changeleader."';");
-
+						
 				if (!empty($externo))
 					 #$db->query("UPDATE ".ALLIANCE." SET `ally_description` = '".$externo."' WHERE `id` = '".$id."' AND `universe` = '".$_SESSION['adminuni']."';");
 				    $db->query("UPDATE ".ALLIANCE." SET `ally_description` = '".$externo."' WHERE `id` = '".$id."' AND `ally_universe` = '".$_SESSION['adminuni']."';");
-
+					
 				if (!empty($interno))
 					#$db->query("UPDATE ".ALLIANCE." SET `ally_text` = '".$interno."' WHERE `id` = '".$id."' AND `universe` = '".$_SESSION['adminuni']."';");
 					$db->query("UPDATE ".ALLIANCE." SET `ally_text` = '".$interno."' WHERE `id` = '".$id."' AND `ally_universe` = '".$_SESSION['adminuni']."';");
-
+					
 				if (!empty($solicitud))
 					$db->query("UPDATE ".ALLIANCE." SET `ally_request` = '".$solicitud."' WHERE `id` = '".$id."' AND `universe` = '".$_SESSION['adminuni']."';");
 				    #$db->query("UPDATE ".ALLIANCE." SET `ally_request` = '".$solicitud."' WHERE `id` = '".$id."' AND `ally_universe` = '".$_SESSION['adminuni']."';");
-
+				
 				if ($delete == 'on')
 				{
 					#$db->multi_query("DELETE FROM ".ALLIANCE." WHERE `id` = '".$id."' AND `universe` = '".$_SESSION['adminuni']."';UPDATE ".USERS." SET `ally_id` = '0', `ally_name` = '', `ally_request` = '0', `ally_rank_id` = '0', `ally_register_time` = '0', `ally_request` = '0' WHERE `ally_id` = '".$id."';");
@@ -635,7 +636,7 @@ case 'defenses':
 				$template->message($LNG['ad_ally_succes'], '?page=accounteditor&edit=alliances');
 				exit;
 			}
-
+			
 			$template->assign_vars(array(
 				'button_submit'		=> $LNG['button_submit'],
 				'ad_back_to_menu'	=> $LNG['ad_back_to_menu'],
@@ -652,7 +653,7 @@ case 'defenses':
 				'ad_ally_text2'		=> $LNG['ad_ally_text2'],
 				'ad_ally_text3'		=> $LNG['ad_ally_text3'],
 			));
-
+						
 			$template->show('adm/AccountEditorPageAlliance.tpl');
 		break;
 
@@ -668,7 +669,7 @@ case 'defenses':
 				'ad_editor_buildings'	=> $LNG['ad_editor_buildings'],
 				'ad_editor_title'		=> $LNG['ad_editor_title'],
 			));
-
+							
 			$template->show('adm/AccountEditorPageMenu.tpl');
 		break;
 	}

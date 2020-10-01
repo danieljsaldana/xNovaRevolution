@@ -1,10 +1,10 @@
 <?php
 
 /**
- _  \_/ |\ | /Â¯Â¯\ \  / /\    |Â¯Â¯) |_Â¯ \  / /Â¯Â¯\ |  |   |Â´Â¯|Â¯` | /Â¯Â¯\ |\ |6
- Â¯  /Â¯\ | \| \__/  \/ /--\   |Â¯Â¯\ |__  \/  \__/ |__ \_/   |   | \__/ | \|Core Redesigned.
- * @author: Copyright (C) 2017 by xNova Revolution
- * @author web: https://danieljsaldaÃ±a.com
+ _  \_/ |\ | /¯¯\ \  / /\    |¯¯) |_¯ \  / /¯¯\ |  |   |´¯|¯` | /¯¯\ |\ |6
+ ¯  /¯\ | \| \__/  \/ /--\   |¯¯\ |__  \/  \__/ |__ \_/   |   | \__/ | \|Core.
+ * @author: Copyright (C) 2011  developer of xNova Revolution
+ * @link: http://xnovarevolution.wordpress.com
 
  * @package 2Moons
  * @author Slaver <slaver7@gmail.com>
@@ -12,10 +12,10 @@
  * @copyright 2011 Slaver <slaver7@gmail.com> (Fork/2Moons)
  * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
  * @version 1.3 (2011-01-21)
- * @link http://code.google.com/p/2moons/
 
  * Please do not remove the credits
 */
+
 function bbcode($text) {
 	require_once(ROOT_PATH.'includes/classes/class.BBCode.php');
 	$bbcode = new BBCode();
@@ -28,7 +28,7 @@ function bbcode($text) {
 	$bbcode->addCode("spoiler", "simple_replace", null, array('start_tag'=>'<div class="bbcode_spoiler"><p><b>Spoiler:</b></p><div>', 'end_tag'=>'</div></div>'), "block", array("block"), array('inline','link','list'));
 	$bbcode->addCode("bg", "usecontent?", "bbcode_background", array('usecontent_param'=>'default'), 'link', array('block','inline','listitem'), array('link'));
 	$bbcode->addCode("bgcolor", "callback_replace", "bbcode_bgcolor", array(), 'inline', array('block','inline','link','listitem'), array());
-
+	
 	//Inline-Elements
 	$bbcode->addCode("b", "simple_replace", null, array('start_tag'=>'<b>', 'end_tag'=>'</b>'), 'inline', array('block','inline','link','listitem'), array());
 	$bbcode->addCode("i", "simple_replace", null, array('start_tag'=>'<i>', 'end_tag'=>'</i>'), 'inline', array('block','inline','link','listitem'), array());

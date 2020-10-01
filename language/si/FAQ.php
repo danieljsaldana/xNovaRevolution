@@ -1,22 +1,20 @@
 <?php
 
 /**
- _  \_/ |\ | /ŻŻ\ \  / /\    |ŻŻ) |_Ż \  / /ŻŻ\ |  |   |´Ż|Ż` | /ŻŻ\ |\ |5
- Ż  /Ż\ | \| \__/  \/ /--\   |ŻŻ\ |__  \/  \__/ |__ \_/   |   | \__/ | \|Core.
- * @author: Copyright (C) 2011 by Brayan Narvaez (Prinick) developer of xNova Revolution
- * @link: http://www.xnovarevolution.con.ar
+ _  \_/ |\ | /¯¯\ \  / /\    |¯¯) |_¯ \  / /¯¯\ |  |   |´¯|¯` | /¯¯\ |\ |6
+ ¯  /¯\ | \| \__/  \/ /--\   |¯¯\ |__  \/  \__/ |__ \_/   |   | \__/ | \|Core.
+ * @author: Copyright (C) 2011  developer of xNova Revolution
+ * @link: http://xnovarevolution.wordpress.com
 
- * @package Xnova Revolution
+ * @package 2Moons
  * @author Slaver <slaver7@gmail.com>
  * @copyright 2009 Lucky <douglas@crockford.com> (XGProyecto)
- * @copyright 2011 Slaver <slaver7@gmail.com> (Fork/Xnova Revolution)
+ * @copyright 2011 Slaver <slaver7@gmail.com> (Fork/2Moons)
  * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
  * @version 1.3 (2011-01-21)
- * @link http://code.google.com/p/Xnova Revolution/
 
  * Please do not remove the credits
 */
-
 "<font size=3>Katere surovine obstajajo v tej igri?</font>" => "V Xnova Revolution obstajajo metal, kristal, deuterium in norium. Za vsako surovino obstaja svoj rudnik in skladišče. Več imate surovin, več zgradb in ladjevja lahko zgradite, ter lahko v laboratoriju raziskujete različne tehnologije.<br>",
 "<font size=3>Kako se točkuje?</font>" => "Točke se dobivajo izključno z porabo surovin. Za vsakih 1000 uporabljenih surovin dobite eno točko. Točke se lahko gubijo z rušenjem kolonije (izgubite vse točke ki ste jih vložili v izgradnjo kolonije, flote, raziskovanja, rudnike in obrambo). Vsaka ladja in obramba ki je uničena v borbi, pravtako odšteje točke. (vrednost surovin uporabljenih za izgradnjo / 1000). Točke ki ste dobili z raziskovanjem ne morete izgubiti, ker kar je enkrat raziskano ne morete niti zmanjšati niti uničiti.<br>",
 "<font size=3>Ali se dobijo točke ko klikneš nekaj gradit ali po končani gradnji?</font>" => "Točke se dobijo po končani gradnji.<br>",
@@ -41,6 +39,6 @@
 
 $LNG['faq_overview']        = "FAQ";
 
-// Originally Translated into Slovenian by _pandorax_ . All rights reversed (C) 2011
+
 
 ?>
