@@ -10,4 +10,4 @@ jobs:
       uses: kitabisa/sonarqube-action@master
       with:
         host: https://sonar.xn--danieljsaldaa-tkb.com
-        login: e6851fe03ffeb712894278fc8e7f0bf098f264dc
+        login: b25c5f21decf2f37ed4af6871d317b9d13089d74
