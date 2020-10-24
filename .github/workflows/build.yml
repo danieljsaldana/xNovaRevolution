@@ -1,13 +1,7 @@
-on: push
-name: Main Workflow
-jobs:
-  sonarQubeTrigger:
-    name: SonarQube Trigger
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@master
-    - name: SonarQube Scan
-      uses: kitabisa/sonarqube-action@master
-      with:
-        host: https://sonar.xn--danieljsaldaa-tkb.com
-        login: b25c5f21decf2f37ed4af6871d317b9d13089d74
+- name: Setup sonarqube
+  uses: warchant/setup-sonar-scanner@v3
+- name: Run sonarqube
+  run: sonar-scanner
+       -Dsonar.login=b25c5f21decf2f37ed4af6871d317b9d13089d74
+       -Dsonar.host.url=https://sonar.xn--danieljsaldaa-tkb.com/
+       -Dsonar.projectKey=xNovaRevolution       
