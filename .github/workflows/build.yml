@@ -2,6 +2,6 @@
   uses: warchant/setup-sonar-scanner@v3
 - name: Run sonarqube
   run: sonar-scanner
-       -Dsonar.login=b25c5f21decf2f37ed4af6871d317b9d13089d74
+       -Dsonar.login=b25c5f21decf2f37ed4af6871d317b9d13089d7
        -Dsonar.host.url=https://sonar.xn--danieljsaldaa-tkb.com/
        -Dsonar.projectKey=xNovaRevolution       
